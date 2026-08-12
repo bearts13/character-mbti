@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猪八戒 · ESFP 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《西游记》</div>
+    <div class="character-name">猪八戒</div>
+    <div class="mbti-type">ESFP</div>
+    <div class="confidence">置信度 91%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 91%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">27% / 73%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 73%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">21% / 79%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 79%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">48% / 52%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 52%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">31% / 69%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 69%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">外放直率</span>
+<span class="keyword">感官务实</span>
+<span class="keyword">情绪驱动</span>
+<span class="keyword">随性应变</span>
+<span class="keyword">嘴硬心软</span>
+<span class="keyword">趋利避险</span>
+<span class="keyword">团队黏合剂</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>猪八戒是一个把“眼前日子”看得极真的人：饿了要找饭，怕了会喊退，受了气要辩白，见到不公或危险也会立刻开口。他不擅长用宏大理想压住身体、欲望和情绪，却并非只顾自己；唐僧受难时他会安慰，师兄弟闹僵时他会劝和，真到要拼命的关头也常能抡起钉耙顶上去。他的随性让他屡屡失格，务实又让他总能看见别人忽略的风险。猪八戒不是英雄叙事里最纯粹的人，却是最像普通人的一位：会逃，会馋，会算账，但不会在关键时刻彻底逃离自己认定的队伍。</p>
+    </div>
+    <div class="famous-line">
+      "他把取经路走成了人情世故：嘴上总想回头，钉耙却常在该出手时抡出去。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">73%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>他以夸口、抱怨、叫阵和辩解主动占据互动中心，但压力来临时也会本能地寻求退路与安稳。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">S · 感觉</span>
+            <span class="dim-desc-pct">79%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他判断世界首先依靠看得见的风势、饭食、体力、地形和过往经验，典型地从具体处境而非抽象理念出发。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">52%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他的判断摇摆在情面与利害之间：既会为师徒情分心软，也会毫不客气地计算风险、责任与回报。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">P · 感知</span>
+            <span class="dim-desc-pct">69%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他容易被饥饿、睡意、恐惧和临时诱惑带偏计划，却能在威胁明确时迅速转入实战式的灵活应对。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 27%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">八戒因饥饿和被悟空责骂，向唐僧连续辩解自己的意图、承诺及心情，语言直接且篇幅较长。</div>
+              <div class="evidence-quote">"我是个直肠的痴汉，我说道肚里饥了，好寻个人家化斋，他就骂我是恋家鬼。"</div>
+              <div class="evidence-context">📍 行至村舍前，悟空称八戒为“恋家鬼”，唐僧质疑他是否心重在家。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他在冲突和公开场合频繁高声说话、插话，也会夸张地展示和描述自己。</div>
+              <div class="evidence-quote">"我乃是天蓬元帅，只因罪犯天条，堕落下世，幸今皈正为僧。自从东土来此，第一会降的是我。"</div>
+              <div class="evidence-context">📍 宝象国国王询问谁善于降妖时，猪八戒当众自荐。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他持续用口头抱怨表达对背尸首任务的不满，并细说衣服会被污水弄脏等后果。</div>
+              <div class="evidence-quote">"好好睡觉的人，被这猢狲花言巧语，哄我教做甚么买卖，如今却干这等事，教我驮死人！"</div>
+              <div class="evidence-context">📍 孙悟空要求八戒将乌鸡国王尸首背回寺中时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">能量恢复</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">奉命化斋期间，他离开同伴，在草中睡觉；被沙僧找到并揪醒。</div>
+              <div class="evidence-quote">"原来是呆子在里面说梦话哩。"</div>
+              <div class="evidence-context">📍 唐僧等待猪八戒化斋未归，沙僧出林寻找，在十余里外草丛中找到他。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">刺激偏好</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对异常大风，八戒立即拉住悟空，提出躲避，偏向避开强烈、危险的外界刺激。</div>
+              <div class="evidence-quote">"师兄，十分风大！我们且躲一躲儿干净。"</div>
+              <div class="evidence-context">📍 师徒进入黄风岭，山中突起恶风时。</div>
+            </div>
+            
+          <div class="evidence-more">共 50 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">S 21%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他依据自己前年请孙悟空出山时亲眼见到的情形，指出瀑布水流就是花果山洞门，并据此推断行李可能被收在洞中。</div>
+              <div class="evidence-quote">"“那一股瀑布水流，就是洞门。想必那怪将我们包袱收在那里面也。”"</div>
+              <div class="evidence-context">📍 沙僧说自己掀翻石凳、打散小妖后只见瀑布，未能找到洞门和行李。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他准确回忆起前年与孙悟空相见时，对方“将身往水里一钻”的具体动作，并将该细节用于定位洞门。</div>
+              <div class="evidence-quote">"“我看见他将身往水里一钻。”"</div>
+              <div class="evidence-context">📍 猪八戒向沙僧和唐僧解释花果山水帘洞入口的位置。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">参加取经期间，他仍怀有随时回到高老庄继续做女婿的想法，显示其关注的是可即时返回的世俗安逸生活，而非取经的长远理想。</div>
+              <div class="evidence-quote">"“他是带着随时可能回高老庄做‘回炉女婿’的想法参加取经的。”"</div>
+              <div class="evidence-context">📍 原文对猪八戒在高老庄入赘及其参加取经时心理状态的概述。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对真假唐僧难辨的局面，他从紧箍咒只有特定三人知晓这一规则，提出用念咒反应辨别妖怪。</div>
+              <div class="evidence-quote">"若不会念的，必是妖怪，有何难也？"</div>
+              <div class="evidence-context">📍 妖怪变作唐僧，与真唐僧混在人群中。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他自行用纸捻刺激鼻孔，制造涕泪，以假哭完成孙悟空交代的举哀任务。</div>
+              <div class="evidence-quote">"他不知那里扯个纸条，捻作一个纸捻儿，往鼻孔里通了两通，打了几个涕喷。"</div>
+              <div class="evidence-context">📍 孙悟空要求八戒哭守国王尸首。</div>
+            </div>
+            
+          <div class="evidence-more">共 51 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 48%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">面对黄袍怪，他直接使用侮辱性称呼和武力威胁，随后立即发动攻击。</div>
+              <div class="evidence-quote">"我是你老爷！我是大唐差往西天去的！我师父是那御弟三藏。若在你家里，趁早送出来，省了我钉钯筑进去！"</div>
+              <div class="evidence-context">📍 猪八戒与沙僧初到波月洞门前，黄袍怪出洞盘问。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">猪八戒面对妖怪时直接下最后通牒，要求交还唐僧，否则以武器相威胁。</div>
+              <div class="evidence-quote">"快早送我师父出来，万事皆休！牙迸半个“不”字，你只看看手中钯，决不饶你！"</div>
+              <div class="evidence-context">📍 第四十九回，通天河水府门前的交战前谈话。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">原文直接将他与沉迷世俗生活相联系，并指出其食欲、色欲被夸张至极点，表现其行为受到个人基本欲望驱动。</div>
+              <div class="evidence-quote">"“作者在他身上把人的食色二欲夸张到了极点。”"</div>
+              <div class="evidence-context">📍 原文对猪八戒角色类型及其世俗欲望的总体分析。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">八戒在唐僧怀疑其出家决心时，强调自己受菩萨戒行、承受师父怜悯，并表明愿意服侍师父取经。</div>
+              <div class="evidence-quote">"我受了菩萨的戒行，又承师父怜悯，情愿要伏侍师父往西天去，誓无退悔。"</div>
+              <div class="evidence-context">📍 八戒因说饿而被唐僧质疑“在家心重”时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">批评接受度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">八戒被悟空称为“恋家鬼”后，立即向唐僧辩解悟空“赃埋人”，明显回应并在意这一评价。</div>
+              <div class="evidence-quote">"他有些赃埋人。我不曾报怨甚的，他就说我报怨。"</div>
+              <div class="evidence-context">📍 村舍借宿前，唐僧因悟空的话质问八戒。</div>
+            </div>
+            
+          <div class="evidence-more">共 58 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">P 31%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他在“四圣试禅心”中受神灵教训后仍不悔改，之后又多次因贪色落入妖怪圈套，直到临近西天仍未消除色情之心。</div>
+              <div class="evidence-quote">"“‘四圣试禅心’时受到神灵的教训，仍不思悔改。”"</div>
+              <div class="evidence-context">📍 原文概述猪八戒在取经途中反复受好色欲望驱使的行为。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">八戒虽称自己持斋，却明确说尚未戒酒，并在唐僧允许后与悟空饮用素酒。</div>
+              <div class="evidence-quote">"师父，我自持斋，却不曾断酒。"</div>
+              <div class="evidence-context">📍 高老庄设素酒宴席，唐僧说明酒为僧家第一戒时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">唐僧派他化斋，他没有按任务返回，而是在草丛里睡觉，导致师父与同伴无法等到他。</div>
+              <div class="evidence-quote">"好呆子呵！师父教你化斋，许你在此睡觉的？"</div>
+              <div class="evidence-context">📍 沙僧找到睡梦中的猪八戒并责备他未完成化斋任务。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">虎先锋出现并使唐僧受惊后，八戒立即舍下行李、持钯冲在悟空之前，主动试图排除威胁。</div>
+              <div class="evidence-quote">"八戒丢了行李，掣铁钯，不让行者走上前，大喝一声道：“业畜！那里走！”"</div>
+              <div class="evidence-context">📍 黄风岭虎先锋现身时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对猛虎，八戒迅速采取持钯喝止、追赶作战的行动。</div>
+              <div class="evidence-quote">"赶将去，劈头就筑。"</div>
+              <div class="evidence-context">📍 虎先锋出现后，八戒先发动攻击。</div>
+            </div>
+            
+          <div class="evidence-more">共 53 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ESFP</div>
+          <div class="type-conf">置信度 91%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ESTP</div>
+          <div class="type-conf">置信度 46%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他既会因委屈、情面与师徒关系而心软，也常以战果、风险和实际得失计算行动，因此F/T倾向最具争议。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“我是个直肠的痴汉。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“唬出尿来了！如今也不消说，赶早儿各自顾命去罢！”"</div></div>
+<div class="quote-item"><div class="quote-text">"“哥哥说得是那里话！我比你不同：我问的是实，决无虚谬之言。满山满谷都是妖魔，怎生前进？”"</div></div>
+<div class="quote-item"><div class="quote-text">"“他是带着随时可能回高老庄做‘回炉女婿’的想法参加取经的。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“‘四圣试禅心’时受到神灵的教训，仍不思悔改。”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 13:27
+  </div>
+
+</div>
+
+</body>
+</html>

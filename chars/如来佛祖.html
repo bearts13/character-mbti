@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如来佛祖 · INTJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《西游记》</div>
+    <div class="character-name">如来佛祖</div>
+    <div class="mbti-type">INTJ</div>
+    <div class="confidence">置信度 82%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 82%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">36% / 64%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 64%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">83% / 17%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 83%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">58% / 42%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 58%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">92% / 8%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 92%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">深谋远虑</span>
+<span class="keyword">高度抽象</span>
+<span class="keyword">秩序掌舵者</span>
+<span class="keyword">战略克制</span>
+<span class="keyword">原则性慈悲</span>
+<span class="keyword">理性主导型</span>
+<span class="keyword">强规划执行</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>如来的人格核心，是以极强的全局视野为众生安排一条可被执行的道路。他并不热衷于即时安抚，也很少把内在洞见完全说破；面对孙悟空、兕大王等危机，他更在意局势会如何失控、谁该在何时介入、怎样以最低代价恢复秩序。其抽象思维尤为突出，既能从“性原”“寂灭”理解三界，也能把取经塑造成跨地域、跨时间的教化工程。但这份冷静并非无情：他对唐僧师徒的护持、对孙悟空“灾愆满日”的保留，说明慈悲是其长期设计的终点，而非临场情绪的起点。争议在于，他的慈悲常以安排、约束和延后救援的形式出现，因此既显得深远，也难免显得疏离。</p>
+    </div>
+    <div class="famous-line">
+      "他的慈悲不是伸手相救，而是先替众生把通往彼岸的路铺好。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">64%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>如来擅长在重大场合召集、讲法和动员众人，却习惯先独自洞察全局，再选择性地发布信息，整体更偏内倾的战略观察者。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">83%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他始终从三界规律、众生根性与长期教化使命理解问题，远比具体事实本身更关注其背后的本质与未来走向。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">T · 思考</span>
+            <span class="dim-desc-pct">58%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他以风险控制、秩序维护和执行方案处理冲突，但理性框架之下仍由劝善济世的价值目标提供最终方向。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">92%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>从路线规定、工具预置到多方调度与封印加固，如来将不确定性纳入严密计划，展现出极强的秩序偏好与控制能力。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 36%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对众仙提出为大会命名的请求，如来直接承接并给出名称。</div>
+              <div class="evidence-quote">"如来领众神之托曰：‘今欲立名，可作个“安天大会”。’"</div>
+              <div class="evidence-context">📍 如来降伏孙悟空后，玉帝设宴答谢，众仙请如来为大会命名。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">如来在众多佛众面前公开阐述对三界的观察和真经的内容，并展开讲法。</div>
+              <div class="evidence-quote">"那如来微开善口，敷演大法，宣扬正果，讲的是三乘妙典，五蕴《楞严》。"</div>
+              <div class="evidence-context">📍 第八回盂兰盆会上，众菩萨请求如来讲明根本与源流。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">如来先独自以慧眼观察并掌握妖怪来历，再决定是否向孙悟空说明及采取何种援助措施。</div>
+              <div class="evidence-quote">"“如来听说，将慧眼遥观，早已知识”"</div>
+              <div class="evidence-context">📍 孙悟空到灵山请求如来查明兕大王的来历。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">如来主动召集灵山众佛、罗汉、菩萨等举行盂兰盆会，并向众人提出传经任务。</div>
+              <div class="evidence-quote">"佛祖居于灵山大雷音宝刹之间，一日，唤聚诸佛、阿罗、揭谛、菩萨、金刚、比丘僧尼等众"</div>
+              <div class="evidence-context">📍 第八回，如来在灵山召集众人举行盂兰盆会。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">如来面对孙悟空的请求，言语简洁，直接说明掌握信息但不愿透露，并转而交代解决办法。</div>
+              <div class="evidence-quote">"“那怪物我虽知之，但不可与你说。”"</div>
+              <div class="evidence-context">📍 如来向孙悟空解释不直接说出妖怪根原的原因。</div>
+            </div>
+            
+          <div class="evidence-more">共 6 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 83%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来以高度抽象的佛理概括对三界、根本性原与法相的认识。</div>
+              <div class="evidence-quote">"我以甚深般若，遍观三界。根本性原，毕竟寂灭。同虚空相，一无所有。"</div>
+              <div class="evidence-context">📍 第八回，如来返回灵山后向诸佛、罗汉等说明降伏孙悟空之事。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来计划派人到东土寻找取经人，使真经长期流传并劝化众生。</div>
+              <div class="evidence-quote">"到我处求取真经，永传东土，劝化众生。"</div>
+              <div class="evidence-context">📍 第八回，如来提出向东土传经的长期安排。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来被请求说明根本、指解源流时，讲授三乘妙典和五蕴《楞严》。</div>
+              <div class="evidence-quote">"众菩萨献毕。因请如来明示根本，指解源流。"</div>
+              <div class="evidence-context">📍 第八回盂兰盆会，众菩萨向如来请教佛法根本。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">如来能够具体列举三藏真经的类别、部数与卷数。</div>
+              <div class="evidence-quote">"三藏共计三十五部，该一万五千一百四十四卷"</div>
+              <div class="evidence-context">📍 第八回，如来向诸菩萨介绍自己持有的三藏真经。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">如来对观音的行程作出具体要求，包括行进方式、观察内容和记录路程远近。</div>
+              <div class="evidence-quote">"目过山水，谨记程途远近之数，叮咛那取经人。"</div>
+              <div class="evidence-context">📍 如来派观音赴东土寻找取经人时作出交代。</div>
+            </div>
+            
+          <div class="evidence-more">共 12 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">T 58%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">面对大闹天宫的孙悟空，如来直接与其赌赛并将其抓住，以五行山封压。</div>
+              <div class="evidence-quote">"我与他打了个赌赛，他出不得我手，却将他一把抓住，指化五行山，封压他在那里。"</div>
+              <div class="evidence-context">📍 第八回，如来向灵山大众叙述降伏孙悟空的过程。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来不因孙悟空的请求而直接提供全部信息，而是根据可能造成的后果进行风险判断，并选择更稳妥的援助方案。</div>
+              <div class="evidence-quote">"“他就不与你斗，定要嚷上灵山，反遗祸于我也。”"</div>
+              <div class="evidence-context">📍 如来决定隐瞒妖怪来历，并改为提供金丹砂协助擒拿。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来将真经视为修真、向善的途径，并希望通过传播佛法改善众生。</div>
+              <div class="evidence-quote">"乃是修真之经，正善之门。"</div>
+              <div class="evidence-context">📍 第八回，如来介绍三藏真经及其向东土传播的意义。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">如来将孙悟空的行为归为罪恶滔天，并以其神通和既有天神无法降伏的事实说明镇压经过。</div>
+              <div class="evidence-quote">"那厮乃花果山产的一妖猴，罪恶滔天，不可名状。"</div>
+              <div class="evidence-context">📍 第八回，如来向灵山众人解释孙悟空被镇压的原因。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">如来将传经的目标明确为劝人为善、劝化众生，决策包含对众生向善的关切。</div>
+              <div class="evidence-quote">"我今有三藏真经，可以劝人为善。"</div>
+              <div class="evidence-context">📍 第八回，如来说明向东土传经的目的。</div>
+            </div>
+            
+          <div class="evidence-more">共 16 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 92%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来在派遣观音前预先规定行进路线、行进方式、路程记录和对取经人的交代事项。</div>
+              <div class="evidence-quote">"这一去，要踏看路道，不许在霄汉中行，须是要半云半雾。"</div>
+              <div class="evidence-context">📍 第八回，如来部署观音前往东土寻找取经人。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来为取经队伍可能遇到的强大妖魔预设控制手段，授予观音三个箍儿及对应咒语。</div>
+              <div class="evidence-quote">"他若不伏使唤，可将此箍儿与他戴在头上，自然见肉生根。"</div>
+              <div class="evidence-context">📍 第八回，如来向观音交付取经所需宝物并说明使用条件。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来要求观音遵守具体的出行限制，不允许在高空直接飞行。</div>
+              <div class="evidence-quote">"不许在霄汉中行，须是要半云半雾。"</div>
+              <div class="evidence-context">📍 第八回，如来向观音交代赴东土寻访取经人的执行规则。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来制定了明确的分阶段行动方案：先诱使妖魔出洞，再由罗汉撒砂困住妖魔，最后交给孙悟空擒打。</div>
+              <div class="evidence-quote">"“演他出来，却教罗汉放砂，陷住他，使他动不得身，拔不得脚，凭你揪打便了。”"</div>
+              <div class="evidence-context">📍 如来安排罗汉携带金丹砂协助孙悟空擒拿兕大王。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">如来主动控制信息披露范围，并安排具体人员和方法执行擒妖行动。</div>
+              <div class="evidence-quote">"“那怪物我虽知之，但不可与你说。”"</div>
+              <div class="evidence-context">📍 如来掌握妖怪身份，却有意限制孙悟空获得的信息。</div>
+            </div>
+            
+          <div class="evidence-more">共 17 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">F · </span>
+            <span class="evidence-dim-score">50%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">如来将援助目标放在帮助孙悟空擒住妖魔、解除取经队伍的危机上，行为指向护持取经任务。</div>
+              <div class="evidence-quote">"“如来助我甚么法力？”"</div>
+              <div class="evidence-context">📍 孙悟空感谢如来并询问具体援助方式，如来随即安排罗汉取金丹砂。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 82%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 66%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">如来的决策主要以秩序、风险和可执行性为轴，但其终极目标始终是劝化众生，理性手段与慈悲价值之间存在明显张力。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"我以甚深般若，遍观三界。根本性原，毕竟寂灭。同虚空相，一无所有。"</div></div>
+<div class="quote-item"><div class="quote-text">"我观四大部洲，众生善恶，各方不一。"</div></div>
+<div class="quote-item"><div class="quote-text">"到我处求取真经，永传东土，劝化众生，却乃是个山大的福缘，海深的善庆。"</div></div>
+<div class="quote-item"><div class="quote-text">"这一去，要踏看路道，不许在霄汉中行，须是要半云半雾；目过山水，谨记程途远近之数，叮咛那取经人。"</div></div>
+<div class="quote-item"><div class="quote-text">"待他灾愆满日，自有人救他。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 14:54
+  </div>
+
+</div>
+
+</body>
+</html>

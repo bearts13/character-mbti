@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>观音菩萨 · INFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《西游记》</div>
+    <div class="character-name">观音菩萨</div>
+    <div class="mbti-type">INFJ</div>
+    <div class="confidence">置信度 86%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 86%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">38% / 62%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 62%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">66% / 34%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 66%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">39% / 61%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 61%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">88% / 12%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 88%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">全局谋划者</span>
+<span class="keyword">慈悲有界</span>
+<span class="keyword">远见型引导者</span>
+<span class="keyword">秩序掌舵者</span>
+<span class="keyword">冷静介入</span>
+<span class="keyword">理性与仁慈并行</span>
+<span class="keyword">克制而坚定</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>观音菩萨更像一位以众生福祉为终点、以严密布局为手段的INFJ。她并不靠热烈表达建立影响力，而是在关键处思忖、判断、调度，将取经路上的人、妖、神与危机纳入一条更长远的因果链。赦免玉龙、接纳红孩儿、宽免赛太岁，说明她相信人可以被转化；但每一次宽恕都附带戒律、职责与代价，绝非无原则的心软。她能在危机中直接调兵、设计陷阱、约束孙悟空，显示出极强的秩序感和执行意志。其人格的张力在于：她看似温和，却从不放弃掌舵；她愿意给人第二次机会，但不会让任何人逃避应承担的路。</p>
+    </div>
+    <div class="famous-line">
+      "她以慈悲看见众生的归处，以秩序替每个人安排必须走完的路。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">62%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>她频繁协调诸神、团队与战局，但重要判断往往先经独自思忖，属于内在定盘、外在行动的类型。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">66%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>她习惯从因果、未来修行与整体使命理解事件，并能把眼前危机转化为长期布局的一环。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">61%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>慈悲决定她为何出手，理性决定她如何出手，因此她的宽容始终带着条件、边界与秩序。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">88%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>从取经工程的预先部署到降妖现场的分工设局，她对计划、职责、规则和行动节奏有极强掌控力。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 38%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">在玉帝询问援军人选时，主动公开提出建议，并说明被举荐者的能力与调动条件。</div>
+              <div class="evidence-quote">"陛下宽心，贫僧举一神，可擒这猴。"</div>
+              <div class="evidence-context">📍 灵霄宝殿上，玉帝因李天王再次求助而询问应派何路神兵。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">在孙悟空与赛太岁交战、烟火蔓延时，观音菩萨主动现身并直接介入。</div>
+              <div class="evidence-quote">"只闻得半空中厉声高叫：“孙悟空！我来了也！”"</div>
+              <div class="evidence-context">📍 朱紫国麒麟山一战中，孙悟空摇动紫金铃引发烟火黄沙，观音菩萨自半空降临。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">听完孙悟空的陈述后，观音菩萨自行判断三昧火的应对方式，并说明龙王降雨无效的原因。</div>
+              <div class="evidence-quote">"既他是三昧火，神通广大，怎么去请龙王，不来请我？"</div>
+              <div class="evidence-context">📍 孙悟空说明曾请四海龙王降雨仍无法灭火，观音菩萨作出回应。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">她主动部署多路神祇暗中保护取经人，并在收到求助后亲自前往鹰愁涧处理问题。</div>
+              <div class="evidence-quote">"“我等是观音菩萨差来的一路神祇，特来暗中保取经者。”"</div>
+              <div class="evidence-context">📍 唐僧白马被龙吞食后，六丁六甲、五方揭谛等神祇说明自己受观音差遣，暗中保护取经团队。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">听完惠岸汇报花果山战况后，先独自低头思考，再作出举荐人选的判断。</div>
+              <div class="evidence-quote">"菩萨低头思忖。"</div>
+              <div class="evidence-context">📍 天庭求助后，惠岸在观音菩萨面前汇报与孙悟空交战失败及李天王上表求援的情况。</div>
+            </div>
+            
+          <div class="evidence-more">共 11 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 66%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">她在取经人到达前已救下犯死罪的玉龙，并安排其在鹰愁涧等待，作为唐僧穿越漫长取经路的脚力。</div>
+              <div class="evidence-quote">"“专为求经人做个脚力。你想那东土来的凡马，怎历得这万水千山？怎到得那灵山佛地？”"</div>
+              <div class="evidence-context">📍 孙悟空责怪观音放置玉龙致其吃马时，观音说明玉龙原本就是为取经长途预先安排的龙马。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">观音菩萨将借来的天罡刀变成莲台，引诱红孩儿坐上去，再将刀化作倒须钩，使其无法脱身。</div>
+              <div class="evidence-quote">"那莲台花彩俱无，祥光尽散，原来那妖王坐在刀尖之上。"</div>
+              <div class="evidence-context">📍 红孩儿误以为观音菩萨逃走，坐上留下的莲台后触发陷阱。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">观音菩萨具体说明净瓶为何沉重，列出其所收纳的水域来源及容量状态。</div>
+              <div class="evidence-quote">"这一时间，转过了三江五湖，八河四渎，溪源潭洞之间，共借了一海水在里面。"</div>
+              <div class="evidence-context">📍 孙悟空无法拿动净瓶，观音菩萨解释净瓶当前装满一海之水。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">她没有要求另寻马匹，而是通过摘取龙珠、甘露、仙气使玉龙变回马形；又将杨柳叶变为救命毫毛，提供应急手段。</div>
+              <div class="evidence-quote">"“菩萨将杨柳叶儿摘下三个，放在行者的脑后，喝声：‘变！’即变做三根救命的毫毛。”"</div>
+              <div class="evidence-context">📍 在劝孙悟空继续取经后，观音额外赐予三根可随机应变、救急脱险的毫毛。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">她的发言集中于如何调兵、观察战况和使用兵器协助擒拿，表现为处理当前问题的实用取向。</div>
+              <div class="evidence-quote">"我如今助他一功，决拿住他也。"</div>
+              <div class="evidence-context">📍 观音菩萨在南天门外观察二郎神围困孙悟空后，提出立即出手协助。</div>
+            </div>
+            
+          <div class="evidence-more">共 22 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 39%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">玉龙因纵火烧珠而被父亲告发、犯下死罪，观音仍亲见玉帝请求赦免，并为其安排以取经赎罪、终获正果的机会。</div>
+              <div class="evidence-quote">"“他父告他忤逆，天庭上犯了死罪。是我亲见玉帝，讨他下来，教他与唐僧做个脚力。”"</div>
+              <div class="evidence-context">📍 金头揭谛向观音禀报玉龙吞马后，观音说明玉龙获救及被安排等待取经人的经过。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">红孩儿已被刀尖穿腿，观音菩萨仍命惠岸停止继续伤害其生命，并在其求饶后给予受戒机会。</div>
+              <div class="evidence-quote">"且莫伤他生命。"</div>
+              <div class="evidence-context">📍 木叉以降妖杵击打刀柄，红孩儿受伤后试图拔刀。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">孙悟空主张即使免死也要惩罚赛太岁二十棒，观音菩萨则要求全部饶恕，并以自己的情面和避免其死亡为依据。</div>
+              <div class="evidence-quote">"悟空，你既知我临凡，就当看我分上，一发都饶了罢。"</div>
+              <div class="evidence-context">📍 孙悟空提出要打赛太岁二十棒后，观音菩萨阻止。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她选择二郎神的依据是其战绩、兵力、神通以及能够奉旨调遣的条件，论证指向擒拿孙悟空的效率。</div>
+              <div class="evidence-quote">"他昔日曾力诛六怪，又有梅山兄弟与帐前一千二百草头神，神通广大。"</div>
+              <div class="evidence-context">📍 玉帝询问可派何神增援花果山时，观音菩萨举荐二郎真君。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她以取经路线的实际效能为依据，认为凡马无法承受万水千山，龙马才适合抵达灵山。</div>
+              <div class="evidence-quote">"“须是得这个龙马，方才去得。”"</div>
+              <div class="evidence-context">📍 观音解释玉龙化马的必要性，回应孙悟空对其安排的质疑。</div>
+            </div>
+            
+          <div class="evidence-more">共 31 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 88%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">她事先安排神祇轮流护持取经人，又预先将玉龙安置在必经之地等候，显示出连续性的预先部署。</div>
+              <div class="evidence-quote">"“救了一条玉龙，送他在此，教他等候那取经人，不许为非作歹。”"</div>
+              <div class="evidence-context">📍 山神、土地向孙悟空说明鹰愁涧玉龙由观音安置，任务是等候取经人。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">观音菩萨在行动前分配诸神守仙境、命惠岸借刀、清理战场、造出法场，并安排孙悟空以诈败引敌。</div>
+              <div class="evidence-quote">"汝等俱莫惊张，我今来擒此魔王。"</div>
+              <div class="evidence-context">📍 观音菩萨抵达号山山头后，开始组织降伏红孩儿的行动。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">观音菩萨直接控制行动次序、人员职责和战场范围，并通过“迷”字使红孩儿持续追赶孙悟空。</div>
+              <div class="evidence-quote">"把他手心里写一个“迷”字，教他：“捏着拳头，快去与那妖精索战，许败不许胜。”"</div>
+              <div class="evidence-context">📍 观音菩萨利用法术和具体指令控制孙悟空诱敌的过程。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">她没有按照孙悟空所说的“死罪”严惩赛太岁，而是结合其为自己坐骑、承担消灾因果且一打即死的情况，作出宽免处置。</div>
+              <div class="evidence-quote">"一发都饶了罢。"</div>
+              <div class="evidence-context">📍 孙悟空要求对赛太岁施以二十棒惩罚，观音菩萨决定将其带回南海。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">她为孙悟空预留可在“无济无生”时使用的救命毫毛，允许其在具体危机中自行随机应变。</div>
+              <div class="evidence-quote">"“若到那无济无生的时节，可以随机应变，救得你急苦之灾。”"</div>
+              <div class="evidence-context">📍 观音在孙悟空答应继续取经后，赠予三根救命毫毛并说明其使用原则。</div>
+            </div>
+            
+          <div class="evidence-more">共 28 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 86%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 43%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">她以慈悲为价值底色，却常用战力、风险、资源与秩序来作出决断；关怀与效率之间存在真实张力。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"菩萨低头思忖。"</div></div>
+<div class="quote-item"><div class="quote-text">"陛下宽心，贫僧举一神，可擒这猴。"</div></div>
+<div class="quote-item"><div class="quote-text">"陛下可降一道调兵旨意，着他助力，便可擒也。"</div></div>
+<div class="quote-item"><div class="quote-text">"贫僧请陛下同道祖出南天门外，亲去看看虚实如何？"</div></div>
+<div class="quote-item"><div class="quote-text">"我如今助他一功，决拿住他也。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 13:35
+  </div>
+
+</div>
+
+</body>
+</html>
