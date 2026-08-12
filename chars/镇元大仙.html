@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>镇元大仙 · INFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《西游记》</div>
+    <div class="character-name">镇元大仙</div>
+    <div class="mbti-type">INFJ</div>
+    <div class="confidence">置信度 61%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 61%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">56% / 44%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 56%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">57% / 43%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">42% / 58%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 58%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">78% / 22%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 78%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">秩序掌控者</span>
+<span class="keyword">远见型</span>
+<span class="keyword">重情守分</span>
+<span class="keyword">原则严明</span>
+<span class="keyword">恩威并施</span>
+<span class="keyword">理性与仁慈有争议</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>镇元大仙的核心气质，是一位把人情安放在秩序之内的守护者。他能预见唐僧途经五庄观，临行前细致交代接待之礼，又严格限定人参果数量；这说明他并不吝于表达旧情，却认为情分也该有边界。果树被毁后，他迅速布置追捕、亲自擒拿、依规处置，显示出极强的掌控力与执行力；但面对徒弟哭诉，他先安抚而非迁怒，面对悟空代师受罚，也能看见其中的孝意并调整态度。其人格的张力正在于此：他并非冷酷的规则维护者，也不是纵情的宽厚长者。镇元大仙相信，真正经得起考验的情义，必须经由责任来证明；真正有分量的威严，也应当给善意留一扇门。</p>
+    </div>
+    <div class="famous-line">
+      "他把情分当作礼物，把规矩当作底线——可以宽厚，但绝不失序。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">I · 内倾</span>
+            <span class="dim-desc-pct">56%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>略偏内倾：他习惯自行判断、亲自掌控关键行动，但现有证据不足以证明其具有强烈的独处或社交回避倾向。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>偏直觉型：他擅长从征兆推断局势、预先布局未来，也对抽象道法义理保持兴趣，同时保有扎实的细节记忆。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">58%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>情感与思考最具争议：他珍视故人情分、能体察孝意，却又坚持责任、数量与处罚标准。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">78%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>强烈判断型：从赴会安排、资源限制到追捕惩处，他都倾向于提前规划、明确边界并迅速落实。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 78%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">赴弥罗宫听讲前，镇元大仙预先安排两名年幼徒弟看家、接待唐僧，并明确交代人参果的数量限制及防备事项。</div>
+              <div class="evidence-quote">"你两个在家仔细。不日有一个故人从此经过，却莫怠慢了他。可将我人参果打两个与他吃，权表旧日之情。"</div>
+              <div class="evidence-context">📍 镇元大仙收到元始天尊简帖，准备带众徒上天听讲时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他对接待故人和人参果使用作出细致且带限制性的指令，要求徒弟不得擅自多取。</div>
+              <div class="evidence-quote">"我那果子有数，只许与他两个，不得多费。"</div>
+              <div class="evidence-context">📍 镇元大仙临行前再次叮嘱清风、明月。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他以变化身份接近唐僧师徒，确认目标后迅速以法术将四僧连马一并收入袖中并押回道观。</div>
+              <div class="evidence-quote">"使一个“袖褪乾坤”的手段，在云端里，把四僧连马一袖子笼住。"</div>
+              <div class="evidence-context">📍 镇元大仙化作行脚全真与唐僧师徒相遇，并与孙悟空交手时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对元始天尊的邀约，他明确表示不能违背简帖，并据此安排行程。</div>
+              <div class="evidence-quote">"不可违了大天尊的简帖，要往弥罗宫听讲。"</div>
+              <div class="evidence-context">📍 镇元大仙临行时向清风、明月交代自己必须赴会。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">即使决定责罚，他仍对徒弟限定惩罚方式，明确不许对出家人使用刀枪和钺。</div>
+              <div class="evidence-quote">"这和尚是出家人，不可用刀枪，不可加钺，且与我取出皮鞭来。"</div>
+              <div class="evidence-context">📍 镇元大仙押回唐僧师徒后布置处罚。</div>
+            </div>
+            
+          <div class="evidence-more">共 6 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 57%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他清楚说明自己与唐僧前身相识的具体场合、身份关系和互动细节，用以纠正徒弟对唐僧的误解。</div>
+              <div class="evidence-quote">"五百年前，我与他在“兰盆会”上相识，他曾亲手传茶。"</div>
+              <div class="evidence-context">📍 清风、明月质疑太乙玄门为何要接待和尚时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他从徒弟异常沉睡和观中无人等迹象，推断可能有人施法作弄，而非立即接受徒弟私逃的猜测。</div>
+              <div class="evidence-quote">"成仙的人，神满再不思睡，却怎么这般困倦？莫不是有人做弄了他也？"</div>
+              <div class="evidence-context">📍 镇元大仙返观后发现清风、明月沉睡不醒。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">他在离开前预判唐僧将从五庄观经过，并为未来的接待预作安排。</div>
+              <div class="evidence-quote">"不日有一个故人从此经过，却莫怠慢了他。"</div>
+              <div class="evidence-context">📍 镇元大仙上天听讲前安排观中事务。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">他接受元始天尊邀请，带领众多徒弟前往听讲“混元道果”，表现出参与道法义理讲授的行为。</div>
+              <div class="evidence-quote">"当日镇元大仙得元始天尊的简帖，邀他到上清天上弥罗宫中听讲“混元道果”。"</div>
+              <div class="evidence-context">📍 原文开篇交代镇元大仙赴上清天弥罗宫的缘由。</div>
+            </div>
+            
+          <div class="evidence-more">共 4 条证据，展示强度最高的 4 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 42%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">关系感受</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他将唐僧视为故人，要求徒弟以人参果表达旧日情谊，决策中体现对既有关系的重视。</div>
+              <div class="evidence-quote">"佛子敬我，故此是为故人也。"</div>
+              <div class="evidence-context">📍 镇元大仙向徒弟解释唐僧的身份及接待缘由。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他按果子数目设定惩罚数量，以“三十鞭”作为对孙悟空的处罚标准。</div>
+              <div class="evidence-quote">"照依果数，打三十鞭。"</div>
+              <div class="evidence-context">📍 镇元大仙将唐僧师徒带回五庄观后，命徒弟施鞭惩罚。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">得知人参果树被推倒后，他没有立刻对哭诉的徒弟发怒，而是先安抚徒弟，并说明孙悟空神通广大。</div>
+              <div class="evidence-quote">"莫哭！莫哭！你不知那姓孙的，也是个太乙散仙，也曾大闹天宫，神通广大。"</div>
+              <div class="evidence-context">📍 镇元大仙回到五庄观，听清风、明月哭诉孙悟空推倒人参果树后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">孙悟空承认责任并要求代唐僧受罚后，他接受了这一请求，未坚持先处罚唐僧。</div>
+              <div class="evidence-quote">"这泼猴，虽是狡猾奸顽，却倒也有些孝意。既这等，还打他罢。"</div>
+              <div class="evidence-context">📍 镇元大仙原本命先打唐僧，孙悟空主动要求代师受罚时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">批评接受度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">孙悟空指出先打唐僧不合责任归属后，他以笑回应，并改变处罚对象，没有直接否定孙悟空的辩解。</div>
+              <div class="evidence-quote">"大仙笑道：“这泼猴倒言语膂烈。这等便先打他。”"</div>
+              <div class="evidence-context">📍 孙悟空称偷果、吃果和推树均由自己所为，请求先受责罚时。</div>
+            </div>
+            
+          <div class="evidence-more">共 5 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">I 56%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">发现唐僧一行后，他没有让徒弟同行处置，而是命二童返回布置绳索，决定亲自捉拿对方。</div>
+              <div class="evidence-quote">"你两个回去安排下绳索，等我自家拿他。"</div>
+              <div class="evidence-context">📍 镇元大仙带清风、明月驾云追上唐僧师徒后。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 61%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 58%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">镇元大仙在情义与规则之间并非一味偏向任一方：他会为故人破例赠果，也会按果数定罚、以责任论处。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"不日有一个故人从此经过，却莫怠慢了他。可将我人参果打两个与他吃，权表旧日之情。"</div></div>
+<div class="quote-item"><div class="quote-text">"我那果子有数，只许与他两个，不得多费。"</div></div>
+<div class="quote-item"><div class="quote-text">"莫哭！莫哭！你不知那姓孙的，也是个太乙散仙，也曾大闹天宫，神通广大。"</div></div>
+<div class="quote-item"><div class="quote-text">"你两个回去安排下绳索，等我自家拿他。"</div></div>
+<div class="quote-item"><div class="quote-text">"这泼猴，虽是狡猾奸顽，却倒也有些孝意。既这等，还打他罢。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 19:52
+  </div>
+
+</div>
+
+</body>
+</html>

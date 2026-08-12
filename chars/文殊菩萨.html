@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文殊菩萨 · ENTJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《西游记》</div>
+    <div class="character-name">文殊菩萨</div>
+    <div class="mbti-type">ENTJ</div>
+    <div class="confidence">置信度 68%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 68%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">41% / 59%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 59%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">65% / 35%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 65%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">65% / 35%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 65%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">72% / 28%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 72%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">秩序掌舵者</span>
+<span class="keyword">因果远见者</span>
+<span class="keyword">原则果断</span>
+<span class="keyword">理性裁断</span>
+<span class="keyword">责任型权威</span>
+<span class="keyword">平衡型外向</span>
+<span class="keyword">有边界的慈悲</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>文殊菩萨的人格底色，是以宏大秩序统摄具体冲突的执行者。他不是单纯来“救场”，而是带着完整的因果账本而来：乌鸡国王受三年井浸之苦、青狮下界为妖、取经人介入与最终收回，皆被纳入既定的度化安排。他面对孙悟空的激烈质问并不回避，而是用佛旨、报应和民生事实逐项说明，显示出以规则、公平与结果为先的理性。他的慈悲并非放任，而是给惩罚划定期限、给迷失者留下皈正的出口。争议在于，他的主动发言究竟源于外向本性，还是源于必须有人站出来维持局面。文殊的锋芒不在情绪，而在于他相信：真正的救赎，必须能回到秩序之中。</p>
+    </div>
+    <div class="famous-line">
+      "他以慈悲看众生，却以秩序决定慈悲该在何时、以何种方式降临。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">59%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>在危机节点会主动现身、清晰发言并接管局面，但其表达更偏向职责驱动而非社交展示。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">65%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>习惯以因果、修行成果与长远安排理解事件，关注眼前冲突背后的整体意义。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">T · 思考</span>
+            <span class="dim-desc-pct">65%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>处理争端时优先援引佛旨、报应与现实结果，坚持公平和规则，同时保留对具体伤害的必要关照。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">72%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>高度重视阶段安排、身份归位与即时执行，倾向迅速终结失序而非长期保留协商空间。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 41%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">在孙悟空准备对妖怪下狠手时，文殊菩萨主动现身喝止，并主动说明来意。</div>
+              <div class="evidence-quote">"“孙悟空，且休下手！”"</div>
+              <div class="evidence-context">📍 乌鸡国青毛狮子精将被孙悟空处置时，文殊菩萨从东北方向的彩云中出现。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">面对孙悟空对青毛狮子成精、侵夺帝位的质疑，文殊菩萨连续说明事件缘由、如来旨意及惩罚期限。</div>
+              <div class="evidence-quote">"“当初这乌鸡国王，好善斋僧，佛差我来度他归西，早证金身罗汉。”"</div>
+              <div class="evidence-context">📍 文殊菩萨解释自己为何派青毛狮子精到乌鸡国，使国王受井中浸泡三年之苦。</div>
+            </div>
+            
+          <div class="evidence-more">共 2 条证据，展示强度最高的 2 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 65%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨提及自己原本奉佛命引导乌鸡国王修行，以使其未来“归西”并证得罗汉果位。</div>
+              <div class="evidence-quote">"“佛差我来度他归西，早证金身罗汉。”"</div>
+              <div class="evidence-context">📍 文殊菩萨回顾自己化作凡僧向乌鸡国王化斋的最初目的。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨用“一饮一啄，莫非前定”概括国王曾将自己浸水三日、后来被妖怪推入井中三年的因果关联。</div>
+              <div class="evidence-quote">"“一饮一啄，莫非前定。”"</div>
+              <div class="evidence-context">📍 文殊菩萨解释乌鸡国王所受惩罚与自己此前遭遇之间的因果关系。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨以佛教修行和因果观念解释事件，而非仅陈述青毛狮子精作乱的具体事实。</div>
+              <div class="evidence-quote">"“今得汝等来此，成了功绩。”"</div>
+              <div class="evidence-context">📍 在说明如来安排青毛狮子精惩罚乌鸡国王后，文殊菩萨将孙悟空等人的到来视为使这一安排完成。</div>
+            </div>
+            
+          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">T 65%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨将乌鸡国王浸自己三天三夜的行为，与国王被推井中浸三年的惩罚相联系，强调报应和既定安排。</div>
+              <div class="evidence-quote">"“如来将此怪令到此处推他下井，浸他三年，以报吾三日水灾之恨。”"</div>
+              <div class="evidence-context">📍 文殊菩萨向孙悟空说明乌鸡国王遭难的原因。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨依据“佛旨”和既定的三年惩罚安排解释并处理青毛狮子精，而未因孙悟空主张处死妖怪便改变安排。</div>
+              <div class="evidence-quote">"“他不曾走。他是佛旨差来的。”"</div>
+              <div class="evidence-context">📍 孙悟空质问文殊菩萨为何不收服其坐骑化成的妖怪时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">面对孙悟空指责其为报私仇、并主张妖怪害人时，文殊菩萨直接逐项反驳，提出三年间风调雨顺、国泰民安。</div>
+              <div class="evidence-quote">"“也不曾害人。自他到后，这三年间，风调雨顺，国泰民安，何害人之有？”"</div>
+              <div class="evidence-context">📍 孙悟空批评文殊菩萨为报私仇而纵容妖怪时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 40%</span>
+              </div>
+              <div class="evidence-text">在孙悟空指出妖怪可能伤害三宫娘娘、破坏伦理时，文殊菩萨补充狮子已被阉割，说明其不会造成孙悟空所说的那种伤害。</div>
+              <div class="evidence-quote">"“点污他不得。他是个骟了的狮子。”"</div>
+              <div class="evidence-context">📍 孙悟空质疑青毛狮子精虽未直接害人，却可能污损后宫妃嫔。</div>
+            </div>
+            
+          <div class="evidence-more">共 4 条证据，展示强度最高的 4 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 72%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨亲自以照妖镜照出青毛狮子精原身，念咒命其归正，再以莲花罩住妖魔并骑其离开。</div>
+              <div class="evidence-quote">"“畜生，还不皈正，更待何时！”"</div>
+              <div class="evidence-context">📍 孙悟空同意由文殊菩萨收走青毛狮子精后，文殊菩萨实施收服。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨所述事件中，自己化作凡僧度化国王、如来遣狮子将国王推井三年，以及孙悟空等人到来后收回妖怪，呈现出明确的阶段性安排。</div>
+              <div class="evidence-quote">"“今得汝等来此，成了功绩。”"</div>
+              <div class="evidence-context">📍 文殊菩萨在青毛狮子精被照出原形后，说明整个事件至此完成。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">文殊菩萨明确将青毛狮子精的行动归于佛旨，并在事件完成后命其“皈正”，使其回归原有身份与秩序。</div>
+              <div class="evidence-quote">"“他不曾走。他是佛旨差来的。”"</div>
+              <div class="evidence-context">📍 孙悟空发现作乱妖怪原是文殊菩萨坐下青毛狮子后提出质问。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">孙悟空表示若非文殊菩萨亲来便不会饶妖怪性命后，文殊菩萨随即念咒收服，没有继续协商或延后处理。</div>
+              <div class="evidence-quote">"“那菩萨却念个咒，喝道：‘畜生，还不皈正，更待何时！’”"</div>
+              <div class="evidence-context">📍 孙悟空接受文殊菩萨带走青毛狮子精后。</div>
+            </div>
+            
+          <div class="evidence-more">共 4 条证据，展示强度最高的 4 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ENTJ</div>
+          <div class="type-conf">置信度 68%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 55%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他会在关键时刻主动现身并主导解释，但这种外向更像履行权威职责，未必代表持续的社交驱动。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“我来替你收这个妖怪的。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“他不曾走。他是佛旨差来的。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“如来将此怪令到此处推他下井，浸他三年，以报吾三日水灾之恨。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“一饮一啄，莫非前定。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“畜生，还不皈正，更待何时！”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 19:48
+  </div>
+
+</div>
+
+</body>
+</html>

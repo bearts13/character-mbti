@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>红孩儿 · ENTJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《西游记》</div>
+    <div class="character-name">红孩儿</div>
+    <div class="mbti-type">ENTJ</div>
+    <div class="confidence">置信度 83%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 83%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">42% / 58%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 58%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">56% / 44%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 56%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">68% / 32%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 68%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">65% / 35%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 65%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">目标导向</span>
+<span class="keyword">理性算计</span>
+<span class="keyword">谋略型行动者</span>
+<span class="keyword">控制欲较强</span>
+<span class="keyword">内向决策倾向</span>
+<span class="keyword">情感表达有争议</span>
+<span class="keyword">规则态度灵活</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>红孩儿是一个把目标、手段与结果看得极其清楚的谋略型角色。他为延寿而长期守候唐僧，先观察敌情，再判断强攻不可行，继而设计出变身、受缚、呼救的连环骗局，体现出敏锐的风险评估和强大的行动控制力。他并非单纯鲁莽好斗，而是擅长把别人的慈悲转化为自己的机会。其理性甚至带有冷酷色彩：唐僧对他而言首先是实现长生目标的资源。不过，他并非完全缺乏关系意识，成为善财童子后能主动施礼、表达感恩并维持侍奉秩序。这个角色最有张力之处在于：他外在张扬、敢于设局，真正的决策却常在内心独自完成。所谓顽童的胡闹，背后其实是一套相当成熟而危险的利益计算。</p>
+    </div>
+    <div class="famous-line">
+      "他把慈悲当作诱饵，把耐心变成陷阱，像个顽童般出场，却用一套冷静的算盘决定猎物的命运。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">58%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>他能够主动制造接触、操纵局面并展开交涉，但关键策略多依靠独自沉吟和内部盘算，呈现偏外向、内核却相当独立的特征。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">56%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他既能从站位、武器等具体细节判断风险，也善于构想变身诱骗等非常规方案，现实执行与创造性谋略并存，偏直觉但并不脱离实际。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">T · 思考</span>
+            <span class="dim-desc-pct">68%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他主要依据成功概率、利益得失和目标达成来选择行动，情感与恩慈更多被当作手段或关系资源使用，理性判断明显占优。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">65%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他擅长长期等待、分步观察和控制他人行动路径，具有较强的计划性与秩序意识，但为达目的也会随时变换身份、突破规则。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 42%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">红孩儿没有向他人征询，而是独自沉吟并进行内心盘算，再自行确定行动策略。</div>
+              <div class="evidence-quote">""沉吟半晌，以心问心的自家商量道：‘若要倚势而擒，莫能得近，或者以善迷他，却到得手。’""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿观察到孙悟空等人戒备后，独自评估强攻和诱骗两种方案。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">发现唐僧被三名徒弟保护后，红孩儿主动设计接触方式，变作被捆的孩童并连续呼救，以引诱唐僧一行靠近。</div>
+              <div class="evidence-quote">""好妖怪，即散红光，按云头落下，去那山坡里摇身一变，变作七岁顽童……口口声声只叫：‘救人！救人！’""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿在山中等待唐僧，决定以受难孩童的形象制造接触机会。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 40%</span>
+              </div>
+              <div class="evidence-text">在普陀岩迎接孙悟空时，主动上前行礼并与其交谈。</div>
+              <div class="evidence-quote">"善财童子上前施礼道：“孙大圣，前蒙盛意，幸菩萨不弃收留，早晚不离左右，专侍莲台之下，甚得善慈。”"</div>
+              <div class="evidence-context">📍 普陀岩，红孩儿已被观音收留，化身善财童子侍奉观音；孙悟空前来拜见菩萨。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 40%</span>
+              </div>
+              <div class="evidence-text">其关键谋划以“以心问心”的内心独白展开，原文未写其与同伴讨论计划。</div>
+              <div class="evidence-quote">""以心问心的自家商量道""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿在半空观察唐僧师徒后进行策略判断。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 30%</span>
+              </div>
+              <div class="evidence-text">面对孙悟空时能够主动说明自己的近况、身份变化以及与观音的关系，表达内容较完整。</div>
+              <div class="evidence-quote">"“前蒙盛意，幸菩萨不弃收留，早晚不离左右，专侍莲台之下，甚得善慈。”"</div>
+              <div class="evidence-context">📍 普陀岩，善财童子向孙悟空叙述被观音收留后的生活。</div>
+            </div>
+            
+          <div class="evidence-more">共 5 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 56%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对唐僧徒弟的武装防护，他没有继续采用直接擒拿，而是改用变身、捆绑和呼救构成的诱骗方案。</div>
+              <div class="evidence-quote">""但哄得他心迷惑，待我在善内生机，断然拿了。且下去戏他一戏。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿在评估正面接近困难后改变策略。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">红孩儿因相信食唐僧肉可获得长久寿命，提前数年等待唐僧经过此地，行动指向长期收益。</div>
+              <div class="evidence-quote">""有人吃他一块肉，延生长寿，与天地同休。’他朝朝在山间等候，不期今日到了。""</div>
+              <div class="evidence-context">📍 第四十回，叙述交代红孩儿早已听闻唐僧肉的传言，并长期守候。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">红孩儿从唐僧及三名徒弟的站位、兵器和姿态中，推断出对方已经识破并做好战斗准备。</div>
+              <div class="evidence-quote">""一个个伸拳敛袖，各执兵器，似乎要与人打的一般。——噫！不知是那个有眼力的，想应认得我了。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿在空中观察唐僧师徒被围护的情形。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">红孩儿具体辨认出唐僧的外貌、坐骑状态及护卫人数，并据此判断目标和风险。</div>
+              <div class="evidence-quote">""我才看着一个白面胖和尚骑了马，真是那唐朝圣僧，却怎么被三个丑和尚护持住了！""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿初次近距离观察唐僧师徒。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">其思考集中于如何接近并擒获唐僧，直接比较强攻与诱骗的可行性，服务于即时的实际目标。</div>
+              <div class="evidence-quote">""若要倚势而擒，莫能得近，或者以善迷他，却到得手。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿判断正面强夺难以接近唐僧后，转而选择诱骗。</div>
+            </div>
+            
+          <div class="evidence-more">共 5 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">T 68%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">红孩儿以能否接近唐僧、能否成功擒获为依据选择手段，先否定强攻，再采用他认为更可行的迷惑办法。</div>
+              <div class="evidence-quote">""若要倚势而擒，莫能得近，或者以善迷他，却到得手。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿对捕捉唐僧的方案进行利弊判断。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">红孩儿在火云洞捉住唐僧后，采取直接的暴力处置方式，准备将其蒸煮。</div>
+              <div class="evidence-quote">"“你令郎因是捉了师父，要蒸要煮，幸亏了观音菩萨收他去，救出我师。”"</div>
+              <div class="evidence-context">📍 第五十九回，孙悟空向罗刹女解释红孩儿当年捉拿唐僧的行为。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">红孩儿等待并谋取唐僧肉，直接指向传言中的延寿利益，原文没有呈现其因同情或关系而行动。</div>
+              <div class="evidence-quote">""有人吃他一块肉，延生长寿，与天地同休。’他朝朝在山间等候。""</div>
+              <div class="evidence-context">📍 第四十回，交代红孩儿长期等待唐僧的动机。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">在敌方戒备、难以近身时，他暂不正面交战，选择通过伪装受难者唤起唐僧的慈悲心。</div>
+              <div class="evidence-quote">""或者以善迷他，却到得手。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿试图避开与孙悟空、猪八戒、沙僧的直接冲突。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">他以“救人”的求救声和受缚孩童形象呈现脆弱、需要救助的状态；原文明确说明这是为迷惑唐僧的伪装。</div>
+              <div class="evidence-quote">""变作七岁顽童，赤条条的，身上无衣，将麻绳捆了手足，高吊在那松树梢头，口口声声只叫：‘救人！救人！’""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿实施诱骗唐僧的计划。</div>
+            </div>
+            
+          <div class="evidence-more">共 7 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 65%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他在听闻唐僧肉的传言后长期守候，并在目标到来时先观察护卫情况、评估风险，再执行预设的诱骗行动。</div>
+              <div class="evidence-quote">""他朝朝在山间等候，不期今日到了。""</div>
+              <div class="evidence-context">📍 第四十回，叙述红孩儿为捕捉唐僧所作的长期准备。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">红孩儿主动通过改变形貌、布置被缚状态和持续呼救，试图控制唐僧师徒的判断与行进路线。</div>
+              <div class="evidence-quote">""但哄得他心迷惑，待我在善内生机，断然拿了。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿决定利用唐僧的慈悲心引其接近。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">为达成擒获唐僧的目的，他使用变身和虚构求救的方式伪装身份，未按真实身份与意图行动。</div>
+              <div class="evidence-quote">""去那山坡里摇身一变，变作七岁顽童。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿将自己伪装成受困孩童以诱骗唐僧。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">红孩儿经过短暂沉吟后明确排除难以近身的强攻，随即落云变作孩童执行诱骗。</div>
+              <div class="evidence-quote">""沉吟半晌……且下去戏他一戏。""</div>
+              <div class="evidence-context">📍 第四十回，红孩儿在空中发现唐僧受保护后作出行动决定。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 40%</span>
+              </div>
+              <div class="evidence-text">红孩儿擅自捉拿取经队伍中的唐僧，并准备将其蒸煮，表现出不受取经秩序约束、以自身行动处理目标的倾向。</div>
+              <div class="evidence-quote">"“前年在火云洞，曾与罗刹之子红孩儿有些言语。”"</div>
+              <div class="evidence-context">📍 第五十九回，孙悟空向樵夫说明自己与红孩儿发生冲突的缘由；随后提到红孩儿曾捉拿唐僧并欲加害。</div>
+            </div>
+            
+          <div class="evidence-more">共 7 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ENTJ</div>
+          <div class="type-conf">置信度 83%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 47%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">内外向维度最接近中点：他既能主动操纵他人并展开交涉，也习惯独自盘算、内部决策，因此ENTJ与INTJ均有依据。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">""有人吃他一块肉，延生长寿，与天地同休。’他朝朝在山间等候，不期今日到了。""</div></div>
+<div class="quote-item"><div class="quote-text">""若要倚势而擒，莫能得近，或者以善迷他，却到得手。""</div></div>
+<div class="quote-item"><div class="quote-text">""但哄得他心迷惑，待我在善内生机，断然拿了。且下去戏他一戏。""</div></div>
+<div class="quote-item"><div class="quote-text">""变作七岁顽童，赤条条的，身上无衣，将麻绳捆了手足，高吊在那松树梢头，口口声声只叫：‘救人！救人！’""</div></div>
+<div class="quote-item"><div class="quote-text">"“孙大圣，前蒙盛意。”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 19:38
+  </div>
+
+</div>
+
+</body>
+</html>
