@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>修平 · ISFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">修平</div>
+    <div class="mbti-type">ISFJ</div>
+    <div class="confidence">置信度 82%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 82%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">87% / 13%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 87%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">43% / 57%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">18% / 82%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 82%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">53% / 47%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 53%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">高度内倾</span>
+<span class="keyword">细腻体贴</span>
+<span class="keyword">责任感强</span>
+<span class="keyword">隐忍克制</span>
+<span class="keyword">细节敏感</span>
+<span class="keyword">秩序导向</span>
+<span class="keyword">模式直觉有争议</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>修平是一个把许多话咽回心里的人。他并非没有判断：从泰治的传闻、行踪、人形烧与案发地点之间，他敏锐地察觉到“巧合太多”；但判断一旦可能伤害关系，他便倾向于独自承受，而不是公开追问或揭露。面对赖子的训斥，他在心里觉得“真过分”，行动上却选择沉默；面对警方，他宁可慌乱编织说法，也想守住受人委托的秘密。这种克制并不只是怯懦，更来自他对信任、职责和他人感受的珍视。他对工作中的细节有踏实的投入，也会因客人的一句“好吃”真诚快乐。修平的矛盾在于：他能看见不对劲，却未必能及时为自己发声。对他而言，守住关系往往比证明自己更重要。</p>
+    </div>
+    <div class="famous-line">
+      "他看得见真相的裂缝，却总先想着别让任何人的心被划伤。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">I · 内倾</span>
+            <span class="dim-desc-pct">87%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>修平习惯把怀疑、不满与焦虑留给自己消化，在陌生社交场景和直接对抗中明显退缩。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">S · 感觉</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他扎根于具体工作、事实记忆与既有流程，却也能从零散细节中嗅出事件背后不寻常的关联。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">82%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>修平的决定首先服从于信任、体谅与关系代价，即使这让他承担压力，也不轻易用逻辑压过他人。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">53%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他在日常中看重规则、收尾和承诺，但突发压力会令他慌乱调整，因此秩序感与随机应变并存。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">I 87%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他对泰治与凶杀案关联产生怀疑后，没有向赖子、同事或泰治讨论，而是独自反复思考并承受困扰。</div>
+              <div class="evidence-quote">"但他无法将困惑告诉别人或与人商量，赖子和同事都不行。"</div>
+              <div class="evidence-context">📍 修平从报纸得知小传马町凶杀案后，联想到泰治、情人和人形烧。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对加贺持续追问人形烧，他回避对视，并尽量减少交流。</div>
+              <div class="evidence-quote">"修平也尽量不看他的眼睛。"</div>
+              <div class="evidence-context">📍 加贺说明塑料盒上第三种指纹不是修平的之后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">在第一次被带到银座夜总会的陌生社交环境中，他因不熟悉规则而僵硬，没有主动与人交流。</div>
+              <div class="evidence-quote">"修平全身僵硬。他完全不知道在这种地方该怎么做，也不知道该说什么。"</div>
+              <div class="evidence-context">📍 泰治带修平到银座夜总会，浅美招待他们时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他认为赖子的训斥过分，但没有当面反驳，只保留在内心。</div>
+              <div class="evidence-quote">"真过分！修平心想，但并未反驳。"</div>
+              <div class="evidence-context">📍 赖子否定他用水管洒水的建议并训斥他之后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">面对刑警的突然询问，他最初表现为困惑和被动跟随，而非主动说明情况。</div>
+              <div class="evidence-quote">"修平困惑不已。他完全不知道自己惹了什么事，竟让警察前来问话。"</div>
+              <div class="evidence-context">📍 赖子在桧间介绍前来问话的三名刑警时。</div>
+            </div>
+            
+          <div class="evidence-more">共 7 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">S 43%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他无法想象传统升学就业路径之后的职业，也未形成明确的长期职业规划。</div>
+              <div class="evidence-quote">"修平从没想过按照上高中、上大学、进公司的人生步骤走下去，他想象不出会从事什么工作。"</div>
+              <div class="evidence-context">📍 叙述修平退学前后对自身人生道路的困惑。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对刑警盘问，他能准确复述所买人形烧的总数以及有馅、无馅的数量。</div>
+              <div class="evidence-quote">"十个。七个有馅儿，三个没有。"</div>
+              <div class="evidence-context">📍 刑警询问三天前购买人形烧的具体情况。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他将多个零散线索串联起来：泰治的情人传闻、住址方向、反复购买人形烧和凶案地点，从而推测人形烧可能是送给情人的礼物。</div>
+              <div class="evidence-quote">"泰治让修平帮他买人形烧已不是第一次了。泰治每次接过人形烧，便会直接出门，朝车站的反方向走去。沿那个方向一直走，十几分钟便能到达小传马町。"</div>
+              <div class="evidence-context">📍 修平查阅凶杀案报道后，在休息时间独自梳理相关线索。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他认为案件与泰治之间出现的关联并非普通巧合，注意到了多项情况的叠加。</div>
+              <div class="evidence-quote">"如果是单纯的巧合还好，但巧合未免太多了。"</div>
+              <div class="evidence-context">📍 修平怀疑被害人可能是泰治情人时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">他对泰治的穿着作出具体、视觉化的评价，将其形象比作低成本电影中的流氓。</div>
+              <div class="evidence-quote">"这副形象就像低成本电影里的流氓。"</div>
+              <div class="evidence-context">📍 泰治穿夏威夷衫、白色短裤并佩戴墨镜和金项链出现时。</div>
+            </div>
+            
+          <div class="evidence-more">共 10 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 18%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他因害怕泰治责骂和被辞退，没有直接揭示事实，也没有与泰治就案件展开质询。</div>
+              <div class="evidence-quote">"他想去找泰治，但又觉不妥。泰治很可能会呵斥他一顿：你这小子，竟敢怀疑自己的老板！"</div>
+              <div class="evidence-context">📍 修平怀疑泰治可能与小传马町凶杀案有关时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他没有因赖子专制而单纯否定她，仍因对方作为经营者值得尊敬而克制不反驳。</div>
+              <div class="evidence-quote">"赖子有些专制，可作为一个经营者，她仍令修平心存尊敬。"</div>
+              <div class="evidence-context">📍 赖子训斥修平不要为洒水方式找理由之后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他在警察问话时选择隐瞒泰治收取人形烧的事实，核心顾虑是泰治会责骂自己甚至辞退自己。</div>
+              <div class="evidence-quote">"要是直接说把人形烧交给了泰治，事情就会马上解决，可那样会挨泰治骂，说不定还会被辞掉。"</div>
+              <div class="evidence-context">📍 刑警追问装人形烧的塑料盒去向时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">批评接受度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他会因赖子尖厉的斥责立刻紧张地跑动做事，显示出对上级负面评价的明显反应。</div>
+              <div class="evidence-quote">"每当赖子发出尖厉的斥责声，修平就开始忙着跑来跑去。"</div>
+              <div class="evidence-context">📍 晚间服务客人期间，赖子责备他在窗边客人的空杯前发呆。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他认为泰治烦人，却仍以点头和顺从回应泰治的威胁式保密要求。</div>
+              <div class="evidence-quote">"修平觉得他很烦人，但还是点点头。"</div>
+              <div class="evidence-context">📍 泰治要求修平不能向任何人透露购买人形烧的事。</div>
+            </div>
+            
+          <div class="evidence-more">共 10 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 53%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对泰治临时要求陪同出门，他虽有未完成的收拾工作和不安，仍迅速服从对方安排。</div>
+              <div class="evidence-quote">"老板都说没关系了，你老老实实听话就行。"</div>
+              <div class="evidence-context">📍 泰治在修平洗餐具时突然要求他换好衣服同行。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">为了保护泰治并避免自己受责骂，他对刑警谎称人形烧是自己吃掉的，并编造塑料盒去向。</div>
+              <div class="evidence-quote">"不是。修平摇摇头，和泰治的约定在脑海中闪过，他舔了一下嘴唇，“是我自己吃的。”"</div>
+              <div class="evidence-context">📍 刑警询问购买的人形烧是否是作为礼物送人时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他负责倒垃圾，并明确记得当天是丢弃不可燃垃圾的固定日期。</div>
+              <div class="evidence-quote">"对，今天是扔不可燃垃圾的日子。"</div>
+              <div class="evidence-context">📍 刑警询问人形烧塑料盒可能被丢到哪里时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">秩序偏好</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">他承担并完成洗碗、清扫厨房和整理厨具等收尾工作后，才准备离开厨房。</div>
+              <div class="evidence-quote">"修平整理完厨具，正要离开厨房时，泰治走了进来。"</div>
+              <div class="evidence-context">📍 料亭夜间营业结束后的收拾阶段。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">他在加贺第二次调查后短暂犹豫，但很快决定向赖子报告大部分谈话内容，同时保留关键隐瞒事项。</div>
+              <div class="evidence-quote">"修平稍一犹豫，便决定毫不隐瞒地将两人的对话告诉老板娘。"</div>
+              <div class="evidence-context">📍 加贺离开料亭后，赖子询问加贺都问了什么。</div>
+            </div>
+            
+          <div class="evidence-more">共 9 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ISFJ</div>
+          <div class="type-conf">置信度 82%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ISFP</div>
+          <div class="type-conf">置信度 62%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">修平重视日常秩序、承诺与职责闭环，但面对突发压力时又容易被情境牵着走，J/P倾向最具争议。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"真过分！修平心想，但并未反驳。"</div></div>
+<div class="quote-item"><div class="quote-text">"但他无法将困惑告诉别人或与人商量，赖子和同事都不行。"</div></div>
+<div class="quote-item"><div class="quote-text">"如果是单纯的巧合还好，但巧合未免太多了。"</div></div>
+<div class="quote-item"><div class="quote-text">"修平全身僵硬。他完全不知道在这种地方该怎么做，也不知道该说什么。"</div></div>
+<div class="quote-item"><div class="quote-text">"当他听到客人们说“好吃，多谢”时，还是会感到高兴，天真地觉得这份工作很令人快乐。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 09:31
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加贺恭一郎 · ENFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">加贺恭一郎</div>
+    <div class="mbti-type">ENFJ</div>
+    <div class="confidence">置信度 74%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 74%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">36% / 64%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 64%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">61% / 39%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 61%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">48% / 52%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 52%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">74% / 26%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 74%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">主动洞察</span>
+<span class="keyword">人情周全</span>
+<span class="keyword">秩序驱动</span>
+<span class="keyword">细节执着</span>
+<span class="keyword">推理型共情</span>
+<span class="keyword">克制表达</span>
+<span class="keyword">价值平衡</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>加贺恭一郎是一个以秩序感托住人情、以洞察力逼近真相的人。他会主动走进街区、店铺与他人的生活，以持续提问和细致观察掌握谈话节奏；但这些社交并非单纯出于热闹需求，更像是他理解人与关系的工作方式。他能从一杯无糖咖啡、一件被脱下的上衣、一次迟疑的反应中拼出行动链，也不满足于“谁做了”，还要追问“为什么会走到这一步”。他对当事人的羞耻、悲伤和体面保持尊重，愿意暂缓揭示线索、减轻二次伤害；可一旦事实出现时间差或逻辑缺口，他也绝不以同情替代核查。加贺的锋利不在于咄咄逼人，而在于让人无法逃避那些自己以为无人看见的细节。对他而言，破案不是拆穿人，而是在不纵容谎言的前提下，尽可能理解人。</p>
+    </div>
+    <div class="famous-line">
+      "他会替人守住体面，但绝不会替真相留出逃路。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">64%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>他擅长主动接近他人并主导调查对话，但独处观察与保留判断说明其外向更多服务于办案，而非单纯依赖社交充电。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">61%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他以扎实的现实细节为起点，却总能将碎片连成动机、关系与后果的完整图景。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">52%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他会照顾人的尊严与创伤，却不会让同情干扰事实标准，是最具争议也最成熟的一组平衡。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">74%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他习惯用时间线、程序和预先安排掌控调查，但会为尚未证实的可能性保留调整空间。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 36%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">面对赖子的质疑，他持续解释推理过程，并在铺垫后明确提出结论和怀疑对象。</div>
+              <div class="evidence-quote">"“那我就先说结论吧。我能断言案发现场的人形烧是修平买的，是因为其中一个人形烧上有个记号。”"</div>
+              <div class="evidence-context">📍 酒吧调查人形烧和指纹的场景</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他主动进入寺田钟表店拜访玄一，并主动说明来意、展开询问。</div>
+              <div class="evidence-quote">"“百忙之中多有打扰。有点儿事想问您。”"</div>
+              <div class="evidence-context">📍 片段第1节，加贺首次到寺田钟表店调查三井峰子。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">向菜穗连续说明田仓行踪、证词矛盾和三十分钟空白的推理过程，语速很快，信息量较大。</div>
+              <div class="evidence-quote">"“据说田仓先生在那天下午五点半左右离开被害人家……因此只要弄清楚他离开你家的时间，便可以知道他是否说了谎。”"</div>
+              <div class="evidence-context">📍 咖啡馆内，菜穗追问警方为何重视田仓到访仙贝店的时间。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对弘毅索取案件信息的请求，他先以玩笑设限，明确自己不会随意谈论办案机密。</div>
+              <div class="evidence-quote">"“我服了你了。我看起来像是会滔滔不绝地讲办案机密的人？那就不配做刑警了。”"</div>
+              <div class="evidence-context">📍 第七章第3节，咖啡馆中弘毅询问母亲与律师的邮件内容。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">加贺先自行推断出寺田玄一秘密前往的地点及原因，原想不向任何人透露；因刑警职责需要确认，才前来询问志摩子和彰文。</div>
+              <div class="evidence-quote">"“我已经知道是哪里了，也知道他为什么不想告诉别人。个中缘由和这起凶杀案没有任何关系。原本我想把这件事藏在心里，但作为刑警，若不确认便没法向上司报告，所以只好来找你们。”"</div>
+              <div class="evidence-context">📍 加贺在钟表店向志摩子、彰文说明自己调查寺田玄一行踪的缘由。</div>
+            </div>
+            
+          <div class="evidence-more">共 67 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 61%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 95%</span>
+              </div>
+              <div class="evidence-text">他把擦拭指纹、芥末人形烧、制作时间和连续两天购买等分散线索串联起来，推导出掉包的可能性，并进一步锁定赖子。</div>
+              <div class="evidence-quote">"“鉴定结果表明，这个放有芥末的人形烧比其他的制作得要早。”"</div>
+              <div class="evidence-context">📍 酒吧中向赖子说明案件推理过程</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">将田仓西装仍然整齐、街头外勤人员通常会脱外套、时间证词的空白等碎片整合，推导出田仓实际先回公司、后到仙贝店的行动顺序。</div>
+              <div class="evidence-quote">"“他先回到公司，完成所有工作后才去的您家，所以就算出汗，也不会难受到要脱掉上衣的地步。”"</div>
+              <div class="evidence-context">📍 加贺与文孝在咖啡馆谈话，说明自己对田仓行踪的重建。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺从修平选择无糖咖啡这一日常细节，联想到其此前关于人形烧的陈述可能不实，并进一步用指纹验证。</div>
+              <div class="evidence-quote">"“你选了无糖的罐装咖啡。”"</div>
+              <div class="evidence-context">📍 第二章第3节，加贺在料亭用餐时利用咖啡选择观察修平。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">记住并追问菜穗先前提到的田仓着装评价，从“很合身”进一步确认是否穿着西装上衣。</div>
+              <div class="evidence-quote">"“你说他的正装很合身，我就觉得可能如此。”"</div>
+              <div class="evidence-context">📍 仙贝店关门后，加贺返回购买仙贝并补充询问。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺记得前一天修平选择的是无糖罐装咖啡，并将这一具体细节用于调查。</div>
+              <div class="evidence-quote">"“你选了无糖的罐装咖啡。”"</div>
+              <div class="evidence-context">📍 第二章第3节，加贺再次见到修平时提及前一天的咖啡选择。</div>
+            </div>
+            
+          <div class="evidence-more">共 96 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 48%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 95%</span>
+              </div>
+              <div class="evidence-text">他的判断建立在指纹、擦拭痕迹、物品制作时间和购买记录等证据链上，而非人物陈述或关系远近。</div>
+              <div class="evidence-quote">"“如果送人形烧的人就是凶手，他不可能忘掉那个塑料盒，但盒子上没有擦拭过的痕迹。”"</div>
+              <div class="evidence-context">📍 酒吧中根据现场痕迹判断送礼者是否为凶手</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他因担心错误推断会加深多美子的伤害，没有立刻展示筷子，而是先向橘先生核实。</div>
+              <div class="evidence-quote">"“但如果在没有确证的情况下让您看，一旦不是，就会进一步伤害您。”"</div>
+              <div class="evidence-context">📍 柳泽商店内，加贺解释为何事先询问橘先生。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他通过带多美子看筷子、赠送峰子原本想与她分享的甜品，让多美子理解峰子想和好的心意。</div>
+              <div class="evidence-quote">"“我在西饼店一听说这件事，就觉得三井女士应该是想跟您和好。”"</div>
+              <div class="evidence-context">📍 柳泽商店内，加贺说明自己带来百香果和杏仁豆腐果冻的原因。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他将因案件留下心理创伤的人也视为受害者，并认为刑警有寻找拯救线索的职责。</div>
+              <div class="evidence-quote">"“有人会因案件而留下心灵创伤，他们也是受害者。刑警的职责就是寻找能够拯救受害者的线索。”"</div>
+              <div class="evidence-context">📍 柳泽商店内，多美子向加贺道谢时，加贺阐述刑警职责。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">即使已有同事说田仓六点后仍在公司，也因不同证词存在时间差而继续核查，不因对方看似正直或他人的信任停止调查。</div>
+              <div class="evidence-quote">"“作为警察，我不能对这种时间上的出入视而不见。”"</div>
+              <div class="evidence-context">📍 咖啡馆内，加贺向菜穗说明田仓为何仍是嫌疑人之一。</div>
+            </div>
+            
+          <div class="evidence-more">共 105 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 74%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺在与上司商量后提前完成协调安排，并明确下一步只需要文孝作证。</div>
+              <div class="evidence-quote">"“一切都已安排好，只需要您的证词。”"</div>
+              <div class="evidence-context">📍 加贺与文孝在咖啡店交谈时说明案件处理计划。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺主动设计调查场景和提问顺序，控制咖啡选择、用餐谈话和指纹揭示的节奏。</div>
+              <div class="evidence-quote">"“你选了无糖的罐装咖啡。”"</div>
+              <div class="evidence-context">📍 第二章第3节，加贺通过预先设置的咖啡环节收集指纹并观察反应。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他以警察职责为依据，认为不能因为线索没有直接关联就不调查。</div>
+              <div class="evidence-quote">"“但警察不能那样做。”"</div>
+              <div class="evidence-context">📍 回应赖子关于警方调查范围的质疑</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">在首次接触麻纪时没有直接揭示已掌握的邮件和厨剪线索，而是先观察情况、延迟询问。</div>
+              <div class="evidence-quote">"“要是对方有所隐瞒，就要先缓一缓，看看情况。”"</div>
+              <div class="evidence-context">📍 加贺解释自己采取延迟询问和观察策略的原因。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">加贺明知偷拍行为违反规定，仍为调查而实施，并要求弘毅保密。</div>
+              <div class="evidence-quote">"“我这样做违反规定，所以请你对看到的东西保密。”"</div>
+              <div class="evidence-context">📍 咖啡馆中，加贺展示偷拍到的宫本祐理照片。</div>
+            </div>
+            
+          <div class="evidence-more">共 72 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ENFJ</div>
+          <div class="type-conf">置信度 74%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ENTJ</div>
+          <div class="type-conf">置信度 68%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他的判断既有强烈的人情关怀，也始终服从可验证的事实与职责；温度是方法的一部分，真相则是不能让步的底线。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“作为警察，我不能对这种时间上的出入视而不见。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“我这人爱关注细节，所以也注意到了田仓先生的服装。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“他先回到公司，完成所有工作后才去的您家，所以就算出汗，也不会难受到要脱掉上衣的地步。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“接下来的事情，即便我想告诉你也不行，因为我还没解开谜团。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“我能理解您的想法。”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-11 23:13
+  </div>
+
+</div>
+
+</body>
+</html>

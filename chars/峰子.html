@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>峰子 · INFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">峰子</div>
+    <div class="mbti-type">INFJ</div>
+    <div class="confidence">置信度 75%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 75%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">54% / 46%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 54%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">58% / 42%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 58%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">27% / 73%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 73%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">73% / 27%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 73%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">深情守护者</span>
+<span class="keyword">理想主义</span>
+<span class="keyword">高度共情</span>
+<span class="keyword">克制内敛</span>
+<span class="keyword">有争议的社交倾向</span>
+<span class="keyword">远见规划者</span>
+<span class="keyword">温柔而坚决</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>峰子是一个把情感藏进行动里的人。她不擅长高声宣告关心，却会为了不惊扰儿子的生活而搬到陌生街区，以参拜、散步、每日到店的方式远远守望；她送礼、记住细节、祝福怀孕的店员，也愿意用共同进食和体贴安排修补关系。她心中始终有翻译、留学、自由生活这些超越眼前处境的理想，因此离婚后并未停留在受伤者的位置，而是试图重新安排人生。不过，温柔并不意味着软弱：面对前夫的财务疑点，她会记下金额和时间，质疑利益关系，约见当事人并诉诸律师。她的矛盾恰恰构成她的真实：既怕自己的出现成为负担，又会在关键时刻承担责任。她不是退到世界之外，而是选择站在不打扰他人的距离里，坚定地爱着。</p>
+    </div>
+    <div class="famous-line">
+      "她把爱放在远处守望，把锋芒留给必须说清的真相。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">I · 内倾</span>
+            <span class="dim-desc-pct">54%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>她更偏好私密、克制的独处式生活，但面对真正重要的人与事，仍能主动建立联系并推进对话。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">58%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>她以翻译、留学、自由和人生意义构建长期方向，同时能在关键处用账目、时间和事实把理想落到现实。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">73%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>她的判断核心是关系、关怀与价值感，即使能冷静取证和维权，也多是为了守住自己与他人的尊严。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">73%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>她对人生转向、关系守护和权益追究都有明确安排，习惯把在意之事化为持续而有步骤的行动。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">I 54%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她虽频繁前往与儿子女友有关的店铺，却没有表明身份或直接接触儿子，而是选择远距离关注。</div>
+              <div class="evidence-quote">"“要暂时躲在远处守护你们。”"</div>
+              <div class="evidence-context">📍 第5节，加贺转述藤原真智子与峰子的邮件内容。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她对自己搬家的真实目的和日常去水天宫的地点有所保留；写给律师的邮件中用“广场”替代水天宫。</div>
+              <div class="evidence-quote">"“不知道为什么，三井峰子女士在邮件中用了‘广场’这个词，故意隐瞒了实情。”"</div>
+              <div class="evidence-context">📍 第4节，加贺向弘毅说明对峰子未完成邮件的调查结果。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">社交圈</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">警方调查发现，她平时来往的对象仅限于几个关系非常要好的朋友。</div>
+              <div class="evidence-quote">"死者三井峰子的交友圈并不广，平常来往的仅限于几个非常要好的朋友。"</div>
+              <div class="evidence-context">📍 第九章第1节，警方在案发后调查峰子的社会关系时得到的结论。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">她在与老同学的电话中直接、连续地表达了对婚姻、怀孕、育儿及人生处境的不满和想法。</div>
+              <div class="evidence-quote">"我当时要是没怀孕，也不会像现在这样，可能都不会跟那个人结婚。当时怀孕真是太失算了，可我也不能把孩子打掉。"</div>
+              <div class="evidence-context">📍 弘毅回忆初中时听到峰子与老同学通话。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">峰子主动频繁致电多美子，直接倾诉婚姻不满、生活痛苦，甚至哭着谈及失去活着的意义。</div>
+              <div class="evidence-quote">"电话的内容大多是发牢骚，说她无法从生活中得到快乐。"</div>
+              <div class="evidence-context">📍 第2节，峰子儿子升入小学高年级后，增加了给多美子打电话的次数。</div>
+            </div>
+            
+          <div class="evidence-more">共 30 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 58%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子大学时曾为职业发展作长期设想，计划成为翻译家并在毕业后赴英国留学。</div>
+              <div class="evidence-quote">"峰子大学时专攻英语，曾梦想当翻译家，甚至打算毕业后去英国留学。"</div>
+              <div class="evidence-context">📍 弘毅在峰子公寓外回忆母亲年轻时的经历。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子从大学时代起便希望以翻译外国民间传说和童话为职业，显示她长期投入具有文化、叙事和抽象意味的领域。</div>
+              <div class="evidence-quote">"多美子记得峰子从大学时代起就想以翻译外国民间传说和童话为业。"</div>
+              <div class="evidence-context">📍 第2节，多美子说明峰子羡慕自己翻译工作时，回忆峰子早年的职业理想。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她选择带有樱花花瓣纹样的夫妻筷作为礼物；樱花对多美子与橘先生被赋予了共同相遇和幸福的象征意义。</div>
+              <div class="evidence-quote">"樱花对于您和橘先生来说都是非常重要的回忆，对吧？"</div>
+              <div class="evidence-context">📍 人形町柳泽商店，加贺让多美子辨认峰子原本准备购买的夫妻筷。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子没有停留在对关系的笼统怀疑上，而是提出通过具体的账户收支、转账和礼物支出查证两人关系开始的时间。</div>
+              <div class="evidence-quote">"她认为，如果宫本是清濑的情人，清濑肯定给过她钱，或者给她买过贵重的礼物。"</div>
+              <div class="evidence-context">📍 第6节，峰子向岸田询问能否通过账目调查清濑与宫本的关系。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">她根据朋友提供的具体路线信息寻找儿子女友的工作地点，但将相邻路口的银行认错，因此进入了另一家店。</div>
+              <div class="evidence-quote">"“三井女士就在那里拐弯了。”"</div>
+              <div class="evidence-context">📍 第5节，加贺还原峰子因银行合并、更名而误认地点的经过。</div>
+            </div>
+            
+          <div class="evidence-more">共 36 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 27%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">她持续关心怀孕的美雪，送出水天宫求来的保佑顺产手机链，并祝福对方平安生产。</div>
+              <div class="evidence-quote">"“这是我在水天宫买的，祝你生一个健康的宝宝。”"</div>
+              <div class="evidence-context">📍 第5节后的美雪视角，回忆峰子赠送手机链时说的话。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">她准备以夫妻筷作为礼物送给多美子和橘先生，礼物的图案对应两人的重要回忆，决策明显围绕关系修复和对他人情感意义展开。</div>
+              <div class="evidence-quote">"峰子已经原谅了多美子，并打算将这双筷子作为礼物送给即将前往伦敦的两人，让他们到了那边也能想起樱花。"</div>
+              <div class="evidence-context">📍 人形町柳泽商店，多美子辨认出筷子上的樱花花纹后，理解峰子送礼的对象与用意。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">她为怀孕的儿子女友搬到陌生街区居住，以不打扰对方的方式远处守护；她的关心主要通过实际行动而非直接表达呈现。</div>
+              <div class="evidence-quote">"得知儿子的女朋友在附近的西饼店打工，而且已经怀孕，她便想在远处守护。"</div>
+              <div class="evidence-context">📍 第七章，弘毅得知峰子迁居小传马町的原因。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子在判断前夫是否存在婚外关系时，要求以账户收支、资金流向等可查证信息作为依据。</div>
+              <div class="evidence-quote">"于是峰子问是否可通过账户收支情况查明此事。"</div>
+              <div class="evidence-context">📍 第6节，峰子向岸田寻求核实清濑与宫本关系的方法。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">面对岸田要求她相信其把关的说法，峰子直接提出岸田可能因与清濑的朋友关系而包庇对方，并坚持继续调查。</div>
+              <div class="evidence-quote">"但峰子并不同意我的说法，甚至说我是清濑的朋友，可能会包庇他。"</div>
+              <div class="evidence-context">📍 第6节，峰子与岸田就调查清濑公司账目发生分歧。</div>
+            </div>
+            
+          <div class="evidence-more">共 39 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 73%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她为在不惊动儿子和其女友的前提下守护对方，搬到完全陌生的小传马町居住；这一迁居行动有明确目的和预先安排。</div>
+              <div class="evidence-quote">"她搬到小传马町这个完全陌生的地方来是有重要原因的。"</div>
+              <div class="evidence-context">📍 第七章，弘毅说明峰子迁居小传马町的动机。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子不满足于岸田的口头解释，要求直接查看公司账本，并计划委托其他专业人士调查，以掌握事实与调查进程。</div>
+              <div class="evidence-quote">"她坚持要看公司的账本，而且似乎已经打算另请税务师或会计师进行调查。"</div>
+              <div class="evidence-context">📍 第6节，峰子要求扩大对清濑公司财务状况的核查。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子在离婚时通过律师主张依法分割财产，并在发现可能存在婚内关系问题后，准备以精神赔偿的方式追究。</div>
+              <div class="evidence-quote">"峰子请了律师，要求依法分割财产。"</div>
+              <div class="evidence-context">📍 第6节，岸田回顾峰子与清濑的协议离婚过程。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">她没有强行介入儿子生活或要求相认，而选择退居远处观察，把接触时机暂时搁置。</div>
+              <div class="evidence-quote">"“要暂时躲在远处守护你们。”"</div>
+              <div class="evidence-context">📍 第5节，加贺转述藤原真智子收到的峰子邮件。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">她原本似乎准备与儿子重逢，但见到被误认的店员后改变想法，决定先不自我介绍，等待情绪平静。</div>
+              <div class="evidence-quote">"“她肯定是想过一段时间平静下来再去自我介绍。”"</div>
+              <div class="evidence-context">📍 第5节，加贺对峰子延后相认行为的判断。</div>
+            </div>
+            
+          <div class="evidence-more">共 30 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 75%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ENFJ</div>
+          <div class="type-conf">置信度 46%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">她习惯独处、隐瞒与远距离守护，但在重要关系和现实事务中又会主动联络、追问并推动事情向前。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“买了，六千三百元，下次给您带到店里。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“她是个好人，还给我买过冰激凌。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“被害的三井女士弄错了，才买了一个完全不同的东西。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“她有时会来，怎么了？”"</div></div>
+<div class="quote-item"><div class="quote-text">"我刚回来。在那个广场上抚摩了小狗的头，这时又遇见了小舟町的钟表店老板。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 09:26
+  </div>
+
+</div>
+
+</body>
+</html>

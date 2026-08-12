@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>直弘 · INFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">直弘</div>
+    <div class="mbti-type">INFJ</div>
+    <div class="confidence">置信度 72%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 72%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">58% / 42%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 58%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">52% / 48%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 52%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">48% / 52%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 52%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">72% / 28%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 72%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">克制内倾</span>
+<span class="keyword">秩序掌控者</span>
+<span class="keyword">责任感驱动</span>
+<span class="keyword">隐忍的关怀</span>
+<span class="keyword">现实与理想拉扯</span>
+<span class="keyword">情理之间的争议者</span>
+<span class="keyword">先谋后动</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>直弘不是没有感情，而是习惯把感情关进责任与程序的盒子里。他在前妻死亡、儿子退学、公司裁员等压力下以沉默、叹气和简短答复自保；面对弘毅，他说“靠自己吧”，看似冷硬，实则把独立视为必须承担的代价。可当祐理可能是自己的女儿时，他没有先计算麻烦与名声，而是先看见母女多年承受的苦难，甚至跪地道歉。这说明他的底层并非冷漠，而是强烈的责任感，只是表达常常迟到、笨拙且带着控制欲。他会调查、核对、预留资金、安排律师与谈话地点，试图让失控的人生重新回到可处理的轨道。直弘的悲剧在于：他懂得负责，却不总懂得在对方最需要时，把责任说成温柔。</p>
+    </div>
+    <div class="famous-line">
+      "他把爱写成责任清单，把愧疚藏进沉默里，直到来不及的时候才学会低头。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">I · 内倾</span>
+            <span class="dim-desc-pct">58%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>直弘偏向独自消化压力、观察并确认事实后再行动，但仍能在必要的事务与私密交流中建立联系。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">52%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他擅长从零散线索推断关系与动机，也会为长期意义作判断，但最终仍会落回地址、费用、程序等现实细节。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">52%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>直弘在原则和资源判断上显得严厉理性，却会在确认亏欠与亲情后显露强烈的共情和补偿冲动。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">72%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他高度重视计划、信息掌握与正式安排，倾向于先把局面组织清楚，再承担后果并推动行动。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">I 58%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">直弘在告知峰子死讯时以极少的、事实性的短句进行说明，对葬礼等问题也不展开情绪表达；面对弘毅的追问，他多次用简短回答结束话题。</div>
+              <div class="evidence-quote">"“就这事。”"</div>
+              <div class="evidence-context">📍 电话告知弘毅峰子被杀后，直弘简短说明联系目的并结束通话。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">得知峰子死亡后，直弘先沉默，随后只是叹气，没有表现出长篇解释或明显的情绪宣泄。</div>
+              <div class="evidence-quote">"“直弘沉默了。”"</div>
+              <div class="evidence-context">📍 弘毅接到直弘电话，直弘告知峰子已经死亡的场景。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">直弘独自前往日本桥步行，希望通过亲自观察和思索，理解峰子搬到小传马町的原因。</div>
+              <div class="evidence-quote">"“我想在这里走走，也许能找到。”"</div>
+              <div class="evidence-context">📍 第四节，直弘向加贺解释自己频繁来到日本桥的理由。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">在办公室接到内线通知后，主动让岸田进入，并立即就预算结果展开交谈。</div>
+              <div class="evidence-quote">"“请他进来。”"</div>
+              <div class="evidence-context">📍 第二节，直弘在公司办公室处理文件，接见财务事务由岸田。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">在加贺提出一起喝酒、说明峰子相关情况的建议后，直弘没有拒绝，并进入料亭专注听取加贺的叙述。</div>
+              <div class="evidence-quote">"“今晚？没有。”"</div>
+              <div class="evidence-context">📍 第四至五节，加贺邀请直弘晚间会面并向他说明峰子搬家的原因。</div>
+            </div>
+            
+          <div class="evidence-more">共 24 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 52%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他把祐理的相貌、戒指来源、单亲家庭背景及出生日期串联起来，推断她与自己和户纪子的关系。</div>
+              <div class="evidence-quote">"如果她没说谎，她母亲正是在直弘和户纪子发生关系的那段时期怀上她的。"</div>
+              <div class="evidence-context">📍 直弘多次接触祐理并询问其身世，以确认父女关系。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">在户纪子离开后，他因意识到自己不成熟及父母的付出而改变职业路径，为以后建立事业打基础。</div>
+              <div class="evidence-quote">"他的判断奏效了。在家政公司学到的专业技术成为他后来创立保洁公司的基础。"</div>
+              <div class="evidence-context">📍 直弘叙述户纪子的信促使自己辞去夜间兼职、进入家政公司当学徒。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对公司预算问题，直弘首先围绕人员数量和工作能否开展这一实际经营条件作答。</div>
+              <div class="evidence-quote">"“要减二十个人？不可能。那样工作就没法开展了。”"</div>
+              <div class="evidence-context">📍 第二节，直弘与岸田讨论预算结果和裁员规模。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">直弘记得自己让峰子聘请律师，也记得财产分配不存在纠纷，并在通话中准确说明。</div>
+              <div class="evidence-quote">"“我也的确让她请了律师，但在财产分配问题上没有纠纷。”"</div>
+              <div class="evidence-context">📍 开篇场景，直弘向弘毅说明离婚时的安排。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">直弘并非只追问峰子搬家的事实，而是试图通过走访地点来理解她选择背后的原因。</div>
+              <div class="evidence-quote">"“听说峰子搬到小传马町是有特别的原因。”"</div>
+              <div class="evidence-context">📍 第四节，直弘在日本桥向加贺说明自己反复前来的目的。</div>
+            </div>
+            
+          <div class="evidence-more">共 20 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 48%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">直弘在弘毅退学、离家出走时公开表达反对，并直接命令峰子不要干涉；在公寓外再次遇到弘毅时，也用命令式口吻要求他离开。</div>
+              <div class="evidence-quote">"“峰子！屋里传来直弘的声音，‘别理那种家伙！’”"</div>
+              <div class="evidence-context">📍 弘毅收拾行李准备离家出走时，直弘与峰子发生冲突。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">确认祐理可能是自己的女儿后，他优先考虑她们母女受过的苦难和自己的责任，而非仅以自己是否知情为界限。</div>
+              <div class="evidence-quote">"她们明显过得很苦，我虽然不知情，但也有责任。"</div>
+              <div class="evidence-context">📍 夜总会打烊后，直弘在料理店单间向祐理承认自己是其亲生父亲。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他以跪地行礼和道歉的行动向祐理表达对她及户纪子的亏欠。</div>
+              <div class="evidence-quote">"房间里只剩下他们时，直弘跪在榻榻米上，双手伏地，低头行礼，告诉祐理自己便是她的亲生父亲。"</div>
+              <div class="evidence-context">📍 直弘首次向祐理坦白父女关系。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他明确把履行父亲责任、让祐理离开银座工作视为自己的行动理由。</div>
+              <div class="evidence-quote">"“我想尽一个父亲的职责，因为总不能一直让她在银座工作。”"</div>
+              <div class="evidence-context">📍 直弘解释自己为何把祐理留在身边并考虑公开父女关系。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">直弘将葬礼处理限定为根据对方家属是否提出要求来决定，并表示可以承担费用，表现出按事务边界和实际责任处理问题的倾向。</div>
+              <div class="evidence-quote">"“关于葬礼，我不打算插嘴。要是他们有什么要求，我倒是可以做。”"</div>
+              <div class="evidence-context">📍 峰子被害后，弘毅询问直弘葬礼安排的电话场景。</div>
+            </div>
+            
+          <div class="evidence-more">共 28 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T · </span>
+            <span class="evidence-dim-score">50%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">面对弘毅询问葬礼和母亲死亡的情绪性问题，直弘没有提供安慰或情感回应，而是直接转向责任范围和事务处理。</div>
+              <div class="evidence-quote">"“这不是我们该考虑的。”"</div>
+              <div class="evidence-context">📍 弘毅问“葬礼怎么办”时，直弘的直接回应。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 72%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">直弘在弘毅更换手机、离家出走后，派人调查其住处并调查所属剧团，以掌握弘毅的行踪；在公寓外又直接要求弘毅停止打听并回去排戏。</div>
+              <div class="evidence-quote">"“他派人调查了我的住处，还挨个儿调查小剧团。”"</div>
+              <div class="evidence-context">📍 弘毅向刑警说明直弘在父子失去联系期间的行动。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">峰子提出离婚后，直弘很快就同意了。</div>
+              <div class="evidence-quote">"令人吃惊的是，她丈夫清濑直弘非常干脆地答应了。"</div>
+              <div class="evidence-context">📍 第六章第2节。峰子决定离婚并向直弘提出后，直弘直接同意。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">直弘明确拒绝岸田干预其与祐理有关的私人安排，强调这属于自己的事务。</div>
+              <div class="evidence-quote">"“反正这是我的事，你别管了。”"</div>
+              <div class="evidence-context">📍 第二节，岸田建议调动祐理或改变两人的相处安排。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对裁员规模和公司方向，直弘没有当场作出最终决定，而是保留文件并表示之后确定方针再联系。</div>
+              <div class="evidence-quote">"“等之后的方针确定下来，我再联系你。”"</div>
+              <div class="evidence-context">📍 第二节，岸田提出裁去十一人的方案后，直弘结束讨论。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">岸田指出让祐理继续担任社长秘书会显得过于明显，并建议调动部门；直弘拒绝这一建议，允许现有安排继续。</div>
+              <div class="evidence-quote">"“什么明显？”"</div>
+              <div class="evidence-context">📍 第二节，岸田就祐理担任秘书及其与直弘的关系提出忠告。</div>
+            </div>
+            
+          <div class="evidence-more">共 21 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 72%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 67%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他对亲情有深切的亏欠与共情，却常以责任边界、资源条件和严厉措辞处理关系，因此情感与理性谁主导始终存在争议。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“你要是坚持退学就退吧。但我不会给你任何资助，以后你就靠自己吧。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“关于葬礼，我不打算插嘴。要是他们有什么要求，我倒是可以做。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“我只是觉得警察会找你，所以先跟你说一声。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“你在这里晃来晃去会妨碍调查的，赶快去排戏吧。”"</div></div>
+<div class="quote-item"><div class="quote-text">"她丈夫反对她工作，即便在家做点副业也不允许。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 09:33
+  </div>
+
+</div>
+
+</body>
+</html>

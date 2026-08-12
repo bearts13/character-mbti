@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>彰文 · INFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">彰文</div>
+    <div class="mbti-type">INFJ</div>
+    <div class="confidence">置信度 84%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 84%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">64% / 36%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 64%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">57% / 43%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">39% / 61%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 61%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">64% / 36%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 64%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">克制内省</span>
+<span class="keyword">共情优先</span>
+<span class="keyword">秩序感强</span>
+<span class="keyword">机械浪漫主义</span>
+<span class="keyword">温和坚韧</span>
+<span class="keyword">细节与联想并重</span>
+<span class="keyword">回避冲突</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>彰文是一个把敏感藏进沉默、把热爱落实为手艺的人。他不擅长在冲突中证明自己，即使有事实依据，也会因明白反驳无用而低头道歉；这并非没有判断，而是他更在意关系是否被进一步刺伤。对钟表内部构造的感动，以及从三角钟联想到父女关系的能力，说明他习惯从细小结构里看见人与人之间未说出口的连接。他遵循工作流程、遛狗路线和师父的规矩，却不是僵硬地服从；面对秘密时，他会在原则、后果与他人心情之间艰难权衡。彰文的温和里有自己的尺度：他未必高声表达，但始终认真守护手艺、秩序与人与人之间那一点不愿轻易断裂的牵挂。</p>
+    </div>
+    <div class="famous-line">
+      "他修复的不只是停摆的齿轮，也是在沉默里尽力维系那些尚未断开的关系。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">I · 内倾</span>
+            <span class="dim-desc-pct">64%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>他能完成职业性的交流，也会表达见解，但面对冲突与敏感关系更倾向先沉默消化、谨慎开口。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他既能记住路线、原话和维修细节，也会由钟表的精巧结构联想到人物关系背后的隐秘连接。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">61%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他判断事情并非没有理性，却总是优先顾及他人感受与关系余地，宁可委屈自己也少让矛盾升级。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">64%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>固定的工作节奏、预先准备和对环境秩序的维护，体现出他需要用可预期的程序安顿生活。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">I 64%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对警察询问师父女儿的事，彰文先认为自己可能说多了；谈到私奔一事时，本不愿透露。</div>
+              <div class="evidence-quote">"彰文心想，自己大概又多嘴了。"</div>
+              <div class="evidence-context">📍 彰文遛狗时与加贺交谈，被问及香苗及敦吉名字的来历。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">加贺提出同行遛狗时，彰文没有立刻热情回应，而是不置可否地点头。</div>
+              <div class="evidence-quote">"见加贺恭敬地低下头，彰文不置可否地点点头。"</div>
+              <div class="evidence-context">📍 加贺第三次到钟表店，请求跟随彰文了解平日遛狗路线。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">刺激偏好</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">师父和志摩子因香苗话题争执时，彰文担心被牵连，迅速吃完点心并离开紧张氛围。</div>
+              <div class="evidence-quote">"他唯恐受到牵连，慌忙吃完大福饼，喝掉杯中的大麦茶。"</div>
+              <div class="evidence-context">📍 店内下午茶时，寺田夫妻因女儿香苗的话题发生口角。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">加贺进店后，彰文主动以店员身份招呼对方。</div>
+              <div class="evidence-quote">"“欢迎光临。”彰文说道。"</div>
+              <div class="evidence-context">📍 寺田钟表店内，加贺首次到访。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">在加贺询问钟表店、师父手艺和自己从业原因时，彰文持续说明情况，并讲述自己喜欢机械钟表的缘由。</div>
+              <div class="evidence-quote">"我从小就喜欢钟表，不是石英钟或电子表，而是靠发条和钟摆运转的机械表。"</div>
+              <div class="evidence-context">📍 彰文带加贺沿日常路线前往滨町公园遛狗。</div>
+            </div>
+            
+          <div class="evidence-more">共 9 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 57%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他把正在修理的三角钟内部结构，抽象地类比为寺田父女表面方向不同、实则相连的关系。</div>
+              <div class="evidence-quote">"三角钟的构造就像寺田父女一样，看似方向不同，却由一根轴连在一起。"</div>
+              <div class="evidence-context">📍 第五章前，寺田钟表店内；加贺离开后，彰文一边修理三角钟一边思考。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">彰文不仅喜欢钟表，还特别偏好靠发条和钟摆运行的机械钟表；初见旧钟内部构造时受到强烈触动，并因此选择这一职业。</div>
+              <div class="evidence-quote">"我第一次看到老钟表的内部构造时就非常感动，想做这样的工作。"</div>
+              <div class="evidence-context">📍 加贺询问彰文为何来到寺田钟表店工作。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对掉齿的古董挂钟，彰文首先提出可将齿焊上的具体修理方案，也说自己能完成。</div>
+              <div class="evidence-quote">"反正不是小齿轮，只要把齿焊上就行了。我也可以做。"</div>
+              <div class="evidence-context">📍 工作间内，玄一让彰文查看挂钟齿轮损坏情况。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">彰文记得顾客送来古董挂钟时明确表示不希望花太多钱，并将这一细节和后续维修费用联系起来。</div>
+              <div class="evidence-quote">"彰文还记得顾客把挂钟拿来时的情景，说不想花太多钱。"</div>
+              <div class="evidence-context">📍 玄一说明古董挂钟可能需要重新手工制造齿轮后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">抽象联想</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">彰文解释三角钟的机械结构时，表达自己因其内部设计而感叹旧时代制表者的想象力。</div>
+              <div class="evidence-quote">"拆开后我吃了一惊，不由得感叹以前的人想象力真丰富。"</div>
+              <div class="evidence-context">📍 前往滨町公园途中，加贺询问店内三角钟三个表盘同步运转的原理。</div>
+            </div>
+            
+          <div class="evidence-more">共 12 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">S · </span>
+            <span class="evidence-dim-score">50%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">师父指出挂钟齿轮掉齿后，彰文能准确看出复杂齿轮组合中受损齿轮的位置。</div>
+              <div class="evidence-quote">"在结构复杂的齿轮组合中，有个齿轮正处于玄一说的状态。"</div>
+              <div class="evidence-context">📍 钟表店工作间内，玄一检查一台待修的古董挂钟。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N · </span>
+            <span class="evidence-dim-score">50%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">听到加贺说明邮件中“这时又遇见”以及此前抚摸过小狗，彰文据此推测带小狗的人可能十号到过公园、但后两天未出现。</div>
+              <div class="evidence-quote">"那是否可以认为，那个带小狗的人十号来过，昨天和今天没来？"</div>
+              <div class="evidence-context">📍 滨町公园内，加贺向彰文展示死者未写完的邮件内容。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 39%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">玄一在坏心情中指责手表未修好时，彰文明知自己已经说明零件尚未到货，仍选择不反驳而低头道歉。</div>
+              <div class="evidence-quote">"彰文的确说过，但他明白这种时候反驳也没用，便低头道歉。"</div>
+              <div class="evidence-context">📍 法事风波后的第二天，玄一在钟表店内心情恶劣。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">批评接受度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">遭到玄一质问工作进度时，彰文为了避免争辩而道歉，即使事实是他已向师父报告过零件未到。</div>
+              <div class="evidence-quote">"他明白这种时候反驳也没用，便低头道歉。"</div>
+              <div class="evidence-context">📍 玄一从“未修理”箱中拿出一块应交付的手表并责问彰文。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">彰文重视机械钟表的内部构造、维修技术和手艺传承，也认识到行业萎缩仍认为自己需要继续精进。</div>
+              <div class="evidence-quote">"现在能修机械表的手艺人越来越少，我还得努力。"</div>
+              <div class="evidence-context">📍 彰文在遛狗途中向加贺说明自己在钟表店工作的志向。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">寺田夫妻因香苗话题引发紧张气氛时，彰文没有介入争论，而是设法尽快离开。</div>
+              <div class="evidence-quote">"再磨磨蹭蹭的，玄一该回来了。他想趁怒火还未波及自己时赶紧离开。"</div>
+              <div class="evidence-context">📍 志摩子得知玄一在法事上与人冲突后，向彰文转述情况。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">面对警察调查，彰文判断隐瞒香苗相关情况没有意义，并基于避免后续麻烦的考虑决定说明。</div>
+              <div class="evidence-quote">"他觉得若是跟刑警耍把戏，反而会更麻烦。"</div>
+              <div class="evidence-context">📍 遛狗返回途中，加贺追问玄一所说“浑小子”的身份。</div>
+            </div>
+            
+          <div class="evidence-more">共 13 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 64%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">彰文知道自己专注细活时会出汗，因此平时预先在店内放置替换的T恤，计划工作告一段落后换衣服。</div>
+              <div class="evidence-quote">"所以他一向将替换的T恤放在店里。"</div>
+              <div class="evidence-context">📍 小说开头，彰文在工作台前专心安装微小螺丝。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">彰文按店铺既有工作安排，在傍晚锁门后带敦吉沿固定路线散步。</div>
+              <div class="evidence-quote">"这就是平常的路线。"</div>
+              <div class="evidence-context">📍 玄一参加法事晚归，彰文依吩咐五点半关门并代为遛狗。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">彰文在敦吉准备在雕塑旁撒尿时，主动拉绳制止。</div>
+              <div class="evidence-quote">"敦吉抬腿想在雕塑旁撒尿，彰文拉拉绳子制止了它。"</div>
+              <div class="evidence-context">📍 彰文和加贺带敦吉经过滨町绿道入口的“劝进帐的弁庆”雕塑。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">加贺询问私奔相关信息时，彰文先不想说，随后才改变主意决定说明，表现出先犹豫后决定的过程。</div>
+              <div class="evidence-quote">"彰文本不想说，但还是改了主意。"</div>
+              <div class="evidence-context">📍 从滨町公园返回途中，加贺询问“浑小子”是谁。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 40%</span>
+              </div>
+              <div class="evidence-text">在得知玄一可能对遛狗行踪说谎后，他同意将此事隐瞒，不坚持将事实向当事人公开。</div>
+              <div class="evidence-quote">"我明白了，我就当什么都不知道。小彰也是，好吧？彰文回答：“当然。”"</div>
+              <div class="evidence-context">📍 第五章前，寺田钟表店内；加贺和志摩子决定不拆穿玄一暗中去水天宫的事。</div>
+            </div>
+            
+          <div class="evidence-more">共 8 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 84%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ISFJ</div>
+          <div class="type-conf">置信度 72%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他既会从钟表结构和人际线索中读出隐含关联，也高度依赖具体细节、既定路线与实际经验，因此直觉与实感之间最具争议。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“我从小就喜欢钟表，不是石英钟或电子表，而是靠发条和钟摆运转的机械表。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“我第一次看到老钟表的内部构造时就非常感动，想做这样的工作。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“现在能修机械表的手艺人越来越少，我还得努力。但是机械表行业正在萎缩，将来还不知会怎么样。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“他觉得若是跟刑警耍把戏，反而会更麻烦。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“彰文的确说过，但他明白这种时候反驳也没用，便低头道歉。”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 09:28
+  </div>
+
+</div>
+
+</body>
+</html>

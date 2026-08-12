@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>弘毅 · INFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">弘毅</div>
+    <div class="mbti-type">INFJ</div>
+    <div class="confidence">置信度 76%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 76%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">43% / 57%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">47% / 53%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 53%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">31% / 69%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 69%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">72% / 28%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 72%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">内敛而主动</span>
+<span class="keyword">情感驱动</span>
+<span class="keyword">强烈自责</span>
+<span class="keyword">秩序感强</span>
+<span class="keyword">克制敏感</span>
+<span class="keyword">务实推演</span>
+<span class="keyword">理想有执</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>弘毅不是把情绪挂在嘴边的人，却是被情感推着往前走的人。母亲遇害后，他一面说“让自己停止思考”，一面用工作、调查和不断行动压住汹涌的愧疚；他追查的并不只是凶手，更是那个自己曾经一无所知的母亲。面对父亲、律师与相关者，他能紧张克制，却不会回避必要的追问，显示出内向者并非缺乏行动力，而是行动必须先经过内心确认。他重视责任、边界与阶段安排，退学追梦、守候宫本、接受导演暂停演出，都是作出判断后坚定执行。只是他的理性常服务于感情：逻辑帮助他还原事实，心却始终在寻找理解与原谅。弘毅最深的执念，不是证明谁有罪，而是补回自己来不及爱的人。</p>
+    </div>
+    <div class="famous-line">
+      "他把眼泪藏进计划里，把亏欠走成一条追向理解的路。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>他习惯独自消化痛苦、表达有所克制，却会为了重要关系主动进入复杂的人际现场。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">S · 感觉</span>
+            <span class="dim-desc-pct">53%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他以地点、称呼和生活细节立足现实，也能从零散信息中推演人物关系与潜在动机。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">69%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他的判断表面上有严密追问，核心却由共情、亏欠与亲情价值牵引。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">72%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他倾向用明确决定、行动步骤和职业边界为失控的情绪与现实重新建立秩序。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 43%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">为了了解母亲的生前情况，他主动联系父亲索取律师信息，并亲自拜访高町律师、约见加贺、拦下宫本祐理谈话。</div>
+              <div class="evidence-quote">"“我想问件私事，十分钟就行，你有时间吗？”"</div>
+              <div class="evidence-context">📍 第四节，弘毅跟踪宫本祐理并主动表明身份，请求单独交谈。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">为了寻找母亲遇害地点，他主动走进便利店并接连向附近店铺打听，即使店员表现不耐烦仍继续询问。</div>
+              <div class="evidence-quote">"弘毅又去附近的很多店打听，却连知道凶杀案的人都找不到。"</div>
+              <div class="evidence-context">📍 次日到小传马町后，弘毅独自调查母亲遇害地点。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">在自行思考难以突破后，他不断通过与他人交谈获取信息，包括父亲、律师、加贺和宫本祐理。</div>
+              <div class="evidence-quote">"“但我不一样，我想了解更多妈妈的事，不会给你添麻烦的。我保证。”"</div>
+              <div class="evidence-context">📍 开篇，弘毅向父亲争取高町律师的联络方式。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对父亲关于葬礼安排的态度，他虽认为对方本应承担责任，但没有把批评说出口。</div>
+              <div class="evidence-quote">"弘毅想说“这本就是你应该做的”，但没说出口。"</div>
+              <div class="evidence-context">📍 父亲表示只会在峰子娘家人提出要求时承担葬礼费用。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">得知母亲遭杀害后，他选择通过继续劳动和活动身体来停止思考，而非主动向他人倾诉或讨论。</div>
+              <div class="evidence-quote">"倒不如在这里活动身体，让自己停止思考。"</div>
+              <div class="evidence-context">📍 剧团伙伴劝他回去时，弘毅坚持留在排练场干活。</div>
+            </div>
+            
+          <div class="evidence-more">共 27 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">S 47%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他从加贺强调“离婚后”这一条件中推演出关键时间条件，理解到若父亲在离婚前与宫本交往，母亲可能可据此索赔。</div>
+              <div class="evidence-quote">"“如果我父亲在离婚前就开始和那女人交往，说不定我母亲就可以要求他支付精神赔偿金。”"</div>
+              <div class="evidence-context">📍 第三节，加贺展示宫本祐理的照片并说明离婚后交往不构成赔偿理由。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他将父亲疑似婚外关系、母亲可能追加财产分配、母亲遇害这几项信息连接起来，提出一条完整的作案动机假设。</div>
+              <div class="evidence-quote">"“在我父母离婚前，那女人就是我父亲的情人。母亲发现了这一点，所以父亲把母亲杀了？”"</div>
+              <div class="evidence-context">📍 第三节，弘毅得知宫本可能与父亲有关后，向加贺提出推理。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他记得亚美曾告知母亲没有去过黑茶屋，并用这一具体信息质疑加贺的推断。</div>
+              <div class="evidence-quote">"昨晚我听亚美说了，真是奇怪。您应该已经听亚美说过了，我母亲绝没去过黑茶屋。"</div>
+              <div class="evidence-context">📍 加贺说峰子在邮件中称自己频繁去亚美打工的地方。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他多次强调自己不想作为外行调查案件，而是希望获得与母亲生活直接相关的信息，目标具有明确现实指向。</div>
+              <div class="evidence-quote">"“我并不是想调查案子，只想了解妈妈的事。”"</div>
+              <div class="evidence-context">📍 开篇，弘毅反驳父亲关于不要干扰警方办案的警告。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他能回忆起岸田税务师多次到过家中，以及母亲同岸田说话时不用敬语这一具体情形。</div>
+              <div class="evidence-quote">"他说岸田税务师多次去过他家，所以他曾经听到三井峰子女士跟岸田税务师说话时没用敬语。"</div>
+              <div class="evidence-context">📍 加贺向上杉转述弘毅提供的信息，该信息与岸田声称自己很少去清濑家、不熟悉死者的说法形成对照。</div>
+            </div>
+            
+          <div class="evidence-more">共 27 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 31%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他将母亲遇害以及自己未能帮助母亲视为沉重负担，并因此长期自责。</div>
+              <div class="evidence-quote">"他还没从母亲死亡的阴影中走出来，这不仅因为尚未破案，更因为他觉得一直没有帮上母亲，因而自责。"</div>
+              <div class="evidence-context">📍 弘毅在律师事务所等待时回顾母亲峰子的遭遇。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">得知母亲曾默默关心怀孕的店员后，他联想到母亲的心情并感到心痛；见到亚美时也当场哭泣。</div>
+              <div class="evidence-quote">"一想到峰子的心情，弘毅就感到心痛。"</div>
+              <div class="evidence-context">📍 加贺说明峰子搬到小传马町是为了远远守望儿子的怀孕女友后，弘毅前往西饼店见亚美。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他将母亲遭遇的责任归于自己，认为若能经常联系母亲，或许能够避免悲剧，反映其强烈受亲情与内疚驱动。</div>
+              <div class="evidence-quote">"他把责任都归结在自己身上，如果经常和母亲联系，母亲就不会被杀了。"</div>
+              <div class="evidence-context">📍 弘毅理解母亲的关爱后，对母亲遇害作出的自我归责。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">批评接受度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">导演认为他当前无法胜任演出时，他虽感到沮丧，却接受了专业判断，没有否认自身状态。</div>
+              <div class="evidence-quote">"“明白了。”弘毅干脆地答道。"</div>
+              <div class="evidence-context">📍 筱塚明确表示弘毅需等母亲案件结束、能够自然集中注意力后再回归演出。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他围绕母亲、父亲和宫本的关系持续追问时间、事实与因果条件，以判断父亲是否具备杀害母亲的动机。</div>
+              <div class="evidence-quote">"“如果你是他的情人，你们的关系在离婚前便已开始，我母亲就能要求精神赔偿。他不想支付这笔钱，就杀了我母亲。”"</div>
+              <div class="evidence-context">📍 第四节，弘毅在咖啡馆直接向宫本祐理陈述警方怀疑的逻辑。</div>
+            </div>
+            
+          <div class="evidence-more">共 34 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 72%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他不接受父亲让自己等待警方破案的安排，而是主动设法取得资料、拜访相关人、跟踪宫本，以掌握母亲相关信息。</div>
+              <div class="evidence-quote">"“只是他完全不知从何处下手。”"</div>
+              <div class="evidence-context">📍 开篇，弘毅决定自行了解母亲死前的情况，并开始寻找切入点。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">大学接触戏剧后，他在思想斗争后作出退学决定，并立即回房收拾行李离家。</div>
+              <div class="evidence-quote">"他说完便站起来，回房间收拾行李。"</div>
+              <div class="evidence-context">📍 父母反对弘毅退学并停止资助时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">察觉高町律师的措辞可能暗示间接线索后，他立即连续追问；无法突破时又立刻想到换人询问。</div>
+              <div class="evidence-quote">"“您刚才说没有和案件直接相关的线索。也就是说，您能想到一些间接相关的，是吗？”"</div>
+              <div class="evidence-context">📍 开篇，弘毅从高町律师的表述中察觉信息并即时追问。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他因认定戏剧是终生事业而不再上大学，最终违背父母期待退学离家。</div>
+              <div class="evidence-quote">"此后他就不怎么去大学了，总到剧团里来。"</div>
+              <div class="evidence-context">📍 弘毅回忆大学一年级看完小剧场演出后的生活变化。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">为了确认父亲与宫本的关系，他在未获对方同意或父亲授权的情况下打听公司内部传闻、守候并跟踪宫本。</div>
+              <div class="evidence-quote">"“他匆匆走出快餐店，跟在女人的后面。”"</div>
+              <div class="evidence-context">📍 第四节，弘毅在父亲公司外跟踪宫本祐理。</div>
+            </div>
+            
+          <div class="evidence-more">共 19 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">INFJ</div>
+          <div class="type-conf">置信度 76%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ISFJ</div>
+          <div class="type-conf">置信度 63%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他既会紧扣生活细节追查真相，也能从细微矛盾延展出动机与关系的整体图景，直觉与实感的倾向最难截然划分。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"倒不如在这里活动身体，让自己停止思考。"</div></div>
+<div class="quote-item"><div class="quote-text">"他认为不能因个人原因误工，而且早回去也没用。"</div></div>
+<div class="quote-item"><div class="quote-text">"经过一番思想斗争后，他决定退学。"</div></div>
+<div class="quote-item"><div class="quote-text">"自己选择离家出走，过喜欢的生活，母亲也有同样的权利，他这样认为。"</div></div>
+<div class="quote-item"><div class="quote-text">"“但你这两年对自己的母亲一无所知，不是吗？”“嗯……”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-11 23:27
+  </div>
+
+</div>
+
+</body>
+</html>

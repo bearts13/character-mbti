@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>岸田 · ISTJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《新参者》</div>
+    <div class="character-name">岸田</div>
+    <div class="mbti-type">ISTJ</div>
+    <div class="confidence">置信度 79%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 79%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">56% / 44%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 56%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">24% / 76%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 76%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">51% / 49%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 51%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">74% / 26%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 74%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">极度务实</span>
+<span class="keyword">秩序驱动</span>
+<span class="keyword">细节警觉</span>
+<span class="keyword">风险算计</span>
+<span class="keyword">克制内敛</span>
+<span class="keyword">责任牵引</span>
+<span class="keyword">理情拉扯</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>岸田是典型的现实秩序维护者：他看公司，先看到七十人该减到五十人的预算事实；看人事，先看到秘书岗位会破坏组织边界与员工观感；遇到危机，也会迅速核对时间、物证、行程和暴露风险。他不擅长用情绪说服人，更相信具体方案与预先控制，因此常显得强硬、冷淡甚至不近人情。但这份冷硬并非没有感情，而是他把感情藏进责任里。对儿子的包庇、对家人的照料，以及最终在赎罪触动下崩溃坦白，都说明他并非纯粹逐利。岸田的悲剧在于：他想用秩序保护家人，最后却用失序的手段毁掉了自己。</p>
+    </div>
+    <div class="famous-line">
+      "他以为把每一笔账算清，就能把人生的代价也控制在预算之内。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">I · 内倾</span>
+            <span class="dim-desc-pct">56%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>他在压力下倾向独自消化、谨慎少言，但必要时会主动介入并强势推进事务。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">S · 感觉</span>
+            <span class="dim-desc-pct">76%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他高度依赖可核实的数字、流程、时间和物证，判断始终扎根于眼前的现实条件。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">T · 思考</span>
+            <span class="dim-desc-pct">51%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他表面以效率和风险计算为先，但亲情、愧疚与责任会在关键处重写他的选择。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">74%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他本能地通过预算、岗位、行程和预案压缩不确定性，对失控有很强的戒备。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">I 56%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">面对峰子可能揭发挪用资金的风险，他独自反复思考应对办法，整夜未眠，最终独自形成杀人决定，没有向他人求助或讨论。</div>
+              <div class="evidence-quote">"“我彻夜未眠，第二天仍一直在想应该怎样对付峰子，然而什么都做不了，时间却比平时流逝得更快。”"</div>
+              <div class="evidence-context">📍 岸田在自述中回忆与峰子约定见面后、实施杀人前的心理过程。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">岸田对直弘直言经营建议和私人关系风险，多次主动补充说明，并明确表示会再说一次。</div>
+              <div class="evidence-quote">"“我再说最后一次。”"</div>
+              <div class="evidence-context">📍 直弘表示岸田已经就祐理的问题说过很多次后，岸田仍继续提出调岗或改变安排的建议。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">得知警方到儿媳家问话后，他主动致电并直接表示自己已到附近，要求上门了解情况；即使儿子不在家，也坚持只与儿媳交谈即可。</div>
+              <div class="evidence-quote">"“我已经到你家附近了，可以过去吗？”"</div>
+              <div class="evidence-context">📍 第八章第2节，岸田要作打电话给儿媳玲子，询问警方到访一事。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">在警方最初询问时，他只按问题简短回答行程；在离婚财产公证场合，他也刻意少说话。</div>
+              <div class="evidence-quote">"“他们对两人名下的银行账户进行了公证，当然我也在场，但并没多说话。”"</div>
+              <div class="evidence-context">📍 岸田自述清濑夫妇协议离婚时的情况。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">前往峰子住所时刻意避免被人发现，并在进门前已藏好绳子，表现出对他人目光和接触的回避。</div>
+              <div class="evidence-quote">"我唯恐别人看见，小心翼翼地来到她门前，按响门铃。"</div>
+              <div class="evidence-context">📍 岸田在杀害峰子前前往其住处。</div>
+            </div>
+            
+          <div class="evidence-more">共 21 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">S 24%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他记得孙子见到陀螺后，儿媳具体问到了陀螺的来源与陀螺线，并据此补做掩饰。</div>
+              <div class="evidence-quote">"儿媳问我为什么有这东西，我一时想不出合适的理由，只得说是熟人送的，但陀螺线忘在事务所了。"</div>
+              <div class="evidence-context">📍 岸田杀人当晚在儿子家与儿媳、孙子的互动。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">岸田预判祐理担任社长秘书会引发员工猜疑，并警告直弘日后可能后悔，关注当前安排的后续影响。</div>
+              <div class="evidence-quote">"“到时候后悔可来不及啊。”"</div>
+              <div class="evidence-context">📍 岸田劝直弘不要把祐理留在显眼的秘书岗位，直弘拒绝后，岸田仍提示未来风险。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">理论兴趣</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">岸田讨论公司问题时始终聚焦预算、用工人数、岗位设置和外部观感等可执行的现实事项。</div>
+              <div class="evidence-quote">"“现在算上兼职的和临时工一共七十人，要减到五十人才会有起色。”"</div>
+              <div class="evidence-context">📍 岸田向直弘汇报预算计算结果，说明经营改善所需的人员规模。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">岸田能纠正直弘对创业年限的记忆，准确记得直弘三十岁创业及其后的年数。</div>
+              <div class="evidence-quote">"“二十七年了。你三十岁创办保洁公司时，说实话，我没想到你能做成这样。”"</div>
+              <div class="evidence-context">📍 直弘回答自己开公司约二十六年后，岸田立即纠正为二十七年。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">他长期设想在清濑发现前补回挪用款，并在案发前提前联系儿媳，为之后的不在场证明作铺垫。</div>
+              <div class="evidence-quote">"“我想在清濑尚未发现时还回去，但直到今天都没能还上。”"</div>
+              <div class="evidence-context">📍 岸田交代挪用子公司资金及其还债计划。</div>
+            </div>
+            
+          <div class="evidence-more">共 26 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">T 51%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">岸田以预算测算和经营是否能改善为依据，主张削减员工人数；即使方案涉及裁人，仍将经营可行性置于优先位置。</div>
+              <div class="evidence-quote">"“现在算上兼职的和临时工一共七十人，要减到五十人才会有起色。”"</div>
+              <div class="evidence-context">📍 岸田向直弘报告公司预算结果，并提出裁员是改善经营的必要条件。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">岸田没有回避与直弘的分歧，在直弘多次反驳并要求其不要干涉私人事务后，仍直接阐述自己的反对意见。</div>
+              <div class="evidence-quote">"“这不是管理，而是忠告——”"</div>
+              <div class="evidence-context">📍 直弘指责岸田连自己的私事也要管理时，岸田当面否认并继续坚持这是必要忠告。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">后来查明他侵吞公款的直接原因，是回应儿子克哉的苦苦哀求，而不是其先前所称的个人债务。</div>
+              <div class="evidence-quote">"岸田要作侵吞清濑夫妇的财产不是为了偿还自己的欠款，而是因为儿子克哉苦苦哀求，才不得不下手。"</div>
+              <div class="evidence-context">📍 上杉向加贺说明岸田隐瞒的侵吞公款真相。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他为替儿子填补挪用公款造成的缺口，侵吞清濑夫妇财产，并杀害峰子，未按公平或法律原则处理问题。</div>
+              <div class="evidence-quote">"岸田要作侵吞清濑夫妇的财产不是为了偿还自己的欠款，而是因为儿子克哉苦苦哀求，才不得不下手。"</div>
+              <div class="evidence-context">📍 加贺与上杉交谈后揭露的真实动机。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">岸田在经营困难时按人员类别和岗位必要性提出裁减方案，强调公司不需要端茶倒水的职位，体现以组织需要为准的判断。</div>
+              <div class="evidence-quote">"“兼职的和临时工一共十人，再加上一人，一共十一人，这是我的希望。”"</div>
+              <div class="evidence-context">📍 岸田具体说明希望裁减的人员构成，并将祐理所在岗位视为非必要设置。</div>
+            </div>
+            
+          <div class="evidence-more">共 30 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 74%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">实施杀人前，他预先联系峰子、计算可用时间，并在到达门前便已准备和藏好绳子。</div>
+              <div class="evidence-quote">"当时我已从口袋里拿出绳子，藏在右手里。"</div>
+              <div class="evidence-context">📍 岸田以报告事项为由前往峰子家中。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">杀人后他主动清除指纹、安排前往儿子家和酒吧的行踪，并补配陀螺线以控制证据链。</div>
+              <div class="evidence-quote">"所有的掩饰就这样完成了。"</div>
+              <div class="evidence-context">📍 岸田将新买的陀螺线送给孙子后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他未经许可侵占受托管理的资金，又为实施杀人盗取陀螺，并试图通过公用电话和伪造不在场证明规避侦查。</div>
+              <div class="evidence-quote">"“从多年前起，我便开始未经社长峰子许可擅自从她的账户里取钱。”"</div>
+              <div class="evidence-context">📍 岸田在供述中说明自己长期挪用资金的行为。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他长期侵吞公款，并为掩盖问题杀害峰子、向警方作伪证，直接违背职业与法律规则。</div>
+              <div class="evidence-quote">"我本应承认自己的贪污行为，补偿过失。"</div>
+              <div class="evidence-context">📍 岸田对自己未依规处理贪污问题的忏悔。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">岸田提前完成预算核算并带来文件，同时将裁员目标具体量化，表现出以计划和预先方案处理经营问题的倾向。</div>
+              <div class="evidence-quote">"“出来了，但结论并不好。”"</div>
+              <div class="evidence-context">📍 直弘询问预算结果时，岸田立即拿出已准备好的文件，并说明测算结论。</div>
+            </div>
+            
+          <div class="evidence-more">共 26 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ISTJ</div>
+          <div class="type-conf">置信度 79%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ISFJ</div>
+          <div class="type-conf">置信度 47%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">他习惯以成本、规则和风险作判断，却会在亲情与愧疚面前让理性防线失效。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"“现在算上兼职的和临时工一共七十人，要减到五十人才会有起色。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“我再说最后一次。如果说你既然把她招进公司，就不能随便辞退，那么至少调个部门吧。社长秘书未免太明显了。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“这不是管理，而是忠告——”"</div></div>
+<div class="quote-item"><div class="quote-text">"“对员工来说也不好。忽然招进一个漂亮女人，员工们不可能不起疑心。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“到时候后悔可来不及啊。”"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-12 09:39
+  </div>
+
+</div>
+
+</body>
+</html>
