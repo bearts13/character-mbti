@@ -385,11 +385,36 @@
   /* Responsive */
   @media (max-width: 768px) {
     .container { padding: 40px 16px; }
-    .header h1 { font-size: 32px; }
+    .header { margin-bottom: 50px; }
+    .header h1 { font-size: 32px; letter-spacing: 1px; }
     .header .subtitle { font-size: 15px; }
+    .header .logo { font-size: 13px; letter-spacing: 3px; padding: 5px 12px; }
     .section-title { font-size: 24px; }
-    .works-grid { grid-template-columns: 1fr; }
+    .section { margin-bottom: 50px; }
+    .works-grid { grid-template-columns: 1fr; gap: 16px; }
     .steps { flex-direction: column; }
+    .cta-row { flex-direction: column; width: 100%; }
+    .cta-row .btn-primary, .cta-row .btn-secondary { width: 100%; justify-content: center; }
+    .work-card { padding: 20px; }
+    .work-card .work-cover { height: 90px; font-size: 36px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .footer .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 30px 12px; }
+    .header { margin-bottom: 40px; }
+    .header h1 { font-size: 26px; }
+    .header .subtitle { font-size: 13px; }
+    .section-title { font-size: 20px; }
+    .section-desc { font-size: 13px; }
+    .work-card { padding: 16px; }
+    .work-card .work-cover { height: 72px; font-size: 28px; margin-bottom: 12px; }
+    .work-card h3 { font-size: 16px; }
+    .work-card .work-stats { font-size: 11px; gap: 12px; }
+    .feature-card { padding: 20px 16px; }
+    .step { padding: 18px; }
+    .btn-primary, .btn-secondary { padding: 12px 24px; font-size: 14px; }
   }
 </style>
 </head>

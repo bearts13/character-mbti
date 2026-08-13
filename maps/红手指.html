@@ -359,17 +359,38 @@
 
   /* Responsive */
   @media (max-width: 768px) {
-    .container { padding: 20px 10px; }
-    .header h1 { font-size: 24px; }
-    .axis-container { padding: 30px 30px 10px 30px; }
-    .grid { gap: 6px; }
-    .grid-cell { padding: 8px; min-height: 90px; }
-    .cell-header { margin-bottom: 4px; }
-    .grid-cell.has-chars .cell-mbti { font-size: 13px; }
-    .grid-cell.has-chars .cell-cn { font-size: 10px; }
-    .char-name { font-size: 11px; }
-    .char-avatar { width: 18px; height: 18px; font-size: 10px; }
+    .container { padding: 16px 8px; }
+    .header h1 { font-size: 20px; }
+    .header .subtitle { font-size: 12px; }
+    .axis-container { padding: 20px 16px 8px 16px; }
+    .axis-label { font-size: 10px; }
+    .axis-label.top { min-width: 40px; padding: 2px 4px; }
+    .axis-label.left { height: 40px; padding: 2px; }
+    .grid {
+      gap: 4px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+    .grid-cell { padding: 6px; min-height: 80px; border-radius: 8px; }
+    .cell-header { margin-bottom: 3px; }
+    .grid-cell.has-chars .cell-mbti { font-size: 12px; }
+    .grid-cell.has-chars .cell-cn { font-size: 9px; }
+    .char-name { font-size: 10px; padding: 2px 6px; }
+    .char-avatar { width: 16px; height: 16px; font-size: 9px; }
     .detail-panel { width: 100%; right: -100%; }
+    .detail-panel.active { right: 0; }
+    .detail-content { padding: 20px 16px; }
+    .detail-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 12px 4px; }
+    .header h1 { font-size: 18px; }
+    .grid-cell { min-height: 70px; padding: 4px; }
+    .grid-cell.has-chars .cell-mbti { font-size: 11px; }
+    .char-name { font-size: 9px; padding: 1px 4px; }
+    .char-avatar { width: 14px; height: 14px; font-size: 8px; }
   }
 </style>
 </head>
@@ -629,7 +650,7 @@
 
   <div class="footer">
     本地图由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
-    生成时间：2026-08-13 16:04
+    生成时间：2026-08-13 16:48
   </div>
 </div>
 
