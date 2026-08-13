@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>贾母 · ESFJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Cross-reference Section */
+  .cross-ref {
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(255, 107, 157, 0.06));
+    border: 1px solid rgba(124, 92, 255, 0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .cross-ref-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c5cff;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cross-ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cross-ref-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(124, 92, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+  .cross-ref-item:hover {
+    border-color: rgba(124, 92, 255, 0.3);
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.1);
+  }
+  .cross-ref-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cross-ref-work {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d375e;
+  }
+  .cross-ref-mbti {
+    font-size: 18px;
+    font-weight: 800;
+    color: #7c5cff;
+    letter-spacing: 1px;
+  }
+  .cross-ref-conf {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .cross-ref-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .cross-ref-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(124, 92, 255, 0.3);
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px 40px; }
+    .header-card { padding: 28px 20px; border-radius: 16px; }
+    .header-card .character-name { font-size: 24px; }
+    .header-card .mbti-type { font-size: 36px; }
+    .header-card .mbti-cn { font-size: 14px; }
+    .header-card .confidence { font-size: 12px; padding: 4px 12px; }
+    .section { padding: 20px 16px; border-radius: 14px; margin-top: 14px; }
+    .section-title { font-size: 15px; margin-bottom: 14px; }
+    .evidence-item { padding: 12px; }
+    .evidence-quote { font-size: 12px; line-height: 1.6; padding: 8px 10px; }
+    .evidence-desc { font-size: 13px; line-height: 1.6; }
+    .evidence-dim-header { flex-wrap: wrap; gap: 6px; }
+    .mbti-bar { padding: 10px 0; }
+    .mbti-bar-label { font-size: 12px; }
+    .mbti-bar-letter { font-size: 14px; width: 24px; }
+    .summary-text { font-size: 14px; line-height: 1.7; }
+    .alternative-card { padding: 12px 14px; }
+    .tag { font-size: 11px; padding: 3px 8px; }
+    .cross-ref { padding: 14px 16px; margin-top: 12px; }
+    .cross-ref-title { font-size: 12px; margin-bottom: 10px; }
+    .cross-ref-item { padding: 10px 12px; flex-wrap: wrap; }
+    .cross-ref-work { font-size: 13px; }
+    .cross-ref-mbti { font-size: 16px; }
+    .cross-ref-btn { padding: 6px 14px; font-size: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 8px 32px; }
+    .header-card { padding: 22px 16px; }
+    .header-card .character-name { font-size: 20px; }
+    .header-card .mbti-type { font-size: 30px; }
+    .section { padding: 16px 12px; }
+    .evidence-item { padding: 10px 8px; }
+    .evidence-quote { font-size: 11px; padding: 6px 8px; }
+    .evidence-desc { font-size: 12px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《红楼梦》</div>
+    <div class="character-name">贾母</div>
+    <div class="mbti-type">ESFJ</div>
+    <div class="confidence">置信度 83%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 83%"></div>
+    </div>
+  </div>
+
+  
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">28% / 72%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 72%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">43% / 57%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">19% / 81%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 81%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">91% / 9%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 91%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">热闹的家族核心</span>
+<span class="keyword">细节经验派</span>
+<span class="keyword">强情感护持</span>
+<span class="keyword">秩序掌舵人</span>
+<span class="keyword">宽厚而有边界</span>
+<span class="keyword">果断的长者权威</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>贾母是典型的“以人情维系秩序”的家族核心：她离不开热闹，善于在宴饮、赏月、行令中带动众人，也会主动挽留薛姨妈、善待刘姥姥，让关系不断流动。她的判断首先落在人身上，黛玉病弱便免其作诗，宝玉不必硬做才子，应当奖励；即便对贫弱晚辈，也不许因门第轻慢。只是她的慈爱并不软弱。她能为丧事迅速定下简省处置，也能在宝玉病危时严厉追责；她安排婚事、席位、供灯、诊病与护送，几乎总能立刻拍板。她不是抽象地讲规矩，而是用规矩守住家人：热闹是她的温度，控制是她的责任，护短则是她最深的情感本能。</p>
+    </div>
+    <div class="famous-line">
+      "她用人情聚拢一屋子的热闹，也用决断替所有人守住这个家的底线。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">72%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>她以宴饮、闲谈和召集众人来维持精神活力，是天然的社交发起者与场面主心骨。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">S · 感觉</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>她对物品、饮食、旧事和生活规格极其敏锐，主要凭具体经验判断，同时也有经营整体氛围的眼光。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">81%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>她优先照顾人的感受、病弱与尊严，但当家人安全或家族责任受威胁时，会毫不犹豫地显出强硬。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">91%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>她习惯迅速决断并落实到期限、分工、礼序和资源安排，是把家族日常真正运转起来的人。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">F 19%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">看见刘姥姥跌倒时责备只顾发笑的丫头，命人搀扶，并询问是否扭伤腰。</div>
+              <div class="evidence-quote">"小蹄子们，还不搀起来，只站着笑。"</div>
+              <div class="evidence-context">📍 游览潇湘馆途中，刘姥姥踩滑跌倒。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">她要求众人平等照看家境较差的喜鸾和四姐儿，并警告不可因贫富轻慢她们。</div>
+              <div class="evidence-quote">"留下的喜姐儿和四姐儿虽然穷，也和家里的姑娘们是一样，大家照看经心些。"</div>
+              <div class="evidence-context">📍 喜鸾、四姐儿留在园中玩耍后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">见小旦和小丑年幼而觉得可怜，询问年纪后另给食物和赏钱。</div>
+              <div class="evidence-quote">"贾母令人另拿些肉果与他两个，又另外赏钱两串。"</div>
+              <div class="evidence-context">📍 戏散后，贾母召见十一岁小旦与九岁小丑。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">赵姨娘称宝玉不中用、应早些回去时，贾母当面吐唾沫、斥骂并威胁追究性命。</div>
+              <div class="evidence-quote">"他死了，我只和你们要命。"</div>
+              <div class="evidence-context">📍 宝玉病重后说要离开贾家，赵姨娘在旁劝贾母。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">听鸳鸯说明原委后，她直接判断邢夫人是借题当众使凤姐难堪，并肯定凤姐处理得知礼。</div>
+              <div class="evidence-quote">"明是当着众人给凤儿没脸罢了。"</div>
+              <div class="evidence-context">📍 鸳鸯回报凤姐因受辱哭泣。</div>
+            </div>
+            
+          <div class="evidence-more">共 35 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 91%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">主动安排赏月地点、席位、行令规则及后续娱乐活动。</div>
+              <div class="evidence-quote">"赏月在山上最好。"</div>
+              <div class="evidence-context">📍 中秋夜众人祭拜后，贾母主持登山赏月。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">游园、用饭和物品调配中持续作出具体指令，包括改换窗纱、安排饭处、换筷子和分菜。</div>
+              <div class="evidence-quote">"你三妹妹那里好。你就带了人摆去，我们从这里坐了舡去。"</div>
+              <div class="evidence-context">📍 池前决定早饭摆在探春处。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">听闻张家要求女婿入赘后，未等邢夫人说完便明确否决亲事，并立即命王夫人传话给贾政。</div>
+              <div class="evidence-quote">"这断使不得。我们宝玉别人伏侍他还不够呢，倒给人家当家去。"</div>
+              <div class="evidence-context">📍 邢夫人介绍张家姑娘及招赘条件时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">认可凤姐在家庭私下场合的玩笑与活泼，不要求其严守庄重礼节，但以“礼体不错”为限。</div>
+              <div class="evidence-quote">"家常没人，娘儿们原该这样。横竖礼体不错就罢。"</div>
+              <div class="evidence-context">📍 回应王夫人对凤姐“无礼”的提醒。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">看病时她拒绝按常规放幔子，选择不设遮挡、直接让太医诊视。</div>
+              <div class="evidence-quote">"“不要放幔子，就这样瞧罢。”"</div>
+              <div class="evidence-context">📍 众婆子准备放幔子请王太医诊病时。</div>
+            </div>
+            
+          <div class="evidence-more">共 30 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 28%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交圈</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">因赏月时人少而感慨，并主动召集姑娘们同坐，希望场面热闹。</div>
+              <div class="evidence-quote">"想当年过的日子，到今夜男女三四十个，何等热闹。今日就这样，太少了。"</div>
+              <div class="evidence-context">📍 凸碧山庄入席后，贾母比较今昔参与人数。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">刺激偏好</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">夜深众人疲倦时仍兴致未尽，坚持继续饮酒、说笑和赏月。</div>
+              <div class="evidence-quote">"偏今儿高兴，你又来催。难道我醉了不成，偏到天亮！"</div>
+              <div class="evidence-context">📍 鸳鸯劝其夜深添衣歇息时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">在家宴中频繁发言，讲述往年情景、评价家人并持续带动谈笑。</div>
+              <div class="evidence-quote">"可见天下事总难十全。"</div>
+              <div class="evidence-context">📍 发现宝钗姊妹、李纨和凤姐缺席，感叹团圆难全。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">能量恢复</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">游园后感到乏倦，安排王夫人等人继续陪客，自己前往稻香村歇息。</div>
+              <div class="evidence-quote">"“贾母因觉身上乏倦，便命王夫人和迎春姊妹陪了薛姨妈去吃酒，自己便往稻香村来歇息。”"</div>
+              <div class="evidence-context">📍 游园、饮酒之后，贾母选择脱离社交活动休息。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">能量恢复</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">劳乏一天后，她次日不再出来会客，将接待事务交给邢夫人和王夫人。</div>
+              <div class="evidence-quote">"贾母劳乏了一日，次日便不出来会人。"</div>
+              <div class="evidence-context">📍 寿宴首日结束之后。</div>
+            </div>
+            
+          <div class="evidence-more">共 22 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">S 43%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">记得家中存有多种颜色的窗纱，并准确说出软烟罗的名称、颜色、用途和别名。</div>
+              <div class="evidence-quote">"那个软烟罗只有四样颜色：一样雨过天晴，一样秋香色，一样松绿的，一样就是银红的。"</div>
+              <div class="evidence-context">📍 在潇湘馆讨论更换窗纱。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">见到水亭后，具体回忆起幼年家中同类亭子的名称、自己落水受伤经过，以及鬓角伤痕的位置和大小。</div>
+              <div class="evidence-quote">"如今这鬓角上那指头顶大一块窝儿就是那残破了。"</div>
+              <div class="evidence-context">📍 在亭中见景忆旧。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">她主动询问各家送来的围屏数量，并根据具体规格留下两架屏风送人。</div>
+              <div class="evidence-quote">"前儿这些人家送礼来的共有几家有围屏？"</div>
+              <div class="evidence-context">📍 晚间召凤姐询问寿礼。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对家道衰败和年轻人的处境，提出设法让大家重新热闹一天，以改善家中气氛。</div>
+              <div class="evidence-quote">"我正要想个法儿叫他们还热闹一天才好"</div>
+              <div class="evidence-context">📍 湘云感叹贾府众人的精神面貌已变。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">未来导向</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">预估若将宝玉因黛玉而复病的实情告诉贾政，可能令他在路上不放心，因此选择隐瞒。</div>
+              <div class="evidence-quote">"贾母恐贾政在路不放心，并不将宝玉复病的话说起"</div>
+              <div class="evidence-context">📍 贾政赴任前来向她辞别。</div>
+            </div>
+            
+          <div class="evidence-more">共 8 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ESFJ</div>
+          <div class="type-conf">置信度 83%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ENFJ</div>
+          <div class="type-conf">置信度 31%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">她更多依靠亲历细节和现实经验判断，但在维系家族气氛、预判人心与营造意境时，也显出直觉型的整体眼光。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"停五七日抬出去，或一烧或乱葬地上埋了完事。"</div></div>
+<div class="quote-item"><div class="quote-text">"以后只管写字念书，不用出来也使得。"</div></div>
+<div class="quote-item"><div class="quote-text">"叫凤丫头收了，改日闷了再瞧。"</div></div>
+<div class="quote-item"><div class="quote-text">"他们姊妹病的病，弱的弱，见人腼腆，所以叫他们给我看屋子去了。"</div></div>
+<div class="quote-item"><div class="quote-text">"他能多大，定要他做才子不成？这就该奖励他，以后越发上心了。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-14 00:39
+  </div>
+
+</div>
+
+</body>
+</html>
