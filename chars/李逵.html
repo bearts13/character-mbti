@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李逵 · ENTP 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《水浒传》</div>
+    <div class="character-name">李逵</div>
+    <div class="mbti-type">ENTP</div>
+    <div class="confidence">置信度 76%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 76%"></div>
+    </div>
+  </div>
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">8% / 92%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 92%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">53% / 47%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 53%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">71% / 29%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 71%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">18% / 82%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 82%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">强势外放</span>
+<span class="keyword">冲动破局者</span>
+<span class="keyword">反规则行动派</span>
+<span class="keyword">直觉冒险型</span>
+<span class="keyword">武力决断</span>
+<span class="keyword">重义但不圆融</span>
+<span class="keyword">秩序适应性低</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>李逵是一个把情绪、忠义与行动几乎同时推出去的人。他极度外放，憋着不说话会觉得“憋杀我”，遇到阻碍则本能地要抢先解决；“我且抢入城中，一斧一个”不是单纯逞凶，而是他惯用的世界观：事情既然卡住，就用最直接的力量把它劈开。他并非没有情义和边界，不受金钱收买、敬重宋江的仗义、认定焦挺是好汉便不愿欺瞒，都说明他有朴素而坚定的价值判断。但他的忠义并不等于克制，往往是“认定了便不计后果”。他能配合诱敌设局，也会在受约束时暂时收敛，可一旦情绪、欲望或战意被点燃，军令、计划和程序都容易被抛到身后。李逵不是不会想，而是很少愿意让思考拦住自己：他要的不是周全的胜法，而是当下痛快地把路打通。</p>
+    </div>
+    <div class="famous-line">
+      "他不是先想清楚再挥斧的人，而是先替心里的不平开路，再让世道跟着作答。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">92%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>李逵的能量明显向外喷涌：主动请战、高声表态、以喝骂和行动表达意见，越在冲突与人群中越容易被点燃。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">53%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>他既有伏击诱敌、临场变通的一面，也强烈依赖具体可见的刺激、威慑与现实后果，因此直觉与实感倾向难以完全定论。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">T · 思考</span>
+            <span class="dim-desc-pct">71%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>他处理冲突时优先相信力量、效率和个人意志，但对宋江、兄弟与忠义仍有真切的情感服从，属于有价值底线却不擅长温和权衡的决断型人物。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">P · 感知</span>
+            <span class="dim-desc-pct">82%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>他最稳定的特征是抗拒约束：计划、禁令和生活秩序常被即时情绪打断，只有在明确权威或直接惩戒面前才可能短暂收束。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 8%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">吴用刚提出需要同伴，李逵立刻高声主动请求同行。</div>
+              <div class="evidence-quote">"军师哥哥，小弟与你走一遭！"</div>
+              <div class="evidence-context">📍 忠义堂上，吴用说明自己要去北京游说卢俊义。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">李逵自称难以忍受禁语，并以衔铜钱的方式回应吴用的要求，表现出强烈的口头表达需求。</div>
+              <div class="evidence-quote">"闭着这个嘴不说话，却是憋杀我！"</div>
+              <div class="evidence-context">📍 吴用提出出行期间不得说话的条件时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">秦明正要奉令出阵时，李逵不问事由便抢先冲到两军中央。</div>
+              <div class="evidence-quote">"黑旋风李逵手掿板斧，直奔军前，不问事由，抢出垓心。"</div>
+              <div class="evidence-context">📍 宋江传令前军迎战曾升。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">在梁山主位争议中高声斥责宋江反复谦让，并以散伙相威胁。</div>
+              <div class="evidence-quote">"你只管让来让去假甚鸟！我便杀将起来，各自散火！"</div>
+              <div class="evidence-context">📍 宋江坚持让卢俊义担任梁山之主。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">表达风格</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">公开大声反驳宋江，连续表达不满并以粗俗直接的语言争辩。</div>
+              <div class="evidence-quote">"哥哥偏不直性！"</div>
+              <div class="evidence-context">📍 宋江安排卢俊义座次时。</div>
+            </div>
+            
+          <div class="evidence-more">共 22 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">P 18%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">在曾头市讲和场合因史文恭怀疑来使身份而暴怒，直接揪住史文恭殴打。</div>
+              <div class="evidence-quote">"李逵大怒，揪住史文恭便打。"</div>
+              <div class="evidence-context">📍 史文恭质疑吴用派遣时迁等五人的用意。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">被宋江拒绝后立即自行下山，没有等待批准或进一步商议。</div>
+              <div class="evidence-quote">"独自也要去走一遭。"</div>
+              <div class="evidence-context">📍 关胜出征凌州前。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">违抗宋江军令，夜间携斧离开山寨。</div>
+              <div class="evidence-quote">"黑旋风李逵，昨夜二更，拿了两把板斧，不知哪里去了。"</div>
+              <div class="evidence-context">📍 宋江下令不许其随军之后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">决定速度</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他担心欧鹏、陶宗旺赶来争功，随即动手杀死赵能，没有延迟判断。</div>
+              <div class="evidence-quote">"恐怕争功坏了义气，就手把赵能一斧，砍做两半。"</div>
+              <div class="evidence-context">📍 欧鹏和陶宗旺持刀赶至赵能倒地处。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">自行确定行动目标，要求焦挺先去说服鲍旭，再共同攻打凌州。</div>
+              <div class="evidence-quote">"你和我去枯树山，说了鲍旭，同去凌州，杀得单、魏二将，便好回山。"</div>
+              <div class="evidence-context">📍 李逵拒绝立即回梁山，并对焦挺提出后续行动安排。</div>
+            </div>
+            
+          <div class="evidence-more">共 25 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">T 71%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">未经许可私自下山，计划用板斧杀死敌将，并因争执采取暴力行动。</div>
+              <div class="evidence-quote">"我且抢入城中，一斧一个，都砍杀了。"</div>
+              <div class="evidence-context">📍 不满宋江不让其随军后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">在劫取陷车时不先交涉，直接带人抢车；之后又参与打破凌州北门、抢掠钱粮和放火。</div>
+              <div class="evidence-quote">"两个好汉，引着小喽啰拦住去路，也不打话，便抢陷车。"</div>
+              <div class="evidence-context">📍 李逵、焦挺和鲍旭拦截押送宣赞、郝思文的官军。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">面对敌军采取主动冲杀和救援行动。</div>
+              <div class="evidence-quote">"伏兵李逵、杨林引人从芦苇中杀出来，救得宋江。"</div>
+              <div class="evidence-context">📍 连环马冲散梁山军，宋江撤退时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">行动关心</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">为救柴进两次进入深井，在井底摸到柴进仍有微弱声音后立即设法将其送上去。</div>
+              <div class="evidence-quote">"谢天地！恁的时还有救性！"</div>
+              <div class="evidence-context">📍 高唐州牢后枯井中搜救柴进。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">因认为自己打死殷天锡牵连柴进，明确表示要参与营救柴进。</div>
+              <div class="evidence-quote">"我打死了殷天锡，却教柴大官人吃官司，我如何不要救他！"</div>
+              <div class="evidence-context">📍 宋江派戴宗前往蓟州寻找公孙胜时。</div>
+            </div>
+            
+          <div class="evidence-more">共 27 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 53%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">依军师计策设局，不与卢俊义久战，而是主动佯退诱其入林。</div>
+              <div class="evidence-quote">"员外，你今日被俺军师算定了命，快来坐把交椅。"</div>
+              <div class="evidence-context">📍 梁山伏兵首次截击卢俊义。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">因畏惧罗真人与公孙胜法术，沿路谨慎服侍公孙胜，不再任性行事。</div>
+              <div class="evidence-quote">"李逵惧怕罗真人法术，十分小心伏侍公孙胜，哪里敢使性。"</div>
+              <div class="evidence-context">📍 与公孙胜同行赶往高唐州途中。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">在正常购买活鱼受阻后，李逵不等待酒保或渔牙主人，而是自行跳上渔船取鱼；但因不了解渔船构造而放走整舱活鱼。</div>
+              <div class="evidence-quote">"李逵见他众人不肯拿鱼，便跳上一只船去。"</div>
+              <div class="evidence-context">📍 江边渔人称未等到渔牙主人，不敢开舱卖鱼。</div>
+            </div>
+            
+          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ENTP</div>
+          <div class="type-conf">置信度 76%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">ESTP</div>
+          <div class="type-conf">置信度 62%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">N/S维度最具争议：李逵能随机应变、敢于另辟路径，但其判断也高度受眼前刺激、具体权威与现实威慑驱动。</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"军师哥哥，小弟与你走一遭！"</div></div>
+<div class="quote-item"><div class="quote-text">"闭着这个嘴不说话，却是憋杀我！"</div></div>
+<div class="quote-item"><div class="quote-text">"你只管让来让去假甚鸟！我便杀将起来，各自散火！"</div></div>
+<div class="quote-item"><div class="quote-text">"兄弟若闲便要生病。若不叫我去时，独自也要去走一遭。"</div></div>
+<div class="quote-item"><div class="quote-text">"我且抢入城中，一斧一个，都砍杀了。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-13 13:32
+  </div>
+
+</div>
+
+</body>
+</html>
