@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>加贺恭一郎 · INTJ 人格分析报告</title>
+<title>加贺恭一郎 · INFJ 人格分析报告</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -95,6 +95,82 @@
     height: 100%;
     background: white;
     border-radius: 2px;
+  }
+
+  /* Cross-reference Section */
+  .cross-ref {
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(255, 107, 157, 0.06));
+    border: 1px solid rgba(124, 92, 255, 0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .cross-ref-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c5cff;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cross-ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cross-ref-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(124, 92, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+  .cross-ref-item:hover {
+    border-color: rgba(124, 92, 255, 0.3);
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.1);
+  }
+  .cross-ref-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cross-ref-work {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d375e;
+  }
+  .cross-ref-mbti {
+    font-size: 18px;
+    font-weight: 800;
+    color: #7c5cff;
+    letter-spacing: 1px;
+  }
+  .cross-ref-conf {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .cross-ref-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .cross-ref-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(124, 92, 255, 0.3);
   }
 
   /* Section Card */
@@ -408,7 +484,6 @@
   }
 
   /* Print styles */
-  
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .container { padding: 20px 12px 40px; }
@@ -429,7 +504,14 @@
     .summary-text { font-size: 14px; line-height: 1.7; }
     .alternative-card { padding: 12px 14px; }
     .tag { font-size: 11px; padding: 3px 8px; }
+    .cross-ref { padding: 14px 16px; margin-top: 12px; }
+    .cross-ref-title { font-size: 12px; margin-bottom: 10px; }
+    .cross-ref-item { padding: 10px 12px; flex-wrap: wrap; }
+    .cross-ref-work { font-size: 13px; }
+    .cross-ref-mbti { font-size: 16px; }
+    .cross-ref-btn { padding: 6px 14px; font-size: 12px; }
   }
+
   @media (max-width: 480px) {
     .container { padding: 16px 8px 32px; }
     .header-card { padding: 22px 16px; }
@@ -454,12 +536,28 @@
 
   <!-- Header -->
   <div class="header-card">
-    <div class="work-name">《红手指》</div>
+    <div class="work-name">《新参者》</div>
     <div class="character-name">加贺恭一郎</div>
-    <div class="mbti-type">INTJ</div>
+    <div class="mbti-type">INFJ</div>
     <div class="confidence">置信度 76%</div>
     <div class="confidence-bar">
       <div class="confidence-fill" style="width: 76%"></div>
+    </div>
+  </div>
+
+  
+  <div class="cross-ref">
+    <div class="cross-ref-title">📚 跨作品关联 · 该角色在其他作品中的分析</div>
+    <div class="cross-ref-list">
+      
+        <div class="cross-ref-item">
+          <div class="cross-ref-info">
+            <span class="cross-ref-work">《红手指》</span>
+            <span class="cross-ref-mbti">INTJ</span>
+            <span class="cross-ref-conf">置信度 76%</span>
+          </div>
+          <a href="加贺恭一郎_红手指.html" class="cross-ref-btn">查看分析 →</a>
+        </div>
     </div>
   </div>
 
@@ -470,11 +568,11 @@
         <div class="mbti-bar">
           <div class="mbti-bar-labels">
             <span class="left">I <span class="label-name">· 内倾</span></span>
-            <span style="color: #9891b3; font-size: 12px;">62% / 38%</span>
+            <span style="color: #9891b3; font-size: 12px;">34% / 66%</span>
             <span class="right"><span class="label-name">外倾 · </span>E</span>
           </div>
           <div class="mbti-bar-track">
-            <div class="mbti-bar-fill " style="width: 62%"></div>
+            <div class="mbti-bar-fill right-side" style="width: 66%"></div>
           </div>
         </div>
         
@@ -482,11 +580,11 @@
         <div class="mbti-bar">
           <div class="mbti-bar-labels">
             <span class="left">N <span class="label-name">· 直觉</span></span>
-            <span style="color: #9891b3; font-size: 12px;">74% / 26%</span>
+            <span style="color: #9891b3; font-size: 12px;">58% / 42%</span>
             <span class="right"><span class="label-name">感觉 · </span>S</span>
           </div>
           <div class="mbti-bar-track">
-            <div class="mbti-bar-fill " style="width: 74%"></div>
+            <div class="mbti-bar-fill " style="width: 58%"></div>
           </div>
         </div>
         
@@ -494,11 +592,11 @@
         <div class="mbti-bar">
           <div class="mbti-bar-labels">
             <span class="left">T <span class="label-name">· 思考</span></span>
-            <span style="color: #9891b3; font-size: 12px;">74% / 26%</span>
+            <span style="color: #9891b3; font-size: 12px;">48% / 52%</span>
             <span class="right"><span class="label-name">情感 · </span>F</span>
           </div>
           <div class="mbti-bar-track">
-            <div class="mbti-bar-fill " style="width: 74%"></div>
+            <div class="mbti-bar-fill right-side" style="width: 52%"></div>
           </div>
         </div>
         
@@ -506,11 +604,11 @@
         <div class="mbti-bar">
           <div class="mbti-bar-labels">
             <span class="left">J <span class="label-name">· 判断</span></span>
-            <span style="color: #9891b3; font-size: 12px;">68% / 32%</span>
+            <span style="color: #9891b3; font-size: 12px;">74% / 26%</span>
             <span class="right"><span class="label-name">感知 · </span>P</span>
           </div>
           <div class="mbti-bar-track">
-            <div class="mbti-bar-fill " style="width: 68%"></div>
+            <div class="mbti-bar-fill " style="width: 74%"></div>
           </div>
         </div>
         
@@ -520,13 +618,13 @@
   <div class="section">
     <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
     <div class="keywords">
-      <span class="keyword">克制疏离</span>
-<span class="keyword">洞察敏锐</span>
-<span class="keyword">逻辑优先</span>
-<span class="keyword">模式推演</span>
-<span class="keyword">秩序掌控</span>
-<span class="keyword">务实决断</span>
-<span class="keyword">情感内收</span>
+      <span class="keyword">沉静洞察</span>
+<span class="keyword">高度结构化</span>
+<span class="keyword">温和而执拗</span>
+<span class="keyword">证据导向</span>
+<span class="keyword">边界感强</span>
+<span class="keyword">模式与实证并重</span>
+<span class="keyword">克制的共情</span>
     </div>
   </div>
 
@@ -534,10 +632,10 @@
   <div class="section">
     <div class="section-title"><span class="icon">💭</span>人格画像</div>
     <div class="summary">
-      <p>加贺恭一郎更接近INTJ：他不急于被情绪牵引，而是习惯从零散细节中抽出隐藏的关系与机制。面对案件，他注意的不是表面事实，而是受害人“未经母亲同意又再度出门”这一反常行为，并由此推演她与凶手之间可能存在的熟识关系；这显示出他对模式、动机和因果链的敏锐把握。面对家庭，他的冷淡也并非单纯无情：父亲病重时，他会评估病情、承担费用、安排照护，却很少用探望或言语表达亲近。奖杯被视为搬运负担而非情感遗物，同样说明他以现实效用处理关系残留。他追求的不是温柔地维系一切，而是清醒地让事情落到可处理的结果上。</p>
+      <p>加贺恭一郎不是靠声势压人的刑警，而是把观察、耐心和秩序感藏进日常闲谈里的人。他习惯独自消化线索，也懂得主动走进陌生人的生活；他会从衣着方向、三十分钟的空白、商品材质等微末事实中建立完整因果，却不会把推测冒充结论。对他而言，真相必须经得起时间线、物证与实地复现的检验。但这份严谨并不等于冷酷：他会延后揭露，会尊重不愿言说的私事，也会顾及留下来的人如何继续生活。他的温柔不是放弃追问，而是在追问到底时，仍尽力不给无辜者留下第二道伤口。</p>
     </div>
     <div class="famous-line">
-      "他不擅长把爱说出口，却总会先把最棘手的现实处理干净。"
+      "他追查真相时像校准钟表，面对人心时却知道该把声音放轻。"
     </div>
   </div>
 
@@ -547,11 +645,11 @@
     
         <div class="dim-desc">
           <div class="dim-desc-icon">
-            <span class="dim-desc-badge">I · 内倾</span>
-            <span class="dim-desc-pct">62%</span>
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">66%</span>
           </div>
           <div class="dim-desc-text">
-            <strong>能量来源：</strong>他在人际互动中寡言、克制且保有距离，更习惯独自消化关系与情绪，但关键时刻能够站出来承担事务。
+            <strong>能量来源：</strong>他能主动发起访谈并经营一对一关系，但恢复与判断更多依赖独处、观察和克制表达，整体偏内向。
           </div>
         </div>
         
@@ -559,21 +657,21 @@
         <div class="dim-desc">
           <div class="dim-desc-icon">
             <span class="dim-desc-badge">N · 直觉</span>
-            <span class="dim-desc-pct">74%</span>
+            <span class="dim-desc-pct">58%</span>
           </div>
           <div class="dim-desc-text">
-            <strong>信息获取：</strong>他擅长从不合常理的细节中识别潜在模式，并以关系结构和心理动机重建事件全貌。
+            <strong>信息获取：</strong>他既擅长从零散异常中识别隐藏模式，也坚持让每个推论落回可观察、可核验的具体事实。
           </div>
         </div>
         
 
         <div class="dim-desc">
           <div class="dim-desc-icon">
-            <span class="dim-desc-badge">T · 思考</span>
-            <span class="dim-desc-pct">74%</span>
+            <span class="dim-desc-badge">F · 情感</span>
+            <span class="dim-desc-pct">52%</span>
           </div>
           <div class="dim-desc-text">
-            <strong>决策方式：</strong>他优先依据风险、效用与事实作出判断，关怀往往落实为解决问题，而非显露情绪。
+            <strong>决策方式：</strong>他的结论服从证据与逻辑，处理人的方式却服从体谅与分寸，是理性骨架中保留人情温度的平衡型人格。
           </div>
         </div>
         
@@ -581,10 +679,10 @@
         <div class="dim-desc">
           <div class="dim-desc-icon">
             <span class="dim-desc-badge">J · 判断</span>
-            <span class="dim-desc-pct">68%</span>
+            <span class="dim-desc-pct">74%</span>
           </div>
           <div class="dim-desc-text">
-            <strong>生活方式：</strong>他倾向于分类、预案与掌控，将混乱的生活和危机尽可能纳入明确、可执行的安排。
+            <strong>生活方式：</strong>他以时间线、路线、物证和验证步骤组织调查，既有强烈的完成与控制需求，也能为真相和隐私灵活调整节奏。
           </div>
         </div>
         
@@ -596,62 +694,41 @@
     
         <div class="evidence-group">
           <div class="evidence-dim-header">
-            <span class="evidence-dim-title">N/S · 信息获取</span>
-            <span class="evidence-dim-score">N 74%</span>
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 34%</span>
           </div>
           
             <div class="evidence-item">
               <div class="evidence-top">
-                <span class="evidence-polarity N">N</span>
-                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
                 <span class="evidence-strength">强度 90%</span>
               </div>
-              <div class="evidence-text">他从受害人先回家、未经母亲同意再次外出等零散事实，推演出受害人与凶手相识的整体可能。</div>
-              <div class="evidence-quote">"这想法建立在受害人和凶手原本就相识的基础上。"</div>
-              <div class="evidence-context">📍 警方讨论凶手如何将受害人带回住处。</div>
+              <div class="evidence-text">加贺在酒吧主动走近赖子，提出同坐并开启关于案件的谈话。</div>
+              <div class="evidence-quote">"“我想跟您一起坐一会儿。”加贺面带笑容。"</div>
+              <div class="evidence-context">📍 第二章第5节，加贺在赖子常去的酒吧与她会面。</div>
             </div>
             
             <div class="evidence-item">
               <div class="evidence-top">
-                <span class="evidence-polarity N">N</span>
-                <span class="evidence-indicator">抽象联想</span>
-                <span class="evidence-strength">强度 70%</span>
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 90%</span>
               </div>
-              <div class="evidence-text">他以假设推演受害人与凶手的心理状态和后续犯罪过程，并非停留于已确认事实。</div>
-              <div class="evidence-quote">"我们不妨假设她是要去见凶手。"</div>
-              <div class="evidence-context">📍 说明自己的侦查推理。</div>
+              <div class="evidence-text">他独自进入柳泽商店，主动确认店主身份并立刻开始询问案情。</div>
+              <div class="evidence-quote">"“是柳泽先生吧？”来人分别看了看尚哉和麻纪，问道。"</div>
+              <div class="evidence-context">📍 第三章，首次走访柳泽商店调查三井峰子的行踪。</div>
             </div>
             
             <div class="evidence-item">
               <div class="evidence-top">
-                <span class="evidence-polarity N">N</span>
-                <span class="evidence-indicator">理论兴趣</span>
-                <span class="evidence-strength">强度 60%</span>
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 80%</span>
               </div>
-              <div class="evidence-text">他围绕凶手与受害人关系这一潜在机制提出解释，以补足案件行为逻辑。</div>
-              <div class="evidence-quote">"凶手可能也会天真地认为哪怕自己有少许的不轨举动也不会招致受害人的激烈抵抗。"</div>
-              <div class="evidence-context">📍 分析相识关系对犯罪发生方式的影响。</div>
-            </div>
-            
-          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
-        </div>
-        
-
-        <div class="evidence-group">
-          <div class="evidence-dim-header">
-            <span class="evidence-dim-title">I/E · 能量来源</span>
-            <span class="evidence-dim-score">I 62%</span>
-          </div>
-          
-            <div class="evidence-item">
-              <div class="evidence-top">
-                <span class="evidence-polarity I">I</span>
-                <span class="evidence-indicator">社交圈</span>
-                <span class="evidence-strength">强度 70%</span>
-              </div>
-              <div class="evidence-text">他与父亲长期少有交谈，彼此甚至不看对方；他也在父亲外出时才来处理自己的物品。</div>
-              <div class="evidence-quote">"他也注意到这父子俩很少交谈，甚至连看都不看对方一眼。"</div>
-              <div class="evidence-context">📍 松宫回忆加贺与隆正的父子关系。</div>
+              <div class="evidence-text">他主动到文孝的店前提出谈话，并要求避开聪子另找地方交谈。</div>
+              <div class="evidence-quote">"“今天有事想问您，能抽出一点时间吗？”"</div>
+              <div class="evidence-context">📍 第一章，傍晚加贺为核实诊断证明之事拜访文孝。</div>
             </div>
             
             <div class="evidence-item">
@@ -660,98 +737,260 @@
                 <span class="evidence-indicator">表达风格</span>
                 <span class="evidence-strength">强度 60%</span>
               </div>
-              <div class="evidence-text">初次被介绍给松宫时，他只作简短问候，办完自己的事便迅速离开。</div>
-              <div class="evidence-quote">"多多关照。"</div>
-              <div class="evidence-context">📍 十多年前在隆正家中首次与松宫见面时。</div>
+              <div class="evidence-text">对于尚未解开的部分，他拒绝继续透露具体推测。</div>
+              <div class="evidence-quote">"“接下来的事情，即便我想告诉你也不行，因为我还没解开谜团。”"</div>
+              <div class="evidence-context">📍 第一章咖啡馆，加贺由田仓西装整齐的现象推及案件疑点后。</div>
             </div>
             
-          <div class="evidence-more">共 2 条证据，展示强度最高的 2 条</div>
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">面对菜穗要求解释案件时，他先自行思考，再给出有限回应，未立刻展开讨论。</div>
+              <div class="evidence-quote">"“这个嘛……”加贺悠闲地靠在椅子上，看着外面的街道"</div>
+              <div class="evidence-context">📍 第一章咖啡馆，菜穗追问田仓案件调查结果。</div>
+            </div>
+            
+          <div class="evidence-more">共 45 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 58%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他通过观察大量路人的共同规律，归纳出外出员工和一直在公司内工作的员工在着装上的差异。</div>
+              <div class="evidence-quote">"“从右往左，也就是从人形町往滨町走的上班族多数都脱了上衣，而相反，从左往右走的人，上衣都穿得很整齐。”"</div>
+              <div class="evidence-context">📍 第一章咖啡馆，傍晚街头观察。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺把无糖咖啡的选择与修平自称爱吃人形烧的说法联系起来，借日常习惯发现陈述中的不协调处。</div>
+              <div class="evidence-quote">"“但是，是无糖的哦。”"</div>
+              <div class="evidence-context">📍 第二章第3节，加贺在料亭以咖啡试探修平。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺根据芥末人形烧比其他人形烧更早制作的鉴定结果，推导出有人连续两天购买并提前准备掉包物。</div>
+              <div class="evidence-quote">"“也就是说，案犯——当然只是将芥末放进人形烧的案犯，没有将芥末放进刚买来的人形烧，而是事先准备好，然后掉包，因此可能有人连续两天买了人形烧。”"</div>
+              <div class="evidence-context">📍 第二章第5节，加贺向赖子说明锁定线索的推理过程。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他重视田仓西装是否整齐、是否穿西装上衣等具体观察事实，并据此核验说法。</div>
+              <div class="evidence-quote">"“当时他穿没穿西装上衣？”"</div>
+              <div class="evidence-context">📍 第一章仙贝店，晚间加贺向菜穗补充询问田仓的着装。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity S">S</span>
+                <span class="evidence-indicator">细节记忆</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">加贺细致说明案发现场人形烧的包装、馅料组合、指纹和购买要求等具体事实。</div>
+              <div class="evidence-quote">"“死者家中的人形烧有特征，既有带馅儿的，也有不带的。”"</div>
+              <div class="evidence-context">📍 第二章第3节，加贺向修平解释警方如何找到他。</div>
+            </div>
+            
+          <div class="evidence-more">共 58 条证据，展示强度最高的 5 条</div>
         </div>
         
 
         <div class="evidence-group">
           <div class="evidence-dim-header">
             <span class="evidence-dim-title">T/F · 决策方式</span>
-            <span class="evidence-dim-score">T 74%</span>
+            <span class="evidence-dim-score">F 48%</span>
           </div>
           
             <div class="evidence-item">
               <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">公平vs仁慈</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他在完成必要确认后，主动限制信息传播，希望保留玄一的体面与情感寄托。</div>
+              <div class="evidence-quote">"“请二位忘掉我今天的话。”"</div>
+              <div class="evidence-context">📍 揭示玄一可能前往水天宫为怀孕的女儿祈愿之后。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">他将案件相关者的心理创伤视为刑警职责的一部分，并以寻找可安慰受害者的线索为行动目标。</div>
+              <div class="evidence-quote">"“有人会因案件而留下心灵创伤，他们也是受害者。刑警的职责就是寻找能够拯救受害者的线索。”"</div>
+              <div class="evidence-context">📍 第四节，多美子得知峰子原本想与她和好后，询问加贺是否在调查案件。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">共情表达</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">多美子发现峰子遗留的和好心意而落泪时，他通过呈现筷子和果冻线索，帮助她减轻对朋友的愧疚与误解。</div>
+              <div class="evidence-quote">"“我想她原本是想买了和您一起吃。”"</div>
+              <div class="evidence-context">📍 第四节，柳泽商店内，加贺说明峰子生前想购买果冻的用意。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
                 <span class="evidence-polarity T">T</span>
                 <span class="evidence-indicator">决策依据</span>
-                <span class="evidence-strength">强度 80%</span>
+                <span class="evidence-strength">强度 90%</span>
               </div>
-              <div class="evidence-text">得知父亲心绞痛后，他首先按病症风险和治疗效果判断情况，而没有直接表达担忧。</div>
-              <div class="evidence-quote">"不过心绞痛没有大碍，通过服药可以大为改善。"</div>
-              <div class="evidence-context">📍 隆正因心绞痛住院时。</div>
+              <div class="evidence-text">尽管有多名同事称六点后见过田仓，他仍将时间证词的出入视为必须调查的问题。</div>
+              <div class="evidence-quote">"“作为警察，我不能对这种时间上的出入视而不见。”"</div>
+              <div class="evidence-context">📍 第一章咖啡馆，加贺说明持续调查田仓的原因。</div>
             </div>
             
             <div class="evidence-item">
               <div class="evidence-top">
                 <span class="evidence-polarity T">T</span>
-                <span class="evidence-indicator">公平vs仁慈</span>
-                <span class="evidence-strength">强度 70%</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
               </div>
-              <div class="evidence-text">搬家时，他认为奖杯无用且碍事，要求直接处理，不因父亲长期保存而保留。</div>
-              <div class="evidence-quote">"不用了，只会碍手碍脚的。"</div>
-              <div class="evidence-context">📍 隆正搬家、克子建议保留加贺获奖奖杯时。</div>
+              <div class="evidence-text">加贺依靠指纹、擦拭痕迹和鉴定结果判断人形烧提供者不必然是凶手，并据此调整调查对象。</div>
+              <div class="evidence-quote">"“如果送人形烧的人就是凶手，他不可能忘掉那个塑料盒，但盒子上没有擦拭过的痕迹。”"</div>
+              <div class="evidence-context">📍 第二章第5节，加贺向赖子说明警方未将买人形烧者列为重点对象的原因。</div>
             </div>
             
-            <div class="evidence-item">
-              <div class="evidence-top">
-                <span class="evidence-polarity T">T</span>
-                <span class="evidence-indicator">共情表达</span>
-                <span class="evidence-strength">强度 60%</span>
-              </div>
-              <div class="evidence-text">父亲病情紧急处理完成后，他选择听医生说明并直接离开，没有进入病房探望。</div>
-              <div class="evidence-quote">"他听负责治疗隆正的医生介绍完情况后便直接回去了。"</div>
-              <div class="evidence-context">📍 隆正心绞痛住院期间。</div>
-            </div>
-            
-          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
+          <div class="evidence-more">共 60 条证据，展示强度最高的 5 条</div>
         </div>
         
 
         <div class="evidence-group">
           <div class="evidence-dim-header">
             <span class="evidence-dim-title">J/P · 生活方式</span>
-            <span class="evidence-dim-score">J 68%</span>
+            <span class="evidence-dim-score">J 74%</span>
           </div>
           
             <div class="evidence-item">
               <div class="evidence-top">
                 <span class="evidence-polarity J">J</span>
-                <span class="evidence-indicator">秩序偏好</span>
-                <span class="evidence-strength">强度 70%</span>
-              </div>
-              <div class="evidence-text">他将自己的物品分类装箱，并在箱上标记“处理”，明确安排物品去向。</div>
-              <div class="evidence-quote">"加贺把装奖杯的箱子拉到身前，抓起旁边的钢笔在上面写下大大的“处理”两字。"</div>
-              <div class="evidence-context">📍 协助隆正搬家时。</div>
-            </div>
-            
-            <div class="evidence-item">
-              <div class="evidence-top">
-                <span class="evidence-polarity J">J</span>
                 <span class="evidence-indicator">控制欲</span>
-                <span class="evidence-strength">强度 60%</span>
+                <span class="evidence-strength">强度 80%</span>
               </div>
-              <div class="evidence-text">得知母亲去世后，他坚持独自前往取回遗骨。</div>
-              <div class="evidence-quote">"阿恭好像坚持要自己一个人去。"</div>
-              <div class="evidence-context">📍 克子向松宫讲述加贺处理母亲后事。</div>
+              <div class="evidence-text">他主动走访医院主治医生，核实两份诊断证明的存在及开具原因，以掌握田仓时间线的关键事实。</div>
+              <div class="evidence-quote">"“我去新大桥医院询问了主治医生，但没问上川聪子女士的真实病情。”"</div>
+              <div class="evidence-context">📍 第一章咖啡馆，加贺向文孝揭示调查所得。</div>
             </div>
             
             <div class="evidence-item">
               <div class="evidence-top">
                 <span class="evidence-polarity J">J</span>
                 <span class="evidence-indicator">计划习惯</span>
-                <span class="evidence-strength">强度 50%</span>
+                <span class="evidence-strength">强度 80%</span>
               </div>
-              <div class="evidence-text">父亲癌症晚期后，他表示承担医疗费用并提出请人照顾，采取的是预先安排照护资源的方式。</div>
-              <div class="evidence-quote">"医疗费用他会负担，可以请人照顾隆正云云。"</div>
-              <div class="evidence-context">📍 得知隆正癌症晚期后。</div>
+              <div class="evidence-text">加贺事先安排以用餐为名接触修平，并通过咖啡收集指纹、通过谈话逐步核实人形烧去向。</div>
+              <div class="evidence-quote">"“这自然有办法……”加贺咧嘴笑了起来。"</div>
+              <div class="evidence-context">📍 第二章第3节，修平意识到加贺请他喝咖啡的真正目的。</div>
             </div>
             
-          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">控制欲</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">加贺掌握谈话节奏，在修平追问指纹时故意暂缓回答，随后再揭示信息。</div>
+              <div class="evidence-quote">"加贺并未马上回答，而是煞有介事地喝起酒来。"</div>
+              <div class="evidence-context">📍 第二章第3节，加贺在料亭向修平谈及人形烧盒上的指纹。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">他不拘泥于直接询问的固定程序，而是通过隐藏调查目的、等待时机来获取信息。</div>
+              <div class="evidence-quote">"“刑警一般不会让人看出自己的目的。”"</div>
+              <div class="evidence-context">📍 第三章，尚哉质疑他为何不直接问麻纪时。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">规则态度</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">为保护聪子的病情隐私并解决田仓的不在场证明，他没有要求公开全部事实，而是协调上司和警视厅采用仅需文孝证词的安排。</div>
+              <div class="evidence-quote">"“一切都已安排好，只需要您的证词。”"</div>
+              <div class="evidence-context">📍 第一章咖啡馆，加贺处理诊断证明隐瞒所造成的调查问题。</div>
+            </div>
+            
+          <div class="evidence-more">共 43 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T · </span>
+            <span class="evidence-dim-score">50%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">赖子要求直说后，加贺明确表示将直接进入案件正题，并持续提出质询。</div>
+              <div class="evidence-quote">"“请见谅，那我就直接进入正题。是关于小传马町凶杀案的。”"</div>
+              <div class="evidence-context">📍 第二章第5节，加贺在酒吧与赖子交谈。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">F · </span>
+            <span class="evidence-dim-score">50%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 50%</span>
+              </div>
+              <div class="evidence-text">加贺在承认自己对修平施压过度后表示反省。</div>
+              <div class="evidence-quote">"“我对他也欺负得有些过头，正在反省。”"</div>
+              <div class="evidence-context">📍 第二章第5节，案件中人形烧线索的真相被澄清后。</div>
+            </div>
+            
+          <div class="evidence-more">共 1 条证据，展示强度最高的 1 条</div>
         </div>
         
   </div>
@@ -764,16 +1003,16 @@
       <div class="dispute-title">⚡ 存在争议的判断</div>
       <div class="dispute-types">
         <div class="dispute-type">
-          <div class="type-label">INTJ</div>
+          <div class="type-label">INFJ</div>
           <div class="type-conf">置信度 76%</div>
         </div>
         <div class="dispute-vs">VS</div>
         <div class="dispute-type secondary">
-          <div class="type-label">ENTJ</div>
-          <div class="type-conf">置信度 58%</div>
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 46%</div>
         </div>
       </div>
-      <div class="dispute-reason">内向与外向的差距最小：他日常关系中明显收敛疏离，但在需要承担责任和推进事务时，也会表现出强势的行动与组织能力。</div>
+      <div class="dispute-reason">他以严密证据和时间逻辑作出判断，却总会把当事人的尊严、创伤与隐私纳入处理方式，因此理性与情感的主导性最具争议。</div>
     </div>
   </div>
 
@@ -781,13 +1020,16 @@
   <!-- Quotes -->
   <div class="section">
     <div class="section-title"><span class="icon">💬</span>代表性台词</div>
-    <div class="quote-item"><div class="quote-text">"我比较在意的是，受害人先回到家中，在没征得母亲同意的情况下又再度出门这一点。"</div></div>
-<div class="quote-item"><div class="quote-text">"这都没用了，告诉搬家公司的人，让他们处理了吧。"</div></div>
+    <div class="quote-item"><div class="quote-text">"“作为警察，我不能对这种时间上的出入视而不见。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“从右往左，也就是从人形町往滨町走的上班族多数都脱了上衣，而相反，从左往右走的人，上衣都穿得很整齐。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“但这里也可能隐藏着三十分钟之谜的真相。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“接下来的事情，即便我想告诉你也不行，因为我还没解开谜团。”"</div></div>
+<div class="quote-item"><div class="quote-text">"“我能理解您的想法。”"</div></div>
   </div>
 
   <div class="footer">
     本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
-    生成时间：2026-08-13 16:04
+    生成时间：2026-08-13 21:32
   </div>
 
 </div>
