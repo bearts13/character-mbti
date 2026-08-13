@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>红手指 · 人格地图 | 角色鉴定所</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #3d375e;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+  .header .stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 13px;
+  }
+  .header .stats span {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Axis Labels */
+  .axis-container {
+    position: relative;
+    padding: 40px 50px 20px 50px;
+  }
+  .axis-label {
+    position: absolute;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+  }
+  .axis-label.top-left { top: 10px; left: 60px; }
+  .axis-label.top-right { top: 10px; right: 60px; }
+  .axis-label.left-top { top: 60px; left: 10px; writing-mode: vertical-rl; }
+  .axis-label.left-bottom { bottom: 20px; left: 10px; writing-mode: vertical-rl; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .grid-cell {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 120px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .grid-cell.has-chars {
+    background: rgba(255,255,255,0.95);
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .grid-cell.has-chars:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  .cell-header {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .grid-cell.has-chars .cell-mbti {
+    font-size: 16px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .grid-cell:not(.has-chars) .cell-mbti {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+  .grid-cell.has-chars .cell-cn {
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .grid-cell:not(.has-chars) .cell-cn {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .cell-chars {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .char-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: #f5f2ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .char-chip:hover {
+    background: #e8e0ff;
+    transform: translateX(2px);
+  }
+  .char-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .char-name {
+    font-size: 12px;
+    color: #3d375e;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .empty-cell {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .cell-count {
+    margin-top: 6px;
+    font-size: 10px;
+    color: #9891b3;
+    text-align: right;
+  }
+
+  /* Detail Panel */
+  .detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .detail-overlay.show {
+    display: block;
+    opacity: 1;
+  }
+
+  .detail-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: white;
+    z-index: 101;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  }
+  .detail-panel.show {
+    right: 0;
+  }
+
+  .detail-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #f5f2ff;
+    color: #7c5cff;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .detail-close:hover {
+    background: #e8e0ff;
+  }
+
+  .detail-header {
+    padding: 30px 24px 20px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+  }
+  .detail-header .char-big-name {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .detail-header .char-work {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+  .detail-header .char-mbti {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .detail-header .mbti-big {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+  .detail-header .mbti-conf {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+
+  .detail-body {
+    padding: 20px 24px;
+  }
+
+  .detail-section {
+    margin-bottom: 20px;
+  }
+  .detail-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c5cff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .detail-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .detail-keyword {
+    font-size: 12px;
+    padding: 3px 10px;
+    background: #f5f2ff;
+    color: #7c5cff;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  .detail-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .detail-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .detail-bar-label {
+    width: 50px;
+    font-weight: 600;
+    color: #6b6485;
+  }
+  .detail-bar-track {
+    flex: 1;
+    height: 8px;
+    background: #f0ecf8;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .detail-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+  .detail-bar-pct {
+    width: 36px;
+    text-align: right;
+    font-weight: 600;
+    color: #3d375e;
+  }
+
+  .detail-summary {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5a4f8a;
+  }
+
+  .detail-link {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    pointer-events: auto;
+    user-select: none;
+  }
+  .detail-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 20px 10px; }
+    .header h1 { font-size: 24px; }
+    .axis-container { padding: 30px 30px 10px 30px; }
+    .grid { gap: 6px; }
+    .grid-cell { padding: 8px; min-height: 90px; }
+    .cell-header { margin-bottom: 4px; }
+    .grid-cell.has-chars .cell-mbti { font-size: 13px; }
+    .grid-cell.has-chars .cell-cn { font-size: 10px; }
+    .char-name { font-size: 11px; }
+    .char-avatar { width: 18px; height: 18px; font-size: 10px; }
+    .detail-panel { width: 100%; right: -100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div style="text-align:center; margin-bottom: 20px;">
+    <a href="../index.html" style="display:inline-block; padding:8px 20px; background:rgba(255,255,255,0.15); color:white; text-decoration:none; border-radius:20px; font-size:14px; backdrop-filter:blur(10px); transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">← 返回首页</a>
+  </div>
+  <div class="header">
+    <h1>《红手指》人格地图</h1>
+    <div class="subtitle">16 型人格角色分布图 · 角色鉴定所</div>
+    <div class="stats">
+      <span>👥 11 个角色</span>
+      <span>🎯 5 种人格</span>
+      <span>🏆 最多：主人公（5人）</span>
+    </div>
+  </div>
+
+  <div class="axis-container">
+    <div class="axis-label top-left">内倾 I</div>
+    <div class="axis-label top-right">外倾 E</div>
+    <div class="axis-label left-top">直觉 N</div>
+    <div class="axis-label left-bottom">感觉 S</div>
+
+    <div class="grid">
+      
+            <div class="grid-cell has-chars" data-mbti="INTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">INTJ</span>
+                    <span class="cell-cn">建筑师</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="小林" onclick="showDetail('小林')">
+                        <span class="char-avatar">小</span>
+                        <span class="char-name">小林</span>
+                    </div><div class="char-chip" data-name="金森登纪子" onclick="showDetail('金森登纪子')">
+                        <span class="char-avatar">金</span>
+                        <span class="char-name">金森登纪子</span>
+                    </div>
+                </div>
+                <div class="cell-count">2 人</div>
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="INFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">INFJ</span>
+                    <span class="cell-cn">提倡者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="前原政惠" onclick="showDetail('前原政惠')">
+                        <span class="char-avatar">前</span>
+                        <span class="char-name">前原政惠</span>
+                    </div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ENTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENTJ</span>
+                    <span class="cell-cn">指挥官</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ENFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENFJ</span>
+                    <span class="cell-cn">主人公</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="克子" onclick="showDetail('克子')">
+                        <span class="char-avatar">克</span>
+                        <span class="char-name">克子</span>
+                    </div><div class="char-chip" data-name="八重子" onclick="showDetail('八重子')">
+                        <span class="char-avatar">八</span>
+                        <span class="char-name">八重子</span>
+                    </div><div class="char-chip" data-name="前原春美" onclick="showDetail('前原春美')">
+                        <span class="char-avatar">前</span>
+                        <span class="char-name">前原春美</span>
+                    </div><div class="char-chip" data-name="加贺隆正" onclick="showDetail('加贺隆正')">
+                        <span class="char-avatar">加</span>
+                        <span class="char-name">加贺隆正</span>
+                    </div><div class="char-chip" data-name="春日井忠彦" onclick="showDetail('春日井忠彦')">
+                        <span class="char-avatar">春</span>
+                        <span class="char-name">春日井忠彦</span>
+                    </div>
+                </div>
+                <div class="cell-count">5 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="INTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">INTP</span>
+                    <span class="cell-cn">逻辑学家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="INFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">INFP</span>
+                    <span class="cell-cn">调停者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ENTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENTP</span>
+                    <span class="cell-cn">辩论家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ENFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENFP</span>
+                    <span class="cell-cn">竞选者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISTJ</span>
+                    <span class="cell-cn">物流师</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ISFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISFJ</span>
+                    <span class="cell-cn">守卫者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="前原昭夫" onclick="showDetail('前原昭夫')">
+                        <span class="char-avatar">前</span>
+                        <span class="char-name">前原昭夫</span>
+                    </div><div class="char-chip" data-name="松宫脩平" onclick="showDetail('松宫脩平')">
+                        <span class="char-avatar">松</span>
+                        <span class="char-name">松宫脩平</span>
+                    </div>
+                </div>
+                <div class="cell-count">2 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESTJ</span>
+                    <span class="cell-cn">总经理</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESFJ</span>
+                    <span class="cell-cn">执政官</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ISTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISTP</span>
+                    <span class="cell-cn">鉴赏家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="前原直巳" onclick="showDetail('前原直巳')">
+                        <span class="char-avatar">前</span>
+                        <span class="char-name">前原直巳</span>
+                    </div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISFP</span>
+                    <span class="cell-cn">探险家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESTP</span>
+                    <span class="cell-cn">企业家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESFP</span>
+                    <span class="cell-cn">表演者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+    </div>
+  </div>
+
+  <div class="footer">
+    本地图由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-13 15:51
+  </div>
+</div>
+
+<!-- Detail Panel -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detailPanel">
+  <button class="detail-close" onclick="closeDetail()">×</button>
+  <div id="detailContent"></div>
+</div>
+
+<script>
+const characters = [{"name": "克子", "work": "红手指", "mbti": "ENFJ", "confidence": 0.31, "scores": {"I": 30, "E": 70, "N": 50, "S": 50, "T": 14, "F": 86, "J": 50, "P": 50}, "keywords": ["深情担当", "坚韧护亲", "体谅型调和者", "克制外向", "直觉与现实并重", "秩序感有争议", "边界审慎"], "summary": "克子的人格底色不是张扬的热情，而是一种把亲人放在自己前面的深情与担当。她会因儿子的处境放下逞强、决定进京，也在丈夫去世后独自设法抚养松宫；这些选择并非出于抽象原则，而是出于“不能不管”的亲情责任。她擅长从他人的难处理解冲突：松宫怨加贺未探病时，她看到的是加贺工作繁忙；面对疏离的父子，她仍相信终有理解的一天。她愿意表达、愿意联结，却不等于毫无保留，刻意隐瞒住址说明她也珍视私人边界。她对规则并不僵硬，能接受非传统的生活安排，但在重要的人与记忆上有自己的坚持。克子最动人的地方，在于她不把体谅说成大道理，而是把它活成了忍耐、守候与照料。", "report_file": "../chars/克子.html", "second_type": "ENFP", "dispute_point": "她既会谨慎控制个人信息与生活边界，也能为现实处境调整关系形式，因此在计划性与适应性之间难以下定论。"}, {"name": "八重子", "work": "红手指", "mbti": "ENFJ", "confidence": 0.67, "scores": {"I": 43, "E": 57, "N": 54, "S": 46, "T": 22, "F": 78, "J": 53, "P": 47}, "keywords": ["强烈情感驱动", "护子本能极强", "危机控制欲", "外向求助型", "直觉与现实并用", "规则服从有争议", "压力下易退缩"], "summary": "八重子的人格核心不是冷静的算计，而是被母亲身份推到极端的情感防卫。直巳出事后，她首先想到的并非责任归属，而是儿子会不会害怕、会不会被社会抛弃；她哭着阻止报警，甚至提出替儿子顶罪，显示出极强的共情与保护本能。她并不缺乏行动力，会追问丈夫、安排说辞、试图控制与警方接触的边界；但这种主动更多源于恐惧，而非稳定的掌控。她能从细节预感风险，也会推演家庭名誉和未来，却始终无法真正把情感从判断中抽离。她最深的矛盾是：越想保护家人，越把家人推向无法坦白的困局。她不是没有原则，而是在儿子的命运面前，把原则排到了最后。", "report_file": "../chars/八重子.html", "second_type": "ENFP", "dispute_point": "她会在危机中急切地制定说法、掌控家人行动，却也常因恐惧而摇摆失序，计划性与随机应变难分高下。"}, {"name": "前原政惠", "work": "红手指", "mbti": "INFJ", "confidence": 0.51, "scores": {"I": 58, "E": 42, "N": 50, "S": 50, "T": 32, "F": 68, "J": 68, "P": 32}, "keywords": ["内敛传讯者", "情感驱动", "克制而坚定", "隐秘的守护", "目标导向", "直觉现实平衡型", "有边界感"], "summary": "前原政惠不是沉默地承受一切的人，而是把无法直说的话藏进一连串只有有心人才能读懂的信号里。她以凝视、异臭手套、口红痕迹传递真相，说明她习惯在封闭的内心世界中谋划表达；但她并非逃避外界，而是在无法正面发声时，顽强地寻找让真相被看见的路径。她对昭夫仍留有回头的期待，使她没有选择最直接、最残酷的揭露方式，亲情与伤痛始终影响着她的判断。与此同时，她长期维持伪装、预判对方会擦除痕迹并提前布置后手，展现出极强的耐心与秩序感。她的温柔不是软弱，而是即使被辜负，也不愿彻底放弃人性。", "report_file": "../chars/前原政惠.html", "second_type": "ISFJ", "dispute_point": "她究竟更依赖直觉式的象征传讯，还是更立足于具体线索与现实判断，证据不足，因此N/S维度最具争议。"}, {"name": "前原春美", "work": "红手指", "mbti": "ENFJ", "confidence": 0.49, "scores": {"I": 42, "E": 58, "N": 66, "S": 34, "T": 34, "F": 66, "J": 50, "P": 50}, "keywords": ["关系导向", "隐含逻辑洞察", "直率追问", "温柔而锋利", "情感唤醒者", "外向内收平衡型", "秩序弹性"], "summary": "前原春美并非只会安慰人的温和角色，她的共情里带着不肯回避真相的锋芒。面对昭夫，她能从母亲的转述、红手指的口红痕迹，以及母亲可能想阻止的事中拼出完整的隐情；她看见的不是单一事实，而是事实背后没有说出口的亲情。她也不选择委婉绕开，而是直接追问“你还不理解这一切的缘由吗”，以近乎严厉的方式逼人面对亏欠。同时，她借相册与名牌唤醒昭夫的记忆，说明她相信真正的改变并非来自说教，而是来自情感被重新触碰。她的核心力量，是把看穿人心的敏锐，用在让人回到人心本身。", "report_file": "../chars/前原春美.html", "second_type": "ENFP", "dispute_point": "她会主动推动他人醒悟，却缺乏足够证据判断其更偏向按计划收束局面，还是随情境灵活行动。"}, {"name": "前原昭夫", "work": "红手指", "mbti": "ISFJ", "confidence": 0.72, "scores": {"I": 46, "E": 54, "N": 28, "S": 72, "T": 48, "F": 52, "J": 89, "P": 11}, "keywords": ["高度计划", "现实细察", "家庭本位", "责任驱动", "压抑克制", "情理拉扯", "控制倾向"], "summary": "前原昭夫是一个把“守住家庭”当作首要责任的人。他不擅长在高压亲密关系中袒露自己，宁可加班、去酒馆，也会暂时逃开妻子的情绪；但真正遇到危机，他又会迅速接手局面，安排联络、统一口径、推演警方可能追问的细节。他对时间、地点、物证和言辞漏洞异常敏感，说明他首先依赖现实信息而非抽象判断。更值得注意的是，他的周密并不等于冷酷：掩盖真相的起点是保护儿子，计划崩塌的终点则是对母亲的亏欠与良知。他既能强硬地要求家人执行方案，也终究无法把亲人彻底当作计划中的棋子。前原的悲剧在于，他试图用秩序修补家庭，却让秩序先成为了伤害家人的工具。", "report_file": "../chars/前原昭夫.html", "second_type": "ISTJ", "dispute_point": "他会为亲情与愧疚动摇，也能在危机中冷静计算风险，情感与理性始终相互拉扯。"}, {"name": "前原直巳", "work": "红手指", "mbti": "ISTP", "confidence": 0.68, "scores": {"I": 68, "E": 32, "N": 38, "S": 62, "T": 63, "F": 37, "J": 35, "P": 65}, "keywords": ["封闭退缩", "强烈独处倾向", "回避沟通", "现实细节导向", "责任切割", "情绪失控型抗拒", "低掌控感"], "summary": "前原直巳并不是冷静强硬的人，而是一个习惯用沉默、粗鲁和否认把外界挡在门外的少年。他面对警方时低头、停顿，只说“我什么都不知道”，显示出明显的社交退缩；他缺少稳定伙伴，日常也更像独自躲进游戏机房与便利店构成的小世界。思考上，他依赖可验证的具体行踪和既有经验，而非抽象解释或长远判断。真正的危机来临时，他首先在意的不是他人的处境，而是“为什么我还要去警察局”、责任为何会落到自己身上；当无力摆脱局面，便把愤怒抛向父母。只是这种看似冷硬的切割，并非成熟的理性，而更像一个缺乏掌控感的人最后的自我保护。", "report_file": "../chars/前原直巳.html", "second_type": "ISFP", "dispute_point": "T/F维度最具争议：他在危机中优先追究责任与结果，却也会因恐惧和压力爆发出强烈情绪。"}, {"name": "加贺隆正", "work": "红手指", "mbti": "ENFJ", "confidence": 0.64, "scores": {"I": 37, "E": 63, "N": 68, "S": 32, "T": 29, "F": 71, "J": 56, "P": 44}, "keywords": ["主动联结型", "模式敏锐型", "高共情责任感", "不以冷硬逻辑为先", "秩序感平衡型", "人格边界有争议"], "summary": "加贺隆正是一个主动靠近他人、却不愿成为他人负担的人。他病中仍与松宫持续交谈，主动谈及工作、约会和将棋，说明他习惯通过交流维系关系；但当松宫专程探望时，他又劝对方不要勉强抽时间，体贴背后带着克制。对妹妹母子的长期照料，则显示他的善意并非一时情绪，而是落实为住处、工作和经济支持的持续责任。他看将棋也不只是消遣，能从静止棋面中捕捉战况变化，表现出对策略与可能性的敏锐。只是“判断型”证据偏弱，他更像是在重要关系和规则面前保持秩序，而非事事追求控制。", "report_file": "../chars/加贺隆正.html", "second_type": "ENFP", "dispute_point": "JP维度得分最接近中间值，除维持棋局规则外，缺乏足够证据证明他一贯偏好计划与控制，因此也可能呈现ENFP式的弹性。"}, {"name": "小林", "work": "红手指", "mbti": "INTJ", "confidence": 0.74, "scores": {"I": 38, "E": 62, "N": 62, "S": 38, "T": 78, "F": 22, "J": 91, "P": 9}, "keywords": ["强规划", "冷静果断", "证据至上", "战略推演", "秩序掌控", "高压破局", "内外向有争议"], "summary": "小林是典型的“把混乱切成步骤的人”。他不会只盯着眼前线索：从鉴定人员寻找容器，推断尸体曾被搬运；从邮件、照片与出门行为，重建被害人赴约的因果链。他的判断首先服从证据与效率，审讯时围绕时间、地点、通信和动机层层收紧，必要时以高压追问换取突破。更鲜明的是，他拥有极强的调查调度意识：谁与谁搭档、何时搜查、哪些区域先守住、调查如何避免体力透支，都被纳入计划。只是这种理性并非全然冷硬——面对被害人父亲，他仍会先致歉并顾及对方感受。小林的锋利，不在于声音有多大，而在于他总能先一步把案件推进到下一格。", "report_file": "../chars/小林.html", "second_type": "ENTJ", "dispute_point": "他在办案中主动协调、直接发令，呈现出外向执行力；但其社交能量与私人表达证据不足，I/E判断仍有争议。"}, {"name": "春日井忠彦", "work": "红手指", "mbti": "ENFJ", "confidence": 0.47, "scores": {"I": 40, "E": 60, "N": 50, "S": 50, "T": 45, "F": 55, "J": 56, "P": 44}, "keywords": ["克制外向", "情感驱动", "责任感", "程序配合", "悲伤中的坚韧", "直觉感知有争议"], "summary": "春日井忠彦的人格底色，是一种被巨大悲伤压住、却没有彻底退缩的情感责任感。他并不处于擅长表达或主导场面的状态：等待询问时捂脸低头、一动不动，说明丧女之痛使他本能地收缩；但当警方到来，他仍能立即引导对方进屋、反复陈述情况，并同意保管电脑。他说“要我说多少次都行”，不是社交上的热络，而是把个人痛苦让位给破案需要。其F倾向体现在情绪与关切深刻塑造了行动动机，而并非软弱；其J倾向则表现为愿意进入调查程序、接受必要安排。不过，文本对他关注抽象可能还是具体事实的证据近乎空白，因此N/S是最主要的争议。春日井忠彦不是不痛，只是在痛里仍选择把该做的事做完。", "report_file": "../chars/春日井忠彦.html", "second_type": "ESFJ", "dispute_point": "他在直觉与现实细节之间缺乏足够行为证据，N/S倾向无法形成可靠区分。"}, {"name": "松宫脩平", "work": "红手指", "mbti": "ISFJ", "confidence": 0.56, "scores": {"I": 62, "E": 38, "N": 44, "S": 56, "T": 30, "F": 70, "J": 50, "P": 50}, "keywords": ["内省克制", "现实细察", "关系共情", "责任感强", "容易自我反省", "秩序与随性并存", "情绪不轻易外露"], "summary": "松宫脩平是一个把情绪藏在沉默与细节里的人。他面对加贺在医院外守候，并未立刻追问，而是先在心中反复揣摩；舅舅去世时也没有强烈外露的悲伤，而是以内在的方式感受人生阶段的终结。他会注意心跳曲线、棋盘布局、等待时长等具体事实，却并非冷静旁观者：舅舅临终前的守候、对未能更多陪伴的后悔，以及得知加贺用短信维系父子关系后的羞愧，都显示出他对关系责任和他人处境的敏感。他的善意并不张扬，更多表现为事后的理解、反省与承担。只是他究竟更偏向有计划的判断型，还是顺势而为的感受型，证据并不充分。松宫的核心不是表达情感，而是终于看见情感。", "report_file": "../chars/松宫脩平.html", "second_type": "ISFP", "dispute_point": "JP维度正好处于50%，他既有克制守序的一面，也保留着随情境调整、不过度规划的倾向。"}, {"name": "金森登纪子", "work": "红手指", "mbti": "INTJ", "confidence": 0.62, "scores": {"I": 44, "E": 56, "N": 44, "S": 56, "T": 40, "F": 60, "J": 74, "P": 26}, "keywords": ["秩序感强", "克制周全", "边界清晰", "温和理性", "内倾平衡型", "直觉平衡型", "关怀有分寸"], "summary": "金森登纪子不是靠热烈表达存在感的人，而是把善意落实在每一个不越界的细节里。她会在将棋互动中及时叫停隆正的思考，先顾及血压；会主动询问疼痛、叮嘱呼叫；也会严格按短信摆放棋子，守住父子之间那场隐秘对局的约定。她并不擅自解释或煽情，连揭示真相前也先征求加贺同意。她的核心不是冷淡，而是有程序、有责任的体贴：既看得见人的需要，也明白自己不该替别人越过哪些界线。她像一枚被准确放下的棋子，安静，却让一段关系得以走到终局。", "report_file": "../chars/金森登纪子.html", "second_type": "INFJ", "dispute_point": "她的关怀极其具体而真诚，但这种关怀究竟源于情感共鸣，还是源于对职责与他人处境的理性负责，存在争议。"}];
+
+const charMap = {};
+characters.forEach(c => { charMap[c.name] = c; });
+
+function showDetail(name) {
+  const c = charMap[name];
+  if (!c) return;
+
+  const scores = c.scores || {};
+  const ie = scores['E'] || 50;
+  const ns = scores['N'] || 50;
+  const tf = scores['F'] || 50;
+  const jp = scores['J'] || 50;
+
+  const keywords = (c.keywords || []).map(k =>
+    `<span class="detail-keyword">${k}</span>`
+  ).join('');
+
+  const secondTypeHtml = c.second_type
+    ? `<div style="font-size:12px;color:#ff6b9d;margin-top:4px;">⚔️ 争议：${c.second_type}</div>`
+    : '';
+
+  const html = `
+    <div class="detail-header">
+      <div class="char-big-name">${c.name}</div>
+      <div class="char-work">《${c.work}》</div>
+      <div class="char-mbti">
+        <div class="mbti-big">${c.mbti}</div>
+        <div class="mbti-conf">
+          置信度 ${Math.round(c.confidence * 100)}%
+          ${secondTypeHtml}
+        </div>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-section">
+        <div class="detail-section-title">🏷️ 人格关键词</div>
+        <div class="detail-keywords">${keywords}</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-title">📊 四维分布</div>
+        <div class="detail-bars">
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">E 外倾</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${ie}%"></div></div>
+            <span class="detail-bar-pct">${ie}%</span>
+          </div>
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">N 直觉</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${ns}%"></div></div>
+            <span class="detail-bar-pct">${ns}%</span>
+          </div>
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">F 情感</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${tf}%"></div></div>
+            <span class="detail-bar-pct">${tf}%</span>
+          </div>
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">J 判断</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${jp}%"></div></div>
+            <span class="detail-bar-pct">${jp}%</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-title">💭 人格画像</div>
+        <div class="detail-summary">${c.summary || '暂无'}</div>
+      </div>
+      <a href="${c.report_file}" class="detail-link" target="_blank"
+         onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+        查看完整分析报告 →
+      </a>
+    </div>
+  `;
+
+  document.getElementById('detailContent').innerHTML = html;
+  document.getElementById('detailOverlay').classList.add('show');
+  document.getElementById('detailPanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('show');
+  document.getElementById('detailPanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ESC 关闭
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeDetail();
+});
+</script>
+
+</body>
+</html>
