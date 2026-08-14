@@ -171,49 +171,13 @@
   }
   .char-card .cc-arrow { position: absolute; right: 14px; bottom: 14px; color: #a78bfa; font-size: 16px; }
 
-  /* Compare */
-  .compare-setup { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; }
-  .compare-setup label { font-size: 13px; color: #b8b0d4; }
+  /* Card */
   select {
     padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);
     background: #1a1330; color: #e8e4f5; font-size: 14px; outline: none; cursor: pointer;
     min-width: 180px;
   }
   select:focus { border-color: #7c5cff; }
-  .compare-result { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-  .radar-wrap { position: relative; width: 100%; max-width: 420px; }
-  #radar { width: 100%; height: auto; }
-  .similarity-box {
-    text-align: center; padding: 20px 24px; border-radius: 16px;
-    background: rgba(124,92,255,0.12); border: 1px solid rgba(167,139,250,0.3); width: 100%;
-  }
-  .similarity-box .sim-num { font-size: 44px; font-weight: 900; color: #ff6b9d; }
-  .similarity-box .sim-label { font-size: 14px; color: #d5cfe8; margin: 4px 0 8px; }
-  .similarity-box .sim-comment { font-size: 13px; color: #b8b0d4; line-height: 1.7; }
-  .legend { display: flex; gap: 20px; justify-content: center; font-size: 12px; color: #b8b0d4; margin-top: 8px; }
-  .legend .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
-
-  /* PK */
-  .pk-setup { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: center; margin-bottom: 24px; }
-  .pk-vs { font-size: 22px; font-weight: 900; color: #ff6b9d; }
-  .pk-result { text-align: center; }
-  .pk-rounds { margin: 20px 0; }
-  .pk-round {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08); margin-bottom: 10px;
-  }
-  .pk-round .r-name { font-size: 14px; font-weight: 700; color: #fff; flex: 1; text-align: left; }
-  .pk-round .r-name.win { color: #ff6b9d; }
-  .pk-round .r-dim { font-size: 12px; color: #9891b3; flex: 1; text-align: center; }
-  .pk-round .r-name:last-child { text-align: right; }
-  .pk-verdict {
-    padding: 20px; border-radius: 14px; background: linear-gradient(135deg, rgba(124,92,255,0.2), rgba(255,107,157,0.15));
-    border: 1px solid rgba(167,139,250,0.3); font-size: 14px; line-height: 1.8; color: #d5cfe8;
-  }
-  .pk-verdict b { color: #fff; }
-
-  /* Card */
   .card-setup { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
   .quote-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
   .quote-item {
@@ -228,6 +192,57 @@
 
   .empty-tip { text-align: center; padding: 40px 20px; color: #9891b3; font-size: 14px; }
 
+  /* 16型人格宫格 */
+  .mbti-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .mbti-cell {
+    padding: 18px 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04); text-align: center; cursor: pointer;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
+  }
+  .mbti-cell::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+    background: linear-gradient(90deg, #7c5cff, #ff6b9d); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .mbti-cell:hover { transform: translateY(-3px); border-color: rgba(167,139,250,0.5); background: rgba(255,255,255,0.08); }
+  .mbti-cell:hover::before { transform: scaleX(1); }
+  .mbti-cell .cell-type { font-size: 22px; font-weight: 900; letter-spacing: 1px; color: #fff; }
+  .mbti-cell .cell-cn { font-size: 12px; color: #a78bfa; margin-top: 4px; }
+  .mbti-cell .cell-count {
+    display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 12px;
+    background: rgba(124,92,255,0.2); color: #b8b0d4; font-size: 11px;
+  }
+  .mbti-cell.empty { opacity: 0.45; cursor: default; }
+  .mbti-cell.empty:hover { transform: none; border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); }
+  .mbti-cell.empty:hover::before { transform: scaleX(0); }
+  .mbti-cell.empty .cell-count { background: rgba(255,255,255,0.06); color: #6b6485; }
+
+  /* 模态框 */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 100; background: rgba(10,6,24,0.75);
+    backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 20px;
+    animation: fadeIn 0.25s ease;
+  }
+  .modal-box {
+    width: 100%; max-width: 640px; max-height: 82vh; overflow-y: auto;
+    background: #171026; border: 1px solid rgba(167,139,250,0.3); border-radius: 18px; padding: 26px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .modal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .modal-mbti {
+    font-size: 30px; font-weight: 900; letter-spacing: 2px;
+    background: linear-gradient(135deg, #fff, #a78bfa, #ff6b9d);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .modal-cn { font-size: 15px; color: #a78bfa; font-weight: 600; }
+  .modal-close {
+    margin-left: auto; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06); color: #b8b0d4; font-size: 20px; line-height: 1; cursor: pointer; transition: all 0.25s ease;
+  }
+  .modal-close:hover { color: #fff; border-color: rgba(167,139,250,0.5); background: rgba(124,92,255,0.2); }
+  .modal-body .group-title { font-size: 14px; font-weight: 700; color: #a78bfa; margin: 18px 0 10px; }
+  .modal-body .group-title:first-child { margin-top: 0; }
+
   /* Mobile */
   @media (max-width: 768px) {
     .container { padding: 24px 14px 60px; }
@@ -236,9 +251,10 @@
     .manual-grid { grid-template-columns: 1fr; }
     .result-mbti { font-size: 48px; }
     .char-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-    .compare-setup, .pk-setup, .card-setup { flex-direction: column; align-items: stretch; }
+    .card-setup { flex-direction: column; align-items: stretch; }
     select { width: 100%; }
-    .compare-setup .btn-primary, .pk-setup .btn-primary, .card-setup .btn-primary { width: 100%; }
+    .card-setup .btn-primary { width: 100%; }
+    .mbti-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
   @media (max-width: 480px) {
     header h1 { font-size: 26px; }
@@ -247,8 +263,8 @@
     .quiz-option { font-size: 13px; padding: 12px 12px; }
     .result-mbti { font-size: 40px; }
     .char-grid { grid-template-columns: 1fr; }
-    .pk-round { flex-direction: column; gap: 6px; }
-    .pk-round .r-name, .pk-round .r-dim { text-align: center !important; }
+    .mbti-cell .cell-type { font-size: 18px; }
+    .modal-box { padding: 20px 16px; }
   }
 </style>
 </head>
@@ -261,13 +277,12 @@
 
   <header>
     <h1>角色互动实验室</h1>
-    <p class="subtitle">测测你的 MBTI，找到与你同频的角色 · 让角色们一决高下 · 生成专属金句卡片</p>
+    <p class="subtitle">8题自测你的 MBTI，找到与你同频的角色 · 生成专属金句卡片</p>
   </header>
 
   <div class="tabs">
     <button class="tab active" data-tab="match">🧬 人格匹配</button>
-    <button class="tab" data-tab="compare">🤝 我和角色</button>
-    <button class="tab" data-tab="pk">⚔️ 角色PK</button>
+    <button class="tab" data-tab="grid">🗺️ 16型人格</button>
     <button class="tab" data-tab="card">🃏 金句卡片</button>
   </div>
 
@@ -275,7 +290,7 @@
   <section id="tab-match" class="tab-panel active">
     <div class="panel-card">
       <h3>找到与你同频的角色</h3>
-      <p class="desc">通过快速自测或手动选型得到你的 MBTI，看看 5 部作品里哪些角色和你一样。</p>
+      <p class="desc">8题自测你的MBTI，看看哪些角色和你一样。</p>
 
       <div class="mode-switch">
         <button class="mode-btn active" data-mode="quiz">✨ 快速自测</button>
@@ -303,47 +318,23 @@
     </div>
   </section>
 
-  <!-- ========== Tab 2: 我和角色 ========== -->
-  <section id="tab-compare" class="tab-panel">
+  <!-- ========== Tab 2: 16型人格 ========== -->
+  <section id="tab-grid" class="tab-panel">
     <div class="panel-card">
-      <h3>我和角色对比</h3>
-      <p class="desc">先完成"人格匹配"得到你的维度分数，再选一个角色，看看你们有多像。</p>
-      <div class="compare-setup">
-        <label>我的类型：</label>
-        <span id="my-type" style="font-weight:700; color:#ff6b9d;">未测试</span>
-        <label>对比角色：</label>
-        <select id="compare-char"></select>
-        <button class="btn-primary" id="compare-btn">开始对比</button>
-      </div>
-      <div id="compare-result" class="compare-result" style="display:none;">
-        <div class="radar-wrap">
-          <canvas id="radar" width="840" height="840"></canvas>
-          <div class="legend">
-            <span><span class="dot" style="background:#ff6b9d;"></span>我</span>
-            <span><span class="dot" style="background:#a78bfa;"></span>角色</span>
-          </div>
-        </div>
-        <div class="similarity-box">
-          <div class="sim-num" id="sim-num">0%</div>
-          <div class="sim-label">人格相似度</div>
-          <div class="sim-comment" id="sim-comment"></div>
-        </div>
-      </div>
+      <h3>16型人格总览</h3>
+      <p class="desc">点击任意人格类型，查看所有拥有该人格的虚拟角色。</p>
+      <div class="mbti-grid" id="mbti-grid"></div>
     </div>
-  </section>
-
-  <!-- ========== Tab 3: 角色PK ========== -->
-  <section id="tab-pk" class="tab-panel">
-    <div class="panel-card">
-      <h3>角色PK对决</h3>
-      <p class="desc">选两个角色，让他们在四个维度上一决高下，看看谁更"强"。</p>
-      <div class="pk-setup">
-        <select id="pk-char1"></select>
-        <span class="pk-vs">VS</span>
-        <select id="pk-char2"></select>
-        <button class="btn-primary" id="pk-btn">⚔️ 开战</button>
+    <!-- 模态框：点击人格后显示角色列表 -->
+    <div class="modal-overlay" id="modal-overlay" style="display:none;" onclick="closeModal()">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <span class="modal-mbti" id="modal-mbti"></span>
+          <span class="modal-cn" id="modal-cn"></span>
+          <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
       </div>
-      <div id="pk-result" class="pk-result" style="display:none;"></div>
     </div>
   </section>
 
@@ -593,170 +584,78 @@ function showMatchResult(result) {
     <div class="result-chars">
       <div class="group-title" style="margin-top:8px;">🎯 与你同频的角色（${matched.length} 个）</div>
       ${charHtml}
-    </div>
-    <div style="margin-top:24px;">
-      <button class="btn-secondary" onclick="goCompare()">🤝 和其中一个角色对比 →</button>
     </div>`;
   document.getElementById('match-result').style.display = 'block';
 }
 
-function goCompare() {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('.tab[data-tab="compare"]').classList.add('active');
-  document.getElementById('tab-compare').classList.add('active');
-  document.getElementById('my-type').textContent = userResult ? userResult.mbti : '未测试';
-}
-
-/* ========== 我和角色对比（雷达图） ========== */
-function drawRadar(userScores, charScores) {
-  const canvas = document.getElementById('radar');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 90;
-  ctx.clearRect(0, 0, W, H);
-
-  const dims = [['I', 'E'], ['N', 'S'], ['T', 'F'], ['J', 'P']];
-  const angles = dims.map((_, i) => -Math.PI / 2 + i * Math.PI / 2);
-
-  // 网格
-  for (let g = 1; g <= 4; g++) {
-    const r = R * g / 4;
-    ctx.beginPath();
-    dims.forEach((_, i) => {
-      const x = cx + r * Math.cos(angles[i]);
-      const y = cy + r * Math.sin(angles[i]);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.closePath();
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
-  // 轴线
-  dims.forEach((_, i) => {
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + R * Math.cos(angles[i]), cy + R * Math.sin(angles[i]));
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-    ctx.stroke();
-  });
-  // 轴标签
-  ctx.fillStyle = '#9891b3';
-  ctx.font = 'bold 26px sans-serif';
-  ctx.textAlign = 'center';
-  dims.forEach(([l, r], i) => {
-    const lx = cx + (R + 46) * Math.cos(angles[i]);
-    const ly = cy + (R + 46) * Math.sin(angles[i]);
-    ctx.fillText(l + '/' + r, lx, ly + 8);
-  });
-
-  // 多边形
-  function polygon(scores, color) {
-    ctx.beginPath();
-    dims.forEach(([l], i) => {
-      const v = scores[l] || 50;
-      const r = R * v / 100;
-      const x = cx + r * Math.cos(angles[i]);
-      const y = cy + r * Math.sin(angles[i]);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.closePath();
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 4;
-    ctx.stroke();
-  }
-  polygon(charScores, 'rgba(167,139,250,0.35)');
-  polygon(userScores, 'rgba(255,107,157,0.4)');
-}
-
-function similarityComment(sim) {
-  if (sim >= 85) return '你们是灵魂知己！性格高度同频，几乎能猜到对方在想什么。';
-  if (sim >= 70) return '你们是默契搭档，很多想法不谋而合，相处会很舒服。';
-  if (sim >= 55) return '你们是有缘人，有共同语言，也有互补的火花。';
-  return '你们是欢喜冤家！性格差异大，但也许正是这种反差让彼此着迷。';
-}
-
-document.getElementById('compare-btn').addEventListener('click', () => {
-  if (!userResult) {
-    alert('请先到"人格匹配"完成测试，获得你的维度分数～');
-    return;
-  }
-  const name = document.getElementById('compare-char').value;
-  const char = window.CHARACTERS.find(c => c.name === name);
-  if (!char) return;
-
-  drawRadar(userResult.scores, char.scores);
-
-  // 相似度 = 100 - 平均绝对差
-  const dims = ['I', 'N', 'T', 'J'];
-  let diff = 0;
-  dims.forEach(l => { diff += Math.abs(userResult.scores[l] - (char.scores[l] || 50)); });
-  const sim = Math.max(0, Math.round(100 - diff / 4));
-
-  document.getElementById('sim-num').textContent = sim + '%';
-  document.getElementById('sim-comment').textContent =
-    `你和「${char.name}」${similarityComment(sim)} 角色类型：${char.mbti} ${mbtiCn(char.mbti)}`;
-  document.getElementById('compare-result').style.display = 'flex';
-});
-
-/* ========== 角色PK ========== */
-const PK_DIMS = [
-  { key: 'E', name: '能量外放', left: 'I', right: 'E' },
-  { key: 'N', name: '直觉洞察', left: 'S', right: 'N' },
-  { key: 'T', name: '理性决断', left: 'F', right: 'T' },
-  { key: 'J', name: '规划掌控', left: 'P', right: 'J' },
+/* ========== 16型人格宫格 ========== */
+const GRID_ORDER = [
+  ['INTJ', 'INFJ', 'ENTJ', 'ENFJ'],
+  ['INTP', 'INFP', 'ENTP', 'ENFP'],
+  ['ISTJ', 'ISFJ', 'ESTJ', 'ESFJ'],
+  ['ISTP', 'ISFP', 'ESTP', 'ESFP'],
 ];
 
-function pkVerdict(c1, c2, wins1, wins2) {
-  const same = c1.mbti === c2.mbti;
-  const opposite = c1.mbti[0] !== c2.mbti[0] && c1.mbti[1] !== c2.mbti[1] &&
-                   c1.mbti[2] !== c2.mbti[2] && c1.mbti[3] !== c2.mbti[3];
-  const winner = wins1 >= wins2 ? c1 : c2;
-  const loser = winner === c1 ? c2 : c1;
-  let flavor = '';
-  if (same) flavor = '两位是同一人格的"镜像对决"，势均力敌，胜负只在毫厘之间！';
-  else if (opposite) flavor = '这是四种维度完全相反的"宿命对决"，风格针锋相对！';
-  else flavor = '两位性格各有千秋，这场对决悬念十足！';
-  return `🏆 <b>${winner.name}</b> 以 ${Math.max(wins1, wins2)} : ${Math.min(wins1, wins2)} 胜出！
-  ${flavor}
-  「${loser.name}」虽然落败，但别忘了——人格没有高低，只有不同。`;
-}
-
-document.getElementById('pk-btn').addEventListener('click', () => {
-  const n1 = document.getElementById('pk-char1').value;
-  const n2 = document.getElementById('pk-char2').value;
-  if (n1 === n2) { alert('请选择两个不同的角色～'); return; }
-  const c1 = window.CHARACTERS.find(c => c.name === n1);
-  const c2 = window.CHARACTERS.find(c => c.name === n2);
-
-  let wins1 = 0, wins2 = 0;
-  const rounds = PK_DIMS.map(d => {
-    const v1 = scoreOf(c1, d.key), v2 = scoreOf(c2, d.key);
-    let w = 0;
-    if (v1 > v2) { wins1++; w = 1; }
-    else if (v2 > v1) { wins2++; w = 2; }
-    return { name: d.name, v1, v2, w };
+function renderMbtiGrid() {
+  const grid = document.getElementById('mbti-grid');
+  const byMbti = {};
+  window.CHARACTERS.forEach(c => {
+    if (!byMbti[c.mbti]) byMbti[c.mbti] = [];
+    byMbti[c.mbti].push(c);
   });
 
-  document.getElementById('pk-result').innerHTML = `
-    <div style="font-size:18px; font-weight:700; margin-bottom:16px;">
-      <span style="color:#a78bfa;">${c1.name}</span>
-      <span style="color:#ff6b9d; margin:0 12px;">${wins1} : ${wins2}</span>
-      <span style="color:#a78bfa;">${c2.name}</span>
-    </div>
-    <div class="pk-rounds">
-      ${rounds.map(r => `
-        <div class="pk-round">
-          <span class="r-name ${r.w === 1 ? 'win' : ''}">${c1.name} <small style="color:#9891b3;">${r.v1}</small></span>
-          <span class="r-dim">${r.name}</span>
-          <span class="r-name ${r.w === 2 ? 'win' : ''}"><small style="color:#9891b3;">${r.v2}</small> ${c2.name}</span>
-        </div>`).join('')}
-    </div>
-    <div class="pk-verdict">${pkVerdict(c1, c2, wins1, wins2)}</div>`;
-  document.getElementById('pk-result').style.display = 'block';
+  grid.innerHTML = GRID_ORDER.flat().map(mbti => {
+    const chars = byMbti[mbti] || [];
+    const cn = mbtiCn(mbti);
+    const empty = chars.length === 0;
+    return `
+      <div class="mbti-cell ${empty ? 'empty' : ''}" data-mbti="${mbti}" ${empty ? '' : `onclick="openModal('${mbti}')"`}>
+        <div class="cell-type">${mbti}</div>
+        <div class="cell-cn">${cn}</div>
+        <span class="cell-count">${chars.length} 个角色</span>
+      </div>`;
+  }).join('');
+}
+
+function openModal(mbti) {
+  const chars = window.CHARACTERS.filter(c => c.mbti === mbti);
+  if (chars.length === 0) return;
+  const byWork = {};
+  chars.forEach(c => {
+    if (!byWork[c.work]) byWork[c.work] = [];
+    byWork[c.work].push(c);
+  });
+
+  document.getElementById('modal-mbti').textContent = mbti;
+  document.getElementById('modal-cn').textContent = `${mbtiCn(mbti)} · ${mbtiTagline(mbti)}`;
+
+  let html = '';
+  Object.keys(byWork).forEach(work => {
+    const cards = byWork[work].map(c => `
+      <a class="char-card" href="${c.link}">
+        <div class="cc-top">
+          <div class="cc-avatar">${c.name[0]}</div>
+          <div>
+            <div class="cc-name">${c.name}</div>
+            <div class="cc-work">${c.work}</div>
+          </div>
+        </div>
+        <div class="cc-conf">置信度 ${Math.round(c.confidence * 100)}%</div>
+        <div class="cc-kw">${(c.keywords || []).slice(0, 3).map(k => `<span class="kw">${k}</span>`).join('')}</div>
+        <span class="cc-arrow">→</span>
+      </a>`).join('');
+    html += `<div class="group-title">📖 ${work}</div><div class="char-grid">${cards}</div>`;
+  });
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').style.display = 'none';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
 });
 
 /* ========== 金句卡片 ========== */
@@ -802,6 +701,14 @@ function wrapText(ctx, text, maxWidth) {
 
 function drawCard() {
   if (!cardChar || !cardQuote) return;
+  const img = new Image();
+  img.onload = () => drawCardBase(img);
+  img.onerror = () => drawCardBase(null);
+  img.src = cardChar.img || '';
+}
+
+function drawCardBase(portrait) {
+  if (!cardChar || !cardQuote) return;
   const canvas = document.getElementById('quote-canvas');
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
@@ -826,49 +733,75 @@ function drawCard() {
   ctx.fillStyle = glow2;
   ctx.fillRect(0, 0, W, H);
 
-  // 顶部装饰线
-  ctx.fillStyle = 'rgba(167,139,250,0.6)';
-  ctx.fillRect(80, 90, 120, 6);
-  ctx.fillStyle = 'rgba(255,107,157,0.6)';
-  ctx.fillRect(210, 90, 40, 6);
+  // MBTI 颜色映射
+  const mbtiColors = {
+    INTJ: '#7c3aed', INTP: '#6366f1', ENTJ: '#dc2626', ENTP: '#f59e0b',
+    INFJ: '#e11d48', INFP: '#ec4899', ENFJ: '#16a34a', ENFP: '#f97316',
+    ISTJ: '#2563eb', ISFJ: '#0891b2', ESTJ: '#059669', ESFJ: '#0d9488',
+    ISTP: '#4f46e5', ISFP: '#9333ea', ESTP: '#d97706', ESFP: '#db2777',
+  };
+  const avatarColor = mbtiColors[cardChar.mbti] || '#7c5cff';
 
-  // 作品 + MBTI
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#a78bfa';
-  ctx.font = 'bold 34px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText('📖 ' + cardChar.work, 80, 160);
+  // ---- 顶部区域：角色头像 + 信息 ----
+  const avatarX = W / 2, avatarY = 150, avatarR = 90;
 
-  // MBTI 徽章
-  const badgeW = 180, badgeH = 60, badgeX = W - 80 - badgeW, badgeY = 130;
+  // 头像外圈光晕
+  const glowR = ctx.createRadialGradient(avatarX, avatarY, avatarR * 0.6, avatarX, avatarY, avatarR * 1.8);
+  glowR.addColorStop(0, avatarColor + '55');
+  glowR.addColorStop(1, 'transparent');
+  ctx.fillStyle = glowR;
+  ctx.fillRect(avatarX - avatarR * 2, avatarY - avatarR * 2, avatarR * 4, avatarR * 4);
+
+  // 圆形头像
+  ctx.save();
   ctx.beginPath();
-  ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 30);
-  ctx.fillStyle = 'rgba(124,92,255,0.25)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(167,139,250,0.6)';
-  ctx.lineWidth = 3;
+  ctx.arc(avatarX, avatarY, avatarR, 0, Math.PI * 2);
+  ctx.clip();
+  if (portrait && portrait.width > 0) {
+    // 以人物面部为中心裁切
+    const side = Math.min(portrait.width, portrait.height);
+    const sx = (portrait.width - side) / 2;
+    const sy = (portrait.height - side) * 0.18;
+    ctx.drawImage(portrait, sx, sy, side, side, avatarX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
+  } else {
+    const avGrad = ctx.createLinearGradient(avatarX - avatarR, avatarY - avatarR, avatarX + avatarR, avatarY + avatarR);
+    avGrad.addColorStop(0, avatarColor);
+    avGrad.addColorStop(1, '#fff');
+    ctx.fillStyle = avGrad;
+    ctx.fillRect(avatarX - avatarR, avatarY - avatarR, avatarR * 2, avatarR * 2);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 72px "PingFang SC", "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(cardChar.name[0], avatarX, avatarY + 2);
+    ctx.textBaseline = 'alphabetic';
+  }
+  ctx.restore();
+
+  // 头像边框
+  ctx.beginPath();
+  ctx.arc(avatarX, avatarY, avatarR, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+  ctx.lineWidth = 4;
   ctx.stroke();
-  ctx.fillStyle = '#fff';
-  ctx.font = 'bold 32px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(cardChar.mbti, W / 2 + 50, badgeY + 40);
 
   // 角色名
-  ctx.textAlign = 'center';
   ctx.fillStyle = '#fff';
-  ctx.font = 'bold 84px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText(cardChar.name, W / 2, 330);
+  ctx.font = 'bold 72px "PingFang SC", "Microsoft YaHei", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(cardChar.name, W / 2, 300);
 
-  // 副标题（人格中文名）
-  ctx.fillStyle = '#ff6b9d';
-  ctx.font = 'bold 38px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText(mbtiCn(cardChar.mbti) + ' · ' + mbtiTagline(cardChar.mbti), W / 2, 400);
+  // 作品 + MBTI 标签
+  ctx.fillStyle = '#a78bfa';
+  ctx.font = 'bold 30px "PingFang SC", "Microsoft YaHei", sans-serif';
+  ctx.fillText('📖 ' + cardChar.work + '  ·  ' + cardChar.mbti + ' ' + mbtiCn(cardChar.mbti), W / 2, 370);
 
   // 分隔线
   ctx.strokeStyle = 'rgba(255,255,255,0.15)';
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(200, 460);
-  ctx.lineTo(W - 200, 460);
+  ctx.moveTo(200, 420);
+  ctx.lineTo(W - 200, 420);
   ctx.stroke();
 
   // 金句
@@ -876,7 +809,7 @@ function drawCard() {
   ctx.font = '44px "PingFang SC", "Microsoft YaHei", sans-serif';
   const lines = wrapText(ctx, '「' + cardQuote + '」', W - 260);
   const lineH = 72;
-  let y = 550;
+  let y = 510;
   lines.forEach(line => {
     ctx.fillText(line, W / 2, y);
     y += lineH;
@@ -905,9 +838,6 @@ function fillSelects() {
   const chars = window.CHARACTERS.slice().sort((a, b) =>
     (a.work === b.work ? a.name.localeCompare(b.name, 'zh') : a.work.localeCompare(b.work, 'zh')));
   const opts = chars.map(c => `<option value="${c.name}">${c.work} · ${c.name}</option>`).join('');
-  document.getElementById('compare-char').innerHTML = opts;
-  document.getElementById('pk-char1').innerHTML = opts;
-  document.getElementById('pk-char2').innerHTML = opts;
   document.getElementById('card-char').innerHTML = opts;
 }
 
@@ -934,6 +864,7 @@ document.getElementById('card-char').addEventListener('change', renderQuotes);
 
 renderQuiz();
 renderManual();
+renderMbtiGrid();
 fillSelects();
 </script>
 </body>

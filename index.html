@@ -45,6 +45,33 @@
     padding: 60px 24px;
   }
 
+  /* 右上角 GitHub 链接 */
+  .github-corner {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    color: #e8e4f5;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  .github-corner:hover {
+    background: rgba(124, 92, 255, 0.2);
+    border-color: rgba(167, 139, 250, 0.5);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
   /* Header */
   .header {
     text-align: center;
@@ -385,6 +412,7 @@
   /* Responsive */
   @media (max-width: 768px) {
     .container { padding: 40px 16px; }
+    .github-corner { top: 12px; right: 12px; padding: 8px 14px; font-size: 12px; }
     .header { margin-bottom: 50px; }
     .header h1 { font-size: 32px; letter-spacing: 1px; }
     .header .subtitle { font-size: 15px; }
@@ -423,6 +451,10 @@
 <div class="bg-gradient"></div>
 <canvas class="bg-stars" id="stars"></canvas>
 
+<a href="https://github.com/bearts13/character-mbti" class="github-corner" target="_blank">
+  ⭐ GitHub 开源
+</a>
+
 <div class="container">
 
   <!-- Header -->
@@ -435,14 +467,11 @@
       建立证据链，推断每一个角色的人格。
     </p>
     <div class="cta-row">
-      <a href="play.html" class="btn-primary" style="background: linear-gradient(135deg, #ff6b9d, #ff8fa3); box-shadow: 0 4px 20px rgba(255,107,157,0.4);">
-        🧬 测测你的 MBTI
-      </a>
       <a href="#works" class="btn-primary">
         🗺️ 浏览人格地图
       </a>
-      <a href="https://github.com/bearts13/character-mbti" class="btn-secondary" target="_blank">
-        ⭐ GitHub 开源
+      <a href="play.html" class="btn-primary" style="background: linear-gradient(135deg, #ff6b9d, #ff8fa3); box-shadow: 0 4px 20px rgba(255,107,157,0.4);">
+        🧬 测测你的 MBTI
       </a>
     </div>
   </div>
