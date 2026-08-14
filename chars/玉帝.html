@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>玉帝 · INTJ 人格分析报告</title>
+<title>玉帝 · ESTJ 人格分析报告</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -95,6 +95,82 @@
     height: 100%;
     background: white;
     border-radius: 2px;
+  }
+
+  /* Cross-reference Section */
+  .cross-ref {
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(255, 107, 157, 0.06));
+    border: 1px solid rgba(124, 92, 255, 0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .cross-ref-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c5cff;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cross-ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cross-ref-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(124, 92, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+  .cross-ref-item:hover {
+    border-color: rgba(124, 92, 255, 0.3);
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.1);
+  }
+  .cross-ref-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cross-ref-work {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d375e;
+  }
+  .cross-ref-mbti {
+    font-size: 18px;
+    font-weight: 800;
+    color: #7c5cff;
+    letter-spacing: 1px;
+  }
+  .cross-ref-conf {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .cross-ref-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .cross-ref-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(124, 92, 255, 0.3);
   }
 
   /* Section Card */
@@ -408,7 +484,6 @@
   }
 
   /* Print styles */
-  
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .container { padding: 20px 12px 40px; }
@@ -429,7 +504,14 @@
     .summary-text { font-size: 14px; line-height: 1.7; }
     .alternative-card { padding: 12px 14px; }
     .tag { font-size: 11px; padding: 3px 8px; }
+    .cross-ref { padding: 14px 16px; margin-top: 12px; }
+    .cross-ref-title { font-size: 12px; margin-bottom: 10px; }
+    .cross-ref-item { padding: 10px 12px; flex-wrap: wrap; }
+    .cross-ref-work { font-size: 13px; }
+    .cross-ref-mbti { font-size: 16px; }
+    .cross-ref-btn { padding: 6px 14px; font-size: 12px; }
   }
+
   @media (max-width: 480px) {
     .container { padding: 16px 8px 32px; }
     .header-card { padding: 22px 16px; }
@@ -456,12 +538,14 @@
   <div class="header-card">
     <div class="work-name">《西游记》</div>
     <div class="character-name">玉帝</div>
-    <div class="mbti-type">INTJ</div>
+    <div class="mbti-type">ESTJ</div>
     <div class="confidence">置信度 64%</div>
     <div class="confidence-bar">
       <div class="confidence-fill" style="width: 64%"></div>
     </div>
   </div>
+
+  
 
   <!-- Dimension Scores -->
   <div class="section">
@@ -764,12 +848,12 @@
       <div class="dispute-title">⚡ 存在争议的判断</div>
       <div class="dispute-types">
         <div class="dispute-type">
-          <div class="type-label">INTJ</div>
+          <div class="type-label">ESTJ</div>
           <div class="type-conf">置信度 64%</div>
         </div>
         <div class="dispute-vs">VS</div>
         <div class="dispute-type secondary">
-          <div class="type-label">INFJ</div>
+          <div class="type-label">ESFJ</div>
           <div class="type-conf">置信度 52%</div>
         </div>
       </div>
@@ -790,7 +874,7 @@
 
   <div class="footer">
     本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
-    生成时间：2026-08-12 14:05
+    生成时间：2026-08-14 08:42
   </div>
 
 </div>
