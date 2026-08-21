@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄忠 · ENTJ 人格分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #faf8ff;
+    color: #1a162e;
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #7c5cff, #ff6b9d);
+    border-radius: 20px;
+    padding: 40px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .work-name {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .character-name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mbti-type {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence {
+    font-size: 14px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    position: relative;
+    z-index: 1;
+  }
+  .confidence-fill {
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+  }
+
+  /* Cross-reference Section */
+  .cross-ref {
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(255, 107, 157, 0.06));
+    border: 1px solid rgba(124, 92, 255, 0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .cross-ref-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c5cff;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cross-ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cross-ref-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(124, 92, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+  .cross-ref-item:hover {
+    border-color: rgba(124, 92, 255, 0.3);
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.1);
+  }
+  .cross-ref-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cross-ref-work {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d375e;
+  }
+  .cross-ref-mbti {
+    font-size: 18px;
+    font-weight: 800;
+    color: #7c5cff;
+    letter-spacing: 1px;
+  }
+  .cross-ref-conf {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .cross-ref-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .cross-ref-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(124, 92, 255, 0.3);
+  }
+
+  /* Section Card */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: 0 2px 12px rgba(124, 92, 255, 0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* MBTI Bars */
+  .mbti-bar {
+    margin-bottom: 18px;
+  }
+  .mbti-bar:last-child {
+    margin-bottom: 0;
+  }
+  .mbti-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mbti-bar-labels .left {
+    font-weight: 700;
+    color: #7c5cff;
+  }
+  .mbti-bar-labels .right {
+    font-weight: 700;
+    color: #ff6b9d;
+  }
+  .mbti-bar-labels .label-name {
+    color: #6b6485;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .mbti-bar-track {
+    height: 10px;
+    background: #f0ecf8;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .mbti-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .mbti-bar-fill.right-side {
+    background: linear-gradient(90deg, #ff9db8, #ff6b9d);
+    margin-left: auto;
+  }
+
+  /* Keywords */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.1), rgba(255, 107, 157, 0.08));
+    color: #7c5cff;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(124, 92, 255, 0.15);
+  }
+
+  /* Summary */
+  .summary {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d375e;
+  }
+  .summary p {
+    margin-bottom: 12px;
+  }
+  .summary p:last-child {
+    margin-bottom: 0;
+  }
+  .famous-line {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.06), rgba(255, 107, 157, 0.04));
+    border-left: 3px solid #7c5cff;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4f8a;
+    font-size: 14px;
+  }
+
+  /* Evidence Section */
+  .evidence-group {
+    margin-bottom: 24px;
+  }
+  .evidence-group:last-child {
+    margin-bottom: 0;
+  }
+  .evidence-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0ecf8;
+  }
+  .evidence-dim-title {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .evidence-dim-score {
+    font-size: 12px;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .evidence-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed #f0ecf8;
+  }
+  .evidence-item:last-child {
+    border-bottom: none;
+  }
+  .evidence-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .evidence-polarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .evidence-polarity.I,
+  .evidence-polarity.N,
+  .evidence-polarity.T,
+  .evidence-polarity.J {
+    background: rgba(124, 92, 255, 0.12);
+    color: #7c5cff;
+  }
+  .evidence-polarity.E,
+  .evidence-polarity.S,
+  .evidence-polarity.F,
+  .evidence-polarity.P {
+    background: rgba(255, 107, 157, 0.12);
+    color: #ff6b9d;
+  }
+  .evidence-indicator {
+    font-size: 12px;
+    color: #6b6485;
+    font-weight: 500;
+  }
+  .evidence-text {
+    font-size: 14px;
+    color: #3d375e;
+    margin-bottom: 4px;
+  }
+  .evidence-quote {
+    font-size: 13px;
+    color: #6b6485;
+    padding-left: 12px;
+    border-left: 2px solid #e0dcf0;
+    margin: 6px 0;
+    font-style: italic;
+  }
+  .evidence-context {
+    font-size: 12px;
+    color: #9891b3;
+  }
+  .evidence-strength {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .evidence-more {
+    text-align: center;
+    font-size: 12px;
+    color: #9891b3;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px solid #f0ecf8;
+  }
+
+  /* Dispute Section */
+  .dispute-box {
+    background: linear-gradient(135deg, #fff8ec, #fff0f3);
+    border: 1px solid #ffe4b8;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .dispute-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #b8860b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dispute-types {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  .dispute-type {
+    text-align: center;
+  }
+  .dispute-type .type-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .dispute-type.secondary .type-label {
+    color: #ff6b9d;
+  }
+  .dispute-type .type-conf {
+    font-size: 12px;
+    color: #6b6485;
+    margin-top: 4px;
+  }
+  .dispute-vs {
+    display: flex;
+    align-items: center;
+    color: #b8860b;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .dispute-reason {
+    font-size: 14px;
+    color: #5a4f8a;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* Quotes Section */
+  .quote-item {
+    padding: 14px 16px;
+    background: #faf8ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border-left: 3px solid #7c5cff;
+  }
+  .quote-item:last-child {
+    margin-bottom: 0;
+  }
+  .quote-text {
+    font-size: 14px;
+    color: #3d375e;
+    font-style: italic;
+  }
+
+  /* Dimension Descriptions */
+  .dim-desc {
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f2fa;
+  }
+  .dim-desc:last-child {
+    border-bottom: none;
+  }
+  .dim-desc-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .dim-desc-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    background: rgba(124, 92, 255, 0.12);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dim-desc-pct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b9d;
+  }
+  .dim-desc-text {
+    font-size: 14px;
+    color: #3d375e;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9891b3;
+  }
+
+  /* Print styles */
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 20px 12px 40px; }
+    .header-card { padding: 28px 20px; border-radius: 16px; }
+    .header-card .character-name { font-size: 24px; }
+    .header-card .mbti-type { font-size: 36px; }
+    .header-card .mbti-cn { font-size: 14px; }
+    .header-card .confidence { font-size: 12px; padding: 4px 12px; }
+    .section { padding: 20px 16px; border-radius: 14px; margin-top: 14px; }
+    .section-title { font-size: 15px; margin-bottom: 14px; }
+    .evidence-item { padding: 12px; }
+    .evidence-quote { font-size: 12px; line-height: 1.6; padding: 8px 10px; }
+    .evidence-desc { font-size: 13px; line-height: 1.6; }
+    .evidence-dim-header { flex-wrap: wrap; gap: 6px; }
+    .mbti-bar { padding: 10px 0; }
+    .mbti-bar-label { font-size: 12px; }
+    .mbti-bar-letter { font-size: 14px; width: 24px; }
+    .summary-text { font-size: 14px; line-height: 1.7; }
+    .alternative-card { padding: 12px 14px; }
+    .tag { font-size: 11px; padding: 3px 8px; }
+    .cross-ref { padding: 14px 16px; margin-top: 12px; }
+    .cross-ref-title { font-size: 12px; margin-bottom: 10px; }
+    .cross-ref-item { padding: 10px 12px; flex-wrap: wrap; }
+    .cross-ref-work { font-size: 13px; }
+    .cross-ref-mbti { font-size: 16px; }
+    .cross-ref-btn { padding: 6px 14px; font-size: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 8px 32px; }
+    .header-card { padding: 22px 16px; }
+    .header-card .character-name { font-size: 20px; }
+    .header-card .mbti-type { font-size: 30px; }
+    .section { padding: 16px 12px; }
+    .evidence-item { padding: 10px 8px; }
+    .evidence-quote { font-size: 11px; padding: 6px 8px; }
+    .evidence-desc { font-size: 12px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .container { padding: 20px; }
+    .section { box-shadow: none; border: 1px solid #eee; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="work-name">《三国演义》</div>
+    <div class="character-name">黄忠</div>
+    <div class="mbti-type">ENTJ</div>
+    <div class="confidence">置信度 78%</div>
+    <div class="confidence-bar">
+      <div class="confidence-fill" style="width: 78%"></div>
+    </div>
+  </div>
+
+  
+
+  <!-- Dimension Scores -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span>四维分析</div>
+    
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">I <span class="label-name">· 内倾</span></span>
+            <span style="color: #9891b3; font-size: 12px;">43% / 57%</span>
+            <span class="right"><span class="label-name">外倾 · </span>E</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill right-side" style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">N <span class="label-name">· 直觉</span></span>
+            <span style="color: #9891b3; font-size: 12px;">76% / 24%</span>
+            <span class="right"><span class="label-name">感觉 · </span>S</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 76%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">T <span class="label-name">· 思考</span></span>
+            <span style="color: #9891b3; font-size: 12px;">57% / 43%</span>
+            <span class="right"><span class="label-name">情感 · </span>F</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 57%"></div>
+          </div>
+        </div>
+        
+
+        <div class="mbti-bar">
+          <div class="mbti-bar-labels">
+            <span class="left">J <span class="label-name">· 判断</span></span>
+            <span style="color: #9891b3; font-size: 12px;">84% / 16%</span>
+            <span class="right"><span class="label-name">感知 · </span>P</span>
+          </div>
+          <div class="mbti-bar-track">
+            <div class="mbti-bar-fill " style="width: 84%"></div>
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Keywords -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏷️</span>人格关键词</div>
+    <div class="keywords">
+      <span class="keyword">直觉型</span>
+<span class="keyword">计划型</span>
+<span class="keyword">平衡型</span>
+<span class="keyword">有争议的决断</span>
+<span class="keyword">老当益壮</span>
+<span class="keyword">忠义</span>
+<span class="keyword">勇猛</span>
+<span class="keyword">独立行动</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💭</span>人格画像</div>
+    <div class="summary">
+      <p>黄忠是一位老当益壮的将领，虽年迈却行动果断，常主动请战，展现出强烈的责任感和战斗意志。他善于观察地形与敌情，能运用计谋取胜，如骄兵之计、夜袭敌营，体现其直觉与计划性。然而，他在决策上常受情感影响，如因关羽不杀之恩而放箭，又因报恩而奋力追杀，显示出理性与情义的矛盾。他独立行动，不喜社交，但关键时刻能果断出击。总体而言，黄忠是位兼具谋略与勇武、重情重义但偶有冲动的老将。</p>
+    </div>
+    <div class="famous-line">
+      "老将不老，谋略与忠义并重，一箭一计皆见风骨。"
+    </div>
+  </div>
+
+  <!-- Dimension Descriptions -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span>维度解析</div>
+    
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">E · 外倾</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>能量来源：</strong>独立行动，不喜社交，但决策果断，更倾向独行侠式行动
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">N · 直觉</span>
+            <span class="dim-desc-pct">76%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>信息获取：</strong>善于观察地形与敌情，运用计谋，直觉敏锐，模式识别强。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">T · 思考</span>
+            <span class="dim-desc-pct">57%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>决策方式：</strong>决策时既重理性也重情义，冲突中常因义气而改变行动，有争议。
+          </div>
+        </div>
+        
+
+        <div class="dim-desc">
+          <div class="dim-desc-icon">
+            <span class="dim-desc-badge">J · 判断</span>
+            <span class="dim-desc-pct">84%</span>
+          </div>
+          <div class="dim-desc-text">
+            <strong>生活方式：</strong>计划周密，注重步骤，但有时因冲动而冒进，计划与执行并存。
+          </div>
+        </div>
+        
+  </div>
+
+  <!-- Evidence Chain -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📝</span>行为证据链</div>
+    
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">T/F · 决策方式</span>
+            <span class="evidence-dim-score">T 57%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">决策依据</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">黄忠报恩，不射关羽，基于关系感受。</div>
+              <div class="evidence-quote">"忠寻思：'难得云长如此义气！他不忍杀害我，我又安忍射他？若不射，又恐违了将令。'"</div>
+              <div class="evidence-context">📍 黄忠犹豫是否射关羽</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity F">F</span>
+                <span class="evidence-indicator">价值观驱动</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">黄忠为报关羽之仇，奋力追杀，表现出忠义。</div>
+              <div class="evidence-quote">"贼将休走！吾今为关公报仇！"</div>
+              <div class="evidence-context">📍 黄忠追击潘璋</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">黄忠不听劝告，执意出战，表现出固执和好斗。</div>
+              <div class="evidence-quote">"忠不听，纵马而去。"</div>
+              <div class="evidence-context">📍 冯习等劝黄忠不要轻进，黄忠不听</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">黄忠大怒，要与魏延比试，直接对抗。</div>
+              <div class="evidence-quote">"汝说吾老，敢与我比试武艺么？"</div>
+              <div class="evidence-context">📍 魏延激黄忠，黄忠怒而挑战</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity T">T</span>
+                <span class="evidence-indicator">冲突处理</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">面对张郃嘲笑年老，黄忠怒而迎战，直面冲突，不回避。</div>
+              <div class="evidence-quote">"忠怒曰：‘竖子欺吾年老！吾手中宝刀却不老！’"</div>
+              <div class="evidence-context">📍 黄忠与张郃对阵</div>
+            </div>
+            
+          <div class="evidence-more">共 10 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">I/E · 能量来源</span>
+            <span class="evidence-dim-score">E 43%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">黄忠主动请战，多次要求出战，不依赖他人决策，果断行动。</div>
+              <div class="evidence-quote">"忠奋然答曰：“昔廉颇年八十，尚食斗米、肉十斤，诸侯畏其勇，不敢侵犯赵界，何况黄忠未及七十乎？军师言吾老，吾今并不用副将，只将本部兵三千人去，立斩夏侯渊首级，纳于麾下。”"</div>
+              <div class="evidence-context">📍 刘备问黄忠能否取定军山，黄忠慨然应诺并立下军令状。</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity I">I</span>
+                <span class="evidence-indicator">决策方式</span>
+                <span class="evidence-strength">强度 70%</span>
+              </div>
+              <div class="evidence-text">黄忠听到刘备说老将无用，即提刀上马，独自引亲随去，表现出独立决断。</div>
+              <div class="evidence-quote">"吾自长沙跟天子到今，多负勤劳。今虽七旬有余，尚食肉十斤，臂开二石之弓，能乘千里之马，未足为老。"</div>
+              <div class="evidence-context">📍 黄忠听到刘备失言，独自去东吴营</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity E">E</span>
+                <span class="evidence-indicator">社交启动</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">黄忠主动请战，应声而出，愿取二将寨栅。</div>
+              <div class="evidence-quote">"老夫愿往。"</div>
+              <div class="evidence-context">📍 刘备问谁敢取寨，黄忠应声</div>
+            </div>
+            
+          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">J/P · 生活方式</span>
+            <span class="evidence-dim-score">J 84%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 90%</span>
+              </div>
+              <div class="evidence-text">黄忠使用骄兵之计，连败数阵，故意示弱，然后夜袭敌营，计划周密。</div>
+              <div class="evidence-quote">"此老夫骄兵之计也。看今夜一阵，可尽复诸营。"</div>
+              <div class="evidence-context">📍 黄忠与张郃对阵时</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">黄忠主动建议夜袭张任营寨，认为对方懈怠，可趁机进攻。</div>
+              <div class="evidence-quote">"张任每日来搦战，见城中不出，彼军懈怠，不做准备，今日夜间分兵劫寨，胜如白昼厮杀。"</div>
+              <div class="evidence-context">📍 刘备商议进兵时</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">黄忠传令四更造饭，五更结束，平明进兵，有明确计划。</div>
+              <div class="evidence-quote">"传令来日四更造饭，五更结束，平明进兵，取左边山谷而进。"</div>
+              <div class="evidence-context">📍 黄忠部署进攻</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity P">P</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">黄忠不听从劝告，贸然追击，导致中伏，表现出随机应变。</div>
+              <div class="evidence-quote">"忠纵马追之，厉声大叫曰：'贼将休走！吾今为关公报仇！'追至三十余里，四面喊声大震，伏兵齐出。"</div>
+              <div class="evidence-context">📍 黄忠追击潘璋，中伏</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity J">J</span>
+                <span class="evidence-indicator">计划习惯</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">黄忠与赵云约定分兵两路，待日暮兵疲时出击，提前规划。</div>
+              <div class="evidence-quote">"忠谓云曰：“今徐晃恃勇而来，且休与敌。待日暮兵疲，你我分兵两路击之可也。”"</div>
+              <div class="evidence-context">📍 黄忠与赵云商议迎战徐晃</div>
+            </div>
+            
+          <div class="evidence-more">共 6 条证据，展示强度最高的 5 条</div>
+        </div>
+        
+
+        <div class="evidence-group">
+          <div class="evidence-dim-header">
+            <span class="evidence-dim-title">N/S · 信息获取</span>
+            <span class="evidence-dim-score">N 76%</span>
+          </div>
+          
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">黄忠不硬拼，而是利用地形和计谋，如让严颜从小路抄后，以及连败诱敌。</div>
+              <div class="evidence-quote">"黄忠连日哨探，已知路径。"</div>
+              <div class="evidence-context">📍 黄忠与严颜商议破敌</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">模式识别</span>
+                <span class="evidence-strength">强度 80%</span>
+              </div>
+              <div class="evidence-text">黄忠观察徐晃弓弩射箭，判断其军将退，并建议乘时攻击。</div>
+              <div class="evidence-quote">"忠谓赵云曰：“徐晃令弓弩射者，其军必将退也，可乘时击之。”"</div>
+              <div class="evidence-context">📍 徐晃射箭时，黄忠识破其意图</div>
+            </div>
+            
+            <div class="evidence-item">
+              <div class="evidence-top">
+                <span class="evidence-polarity N">N</span>
+                <span class="evidence-indicator">创新倾向</span>
+                <span class="evidence-strength">强度 60%</span>
+              </div>
+              <div class="evidence-text">黄忠接受法正的‘反客为主’和‘以逸待劳’计策，善于运用谋略而非蛮干。</div>
+              <div class="evidence-quote">"忠大喜，从其计。"</div>
+              <div class="evidence-context">📍 法正建议夺取对山，黄忠采纳。</div>
+            </div>
+            
+          <div class="evidence-more">共 3 条证据，展示强度最高的 3 条</div>
+        </div>
+        
+  </div>
+
+  <!-- Dispute -->
+  
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span>争议人格</div>
+    <div class="dispute-box">
+      <div class="dispute-title">⚡ 存在争议的判断</div>
+      <div class="dispute-types">
+        <div class="dispute-type">
+          <div class="type-label">ENTJ</div>
+          <div class="type-conf">置信度 78%</div>
+        </div>
+        <div class="dispute-vs">VS</div>
+        <div class="dispute-type secondary">
+          <div class="type-label">INTJ</div>
+          <div class="type-conf">置信度 60%</div>
+        </div>
+      </div>
+      <div class="dispute-reason">T/F维度接近平衡，既重义气又坚持己见，情感与理性交织</div>
+    </div>
+  </div>
+
+
+  <!-- Quotes -->
+  <div class="section">
+    <div class="section-title"><span class="icon">💬</span>代表性台词</div>
+    <div class="quote-item"><div class="quote-text">"难得云长如此义气！他不忍杀害我，我又安忍射他？"</div></div>
+<div class="quote-item"><div class="quote-text">"老夫愿往。"</div></div>
+<div class="quote-item"><div class="quote-text">"汝说吾老，敢与我比试武艺么？"</div></div>
+<div class="quote-item"><div class="quote-text">"张任每日来搦战，见城中不出，彼军懈怠，不做准备，今日夜间分兵劫寨，胜如白昼厮杀。"</div></div>
+<div class="quote-item"><div class="quote-text">"此老夫骄兵之计也。"</div></div>
+  </div>
+
+  <div class="footer">
+    本报告由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-21 12:59
+  </div>
+
+</div>
+
+</body>
+</html>

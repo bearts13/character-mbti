@@ -333,6 +333,19 @@
     color: #9891b3;
     line-height: 1.7;
   }
+  .feature-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.14), rgba(255, 107, 157, 0.08));
+    border-color: rgba(167, 139, 250, 0.35);
+  }
+  .feature-link:hover {
+    transform: translateY(-4px);
+    border-color: rgba(167, 139, 250, 0.6);
+    background: linear-gradient(135deg, rgba(124, 92, 255, 0.22), rgba(255, 107, 157, 0.12));
+  }
 
   /* How it works */
   .steps {
@@ -525,6 +538,19 @@
         <div class="work-arrow">→</div>
       </a>
 
+      <a href="maps/三国演义.html" class="work-card">
+        <div class="work-cover" style="background: linear-gradient(135deg, #6d4a12, #b8860b);">
+          🐉
+        </div>
+        <h3>三国演义</h3>
+        <div class="work-author">罗贯中 · 古典名著</div>
+        <div class="work-stats">
+          <span>👥 18 个角色</span>
+          <span>🎯 6 种人格</span>
+        </div>
+        <div class="work-arrow">→</div>
+      </a>
+
       <a href="maps/红手指.html" class="work-card">
         <div class="work-cover" style="background: linear-gradient(135deg, #4a1942, #6b1b3a);">
           🔍
@@ -599,9 +625,26 @@
     <h2 class="section-title">还有什么好玩的</h2>
 
     <div class="features-grid">
+      <a href="play.html#card" class="feature-card feature-link">
+        <div class="feature-icon">🃏</div>
+        <h4>金句卡片</h4>
+        <p>选一个角色和他的经典台词，生成一张可分享的社交图片卡片 →</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- 关于这个项目 -->
+  <div class="section">
+    <div class="section-label">About</div>
+    <h2 class="section-title">关于这个项目</h2>
+    <p class="section-desc">
+      从原文证据到人格结论，每一步都可追溯、可验证。
+    </p>
+
+    <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🗺️</div>
-        <h4>16 宫格人格地图</h4>
+        <h4>人格分布总览</h4>
         <p>整本书的角色一目了然，看看哪个类型最多，谁和谁是同类。</p>
       </div>
       <div class="feature-card">
@@ -618,11 +661,6 @@
         <div class="feature-icon">🔧</div>
         <h4>开源可自托管</h4>
         <p>所有代码开源，你可以自己跑、自己改、分析自己喜欢的角色。</p>
-      </div>
-      <div class="feature-card" style="cursor:pointer;" onclick="location.href='play.html'">
-        <div class="feature-icon">🧬</div>
-        <h4>角色互动实验室</h4>
-        <p>测测你的 MBTI 找到同频角色、和角色对比、让角色 PK、生成金句卡片 →</p>
       </div>
     </div>
   </div>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三国演义 · 人格地图 | 角色鉴定所</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #3d375e;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+  .header .stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 13px;
+  }
+  .header .stats span {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Axis Labels */
+  .axis-container {
+    position: relative;
+    padding: 40px 50px 20px 50px;
+  }
+  .axis-label {
+    position: absolute;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+  }
+  .axis-label.top-left { top: 10px; left: 60px; }
+  .axis-label.top-right { top: 10px; right: 60px; }
+  .axis-label.left-top { top: 60px; left: 10px; writing-mode: vertical-rl; }
+  .axis-label.left-bottom { bottom: 20px; left: 10px; writing-mode: vertical-rl; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .grid-cell {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 120px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .grid-cell.has-chars {
+    background: rgba(255,255,255,0.95);
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .grid-cell.has-chars:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  .cell-header {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .grid-cell.has-chars .cell-mbti {
+    font-size: 16px;
+    font-weight: 800;
+    color: #7c5cff;
+  }
+  .grid-cell:not(.has-chars) .cell-mbti {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+  .grid-cell.has-chars .cell-cn {
+    font-size: 11px;
+    color: #9891b3;
+  }
+  .grid-cell:not(.has-chars) .cell-cn {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .cell-chars {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .char-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: #f5f2ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .char-chip:hover {
+    background: #e8e0ff;
+    transform: translateX(2px);
+  }
+  .char-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .char-name {
+    font-size: 12px;
+    color: #3d375e;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .empty-cell {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .cell-count {
+    margin-top: 6px;
+    font-size: 10px;
+    color: #9891b3;
+    text-align: right;
+  }
+
+  /* Detail Panel */
+  .detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .detail-overlay.show {
+    display: block;
+    opacity: 1;
+  }
+
+  .detail-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: white;
+    z-index: 101;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  }
+  .detail-panel.show {
+    right: 0;
+  }
+
+  .detail-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #f5f2ff;
+    color: #7c5cff;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .detail-close:hover {
+    background: #e8e0ff;
+  }
+
+  .detail-header {
+    padding: 30px 24px 20px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+  }
+  .detail-header .char-big-name {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .detail-header .char-work {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+  .detail-header .char-mbti {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .detail-header .mbti-big {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+  .detail-header .mbti-conf {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+
+  .detail-body {
+    padding: 20px 24px;
+  }
+
+  .detail-section {
+    margin-bottom: 20px;
+  }
+  .detail-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7c5cff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .detail-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .detail-keyword {
+    font-size: 12px;
+    padding: 3px 10px;
+    background: #f5f2ff;
+    color: #7c5cff;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  .detail-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .detail-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .detail-bar-label {
+    width: 50px;
+    font-weight: 600;
+    color: #6b6485;
+  }
+  .detail-bar-track {
+    flex: 1;
+    height: 8px;
+    background: #f0ecf8;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .detail-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c5cff, #a78bfa);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+  .detail-bar-pct {
+    width: 36px;
+    text-align: right;
+    font-weight: 600;
+    color: #3d375e;
+  }
+
+  .detail-summary {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5a4f8a;
+  }
+
+  .detail-link {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #7c5cff, #a78bfa);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    pointer-events: auto;
+    user-select: none;
+  }
+  .detail-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 16px 8px; }
+    .header h1 { font-size: 20px; }
+    .header .subtitle { font-size: 12px; }
+    .axis-container { padding: 20px 16px 8px 16px; }
+    .axis-label { font-size: 10px; }
+    .axis-label.top { min-width: 40px; padding: 2px 4px; }
+    .axis-label.left { height: 40px; padding: 2px; }
+    .grid {
+      gap: 4px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+    .grid-cell { padding: 6px; min-height: 80px; border-radius: 8px; }
+    .cell-header { margin-bottom: 3px; }
+    .grid-cell.has-chars .cell-mbti { font-size: 12px; }
+    .grid-cell.has-chars .cell-cn { font-size: 9px; }
+    .char-name { font-size: 10px; padding: 2px 6px; }
+    .char-avatar { width: 16px; height: 16px; font-size: 9px; }
+    .detail-panel { width: 100%; right: -100%; }
+    .detail-panel.active { right: 0; }
+    .detail-content { padding: 20px 16px; }
+    .detail-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 12px 4px; }
+    .header h1 { font-size: 18px; }
+    .grid-cell { min-height: 70px; padding: 4px; }
+    .grid-cell.has-chars .cell-mbti { font-size: 11px; }
+    .char-name { font-size: 9px; padding: 1px 4px; }
+    .char-avatar { width: 14px; height: 14px; font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div style="text-align:center; margin-bottom: 20px;">
+    <a href="../index.html" style="display:inline-block; padding:8px 20px; background:rgba(255,255,255,0.15); color:white; text-decoration:none; border-radius:20px; font-size:14px; backdrop-filter:blur(10px); transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">← 返回首页</a>
+  </div>
+  <div class="header">
+    <h1>《三国演义》人格地图</h1>
+    <div class="subtitle">16 型人格角色分布图 · 角色鉴定所</div>
+    <div class="stats"><span>👥 18 个角色</span><span>🎯 6 种人格</span><span>🏆 最多：建筑师（7人）</span></div>
+  </div>
+
+  <div class="axis-container">
+    <div class="axis-label top-left">内倾 I</div>
+    <div class="axis-label top-right">外倾 E</div>
+    <div class="axis-label left-top">直觉 N</div>
+    <div class="axis-label left-bottom">感觉 S</div>
+
+    <div class="grid">
+      
+            <div class="grid-cell has-chars" data-mbti="INTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">INTJ</span>
+                    <span class="cell-cn">建筑师</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="司马懿" onclick="showDetail('司马懿')"><span class="char-avatar">司</span><span class="char-name">司马懿</span></div><div class="char-chip" data-name="姜维" onclick="showDetail('姜维')"><span class="char-avatar">姜</span><span class="char-name">姜维</span></div><div class="char-chip" data-name="曹操" onclick="showDetail('曹操')"><span class="char-avatar">曹</span><span class="char-name">曹操</span></div><div class="char-chip" data-name="诸葛亮" onclick="showDetail('诸葛亮')"><span class="char-avatar">诸</span><span class="char-name">诸葛亮</span></div><div class="char-chip" data-name="赵云" onclick="showDetail('赵云')"><span class="char-avatar">赵</span><span class="char-name">赵云</span></div><div class="char-chip" data-name="陆逊" onclick="showDetail('陆逊')"><span class="char-avatar">陆</span><span class="char-name">陆逊</span></div><div class="char-chip" data-name="马超" onclick="showDetail('马超')"><span class="char-avatar">马</span><span class="char-name">马超</span></div>
+                </div>
+                <div class="cell-count">7 人</div>
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="INFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">INFJ</span>
+                    <span class="cell-cn">提倡者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="关羽" onclick="showDetail('关羽')"><span class="char-avatar">关</span><span class="char-name">关羽</span></div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ENTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENTJ</span>
+                    <span class="cell-cn">指挥官</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="周瑜" onclick="showDetail('周瑜')"><span class="char-avatar">周</span><span class="char-name">周瑜</span></div><div class="char-chip" data-name="孙权" onclick="showDetail('孙权')"><span class="char-avatar">孙</span><span class="char-name">孙权</span></div><div class="char-chip" data-name="庞统" onclick="showDetail('庞统')"><span class="char-avatar">庞</span><span class="char-name">庞统</span></div><div class="char-chip" data-name="张辽" onclick="showDetail('张辽')"><span class="char-avatar">张</span><span class="char-name">张辽</span></div><div class="char-chip" data-name="张飞" onclick="showDetail('张飞')"><span class="char-avatar">张</span><span class="char-name">张飞</span></div><div class="char-chip" data-name="黄忠" onclick="showDetail('黄忠')"><span class="char-avatar">黄</span><span class="char-name">黄忠</span></div>
+                </div>
+                <div class="cell-count">6 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ENFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENFJ</span>
+                    <span class="cell-cn">主人公</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="INTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">INTP</span>
+                    <span class="cell-cn">逻辑学家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="INFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">INFP</span>
+                    <span class="cell-cn">调停者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ENTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENTP</span>
+                    <span class="cell-cn">辩论家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ENFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENFP</span>
+                    <span class="cell-cn">竞选者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="刘备" onclick="showDetail('刘备')"><span class="char-avatar">刘</span><span class="char-name">刘备</span></div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISTJ</span>
+                    <span class="cell-cn">物流师</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISFJ</span>
+                    <span class="cell-cn">守卫者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ESTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESTJ</span>
+                    <span class="cell-cn">总经理</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="吕布" onclick="showDetail('吕布')"><span class="char-avatar">吕</span><span class="char-name">吕布</span></div><div class="char-chip" data-name="董卓" onclick="showDetail('董卓')"><span class="char-avatar">董</span><span class="char-name">董卓</span></div>
+                </div>
+                <div class="cell-count">2 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESFJ</span>
+                    <span class="cell-cn">执政官</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISTP</span>
+                    <span class="cell-cn">鉴赏家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISFP</span>
+                    <span class="cell-cn">探险家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ESTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESTP</span>
+                    <span class="cell-cn">企业家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="魏延" onclick="showDetail('魏延')"><span class="char-avatar">魏</span><span class="char-name">魏延</span></div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESFP</span>
+                    <span class="cell-cn">表演者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+    </div>
+  </div>
+  </div>
+            
+
+            <div class="grid-cell " data-mbti="INFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">INFP</span>
+                    <span class="cell-cn">调停者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ENTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENTP</span>
+                    <span class="cell-cn">辩论家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ENFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ENFP</span>
+                    <span class="cell-cn">竞选者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="宝玉" onclick="showDetail('宝玉')">
+                        <span class="char-avatar">宝</span>
+                        <span class="char-name">宝玉</span>
+                    </div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISTJ</span>
+                    <span class="cell-cn">物流师</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ISFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISFJ</span>
+                    <span class="cell-cn">守卫者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="袭人" onclick="showDetail('袭人')">
+                        <span class="char-avatar">袭</span>
+                        <span class="char-name">袭人</span>
+                    </div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ESTJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESTJ</span>
+                    <span class="cell-cn">总经理</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="贾琏" onclick="showDetail('贾琏')">
+                        <span class="char-avatar">贾</span>
+                        <span class="char-name">贾琏</span>
+                    </div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ESFJ">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESFJ</span>
+                    <span class="cell-cn">执政官</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="尤氏" onclick="showDetail('尤氏')">
+                        <span class="char-avatar">尤</span>
+                        <span class="char-name">尤氏</span>
+                    </div><div class="char-chip" data-name="平儿" onclick="showDetail('平儿')">
+                        <span class="char-avatar">平</span>
+                        <span class="char-name">平儿</span>
+                    </div><div class="char-chip" data-name="王夫人" onclick="showDetail('王夫人')">
+                        <span class="char-avatar">王</span>
+                        <span class="char-name">王夫人</span>
+                    </div><div class="char-chip" data-name="贾母" onclick="showDetail('贾母')">
+                        <span class="char-avatar">贾</span>
+                        <span class="char-name">贾母</span>
+                    </div>
+                </div>
+                <div class="cell-count">4 人</div>
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISTP</span>
+                    <span class="cell-cn">鉴赏家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ISFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ISFP</span>
+                    <span class="cell-cn">探险家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell " data-mbti="ESTP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESTP</span>
+                    <span class="cell-cn">企业家</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="empty-cell">暂无角色</div>
+                </div>
+                
+            </div>
+            
+
+            <div class="grid-cell has-chars" data-mbti="ESFP">
+                <div class="cell-header">
+                    <span class="cell-mbti">ESFP</span>
+                    <span class="cell-cn">表演者</span>
+                </div>
+                <div class="cell-chars">
+                    <div class="char-chip" data-name="刘姥姥" onclick="showDetail('刘姥姥')">
+                        <span class="char-avatar">刘</span>
+                        <span class="char-name">刘姥姥</span>
+                    </div>
+                </div>
+                <div class="cell-count">1 人</div>
+            </div>
+            
+    </div>
+  </div>
+
+  <div class="footer">
+    本地图由「角色鉴定所」AI 自动生成 · 仅供娱乐参考<br>
+    生成时间：2026-08-14 09:13
+  </div>
+</div>
+
+<!-- Detail Panel -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detailPanel">
+  <button class="detail-close" onclick="closeDetail()">×</button>
+  <div id="detailContent"></div>
+</div>
+
+<script>
+const characters = [{"name":"关羽","work":"三国演义","mbti":"INFJ","confidence":0.84,"scores":{"I":65,"E":35,"N":60,"S":40,"T":30,"F":70,"J":80,"P":20},"keywords":["雷厉风行","理性决断","内敛主导","战略远见","忠义无双","原则至上"],"summary":"关羽是典型的INTJ型人格，以内在的价值观和战略远见驱动行动，外表沉默寡言，内心却有着清晰的计划和坚定的原则。他重义轻利，但决策时更依赖理性分析和原则判断，而非情感冲动。在战场上，他善于利用环境和模式创新（如水淹七军），展现出极强的计划性和控制欲。他忠于刘备，但并非盲目，而是基于对‘义’的深刻理解。他的果断和决绝令人敬畏，但有时也因过于坚持原则而缺乏灵活性，最终导致悲剧。他的人格核心是‘义理’与‘理性’的融合，既是一位孤独的谋略家，也是一位忠诚的守护者。","report_file":"../chars/关羽.html","second_type":"ISFJ","dispute_point":"N/S维度争议较大（60%），直觉与实感倾向接近，导致第二人格为ISFJ。"},{"name":"刘备","work":"三国演义","mbti":"ENFP","confidence":0.81,"scores":{"I":35,"E":65,"N":75,"S":25,"T":25,"F":75,"J":45,"P":55},"keywords":["远见卓识","仁德为本","重情重义","灵活应变","犹豫不决","内省深思","温和谦逊"],"summary":"刘备是一个以仁德为旗帜的领袖，他拥有远大的政治抱负和敏锐的战略眼光，善于以情动人、凝聚人心。然而，他的情感驱动常常压倒理性，在重大决策上会因情义而犹豫甚至冲动。他外表温和谦逊，内心却有着坚定的信念和执着的追求。他灵活应变，但缺乏周密的计划性，这使他在乱世中屡败屡战，最终成就一番事业。他的魅力在于真诚，他的局限在于情感用事。","report_file":"../chars/刘备.html","second_type":"ENFJ","dispute_point":"在计划与灵活之间摇摆，有时果断有时犹豫"},{"name":"司马懿","work":"三国演义","mbti":"INTJ","confidence":0.85,"scores":{"I":78,"E":22,"N":88,"S":12,"T":78,"F":22,"J":82,"P":18},"keywords":["深谋远虑","隐忍内敛","战略家","理性至上","计划周密","洞察先机","独立决策","控制欲强"],"summary":"司马懿是典型的INTJ战略家，以深邃的直觉洞察全局，擅长从模式中预判对手行动，如识破诸葛亮计谋、通过星象判断其寿命。他内敛而隐忍，情绪深藏不露，决策完全基于逻辑与军事效率，不为情绪所动。计划性极强，政变时环环相扣，军令严明，展现出强烈的控制欲。然而，他并非冷酷无情，在斩曹爽后饶恕义士，面对羞辱时佯笑隐忍，显示其理性与情感之间的微妙平衡。他的一生是隐忍与爆发的艺术，以时间换空间，最终成就大业。","report_file":"../chars/司马懿.html","second_type":"ENTJ","dispute_point":"T/F维度争议较大（T 78%），但仍有情感表达和体察个体的一面"},{"name":"吕布","work":"三国演义","mbti":"ESTJ","confidence":0.75,"scores":{"I":18,"E":82,"N":48,"S":52,"T":78,"F":22,"J":52,"P":48},"keywords":["行动派","利益驱动","武力至上","直率冲动","控制欲强","缺乏远见","情感压抑","争议型决策者"],"summary":"吕布是典型的行动派人格，以武力为第一语言，决策几乎完全基于当下利益和逻辑计算。他极度外向，主动发起挑战和社交，但缺乏抽象规划能力，更依赖具体战斗和即时反应。在情感与逻辑的权衡中，他压倒性地偏向逻辑，甚至为功名弑父投敌，但偶尔流露的落泪和听妻妾之言又暴露了被压抑的情感面。他的判断风格介于计划与随性之间，既能快速执行，又会在后期陷入犹豫。整体上，他是一个被自身武力和欲望驱动、缺乏长远视野的悲剧性枭雄，其人格中的矛盾点在于：看似果断实则短视，看似无情却有软肋。","report_file":"../chars/吕布.html","second_type":"ENTJ","dispute_point":"N/S维度争议较大（48%），可能更偏向直觉型策略家"},{"name":"周瑜","work":"三国演义","mbti":"ENTJ","confidence":0.85,"scores":{"I":35,"E":65,"N":88,"S":12,"T":78,"F":22,"J":85,"P":15},"keywords":["战略家","果断决绝","创新谋略","掌控全局","情感内敛","忠诚重义","高效执行"],"summary":"周瑜是典型的战略型统帅，以直觉（N）和判断（J）为主导，擅长模式识别与长远规划，设计连环计、苦肉计等创新策略，展现出极高的战术天赋。他决策果断，强调法度，以军事逻辑和战略利益为先，情感表达内敛但忠诚深重。在人际中主动积极，善于说服和推荐人才，但内心谋略常独自策划。其人格核心是'理性掌控'与'情感忠诚'的张力，既冷酷执行军法，又为知己肝脑涂地，最终因情感波动而箭疮迸发，揭示出理性外壳下的炽热内核。","report_file":"../chars/周瑜.html","second_type":"INTJ","dispute_point":"情感维度（T/F）存在争议，对孙策的深厚情感与决策时的冷酷形成对比"},{"name":"姜维","work":"三国演义","mbti":"INTJ","confidence":0.9,"scores":{"I":65,"E":35,"N":88,"S":12,"T":78,"F":22,"J":85,"P":15},"keywords":["深谋远虑","战略家","冷静决断","计划周密","内敛坚韧","执着理想","洞察先机"],"summary":"姜维是典型的INTJ战略家，以长远眼光和系统思维著称。他继承诸葛亮遗志，多次北伐，目标明确，计划周密，善于从细节中洞察全局，识破敌方计谋。决策时冷静理性，以军事效率为先，情感表达节制，但并非无情，对恩师和战友的关怀隐于行动中。他掌控欲强，坚持己见，偶尔灵活变通，但总体偏向计划与秩序。其内敛性格与主动行动形成微妙张力，使他在乱世中既显沉稳，又带锋芒。","report_file":"../chars/姜维.html","second_type":"ENTJ","dispute_point":"I/E维度争议较大，姜维虽内敛谨慎，但多次主动请战、积极行动，外向倾向亦明显。"},{"name":"孙权","work":"三国演义","mbti":"ENTJ","confidence":0.72,"scores":{"I":40,"E":60,"N":70,"S":30,"T":55,"F":45,"J":60,"P":40},"keywords":["战略家","权衡型决策者","隐忍的野心家","情感内敛","务实主义者","掌控欲强","犹豫的决断者"],"summary":"孙权是一位典型的战略型统治者，兼具长远眼光与务实手腕。他善于倾听臣下意见，却始终将决策权牢牢握在手中；情感上重情重义，但面对政治利害时能果断割舍。他的犹豫并非优柔寡断，而是权衡利弊的必经过程。在乱世中，他以隐忍和耐心经营江东，最终成就帝业，其人格底色是'理性主导、情感为辅'的实用主义。","report_file":"../chars/孙权.html","second_type":"ENFJ","dispute_point":"T/F维度争议较大（55%），情感与理性常冲突，但最终以政治利益为先"},{"name":"庞统","work":"三国演义","mbti":"ENTJ","confidence":0.87,"scores":{"I":25,"E":75,"N":88,"S":12,"T":82,"F":18,"J":68,"P":32},"keywords":["深谋远虑","战略家","逻辑缜密","果断决绝","独立自信","不拘小节","掌控全局","理想主义底色"],"summary":"庞统是典型的战略型谋士，思维高度抽象，擅长从全局洞察事物本质，提出连环计、上中下三计等创新方案，展现出极强的模式识别与长远规划能力。他决策基于逻辑与实际利益，杀伐果断，为达目的不惜牺牲情感，甚至主张杀刘璋，但内心深处又怀有'救万民'的理想主义。他主动掌控局面，推动刘备行动，却也在耒阳表现出随性懒散的一面，这种矛盾恰恰源于他对自身能力的绝对自信——不屑于琐碎规则，只在意战略成败。整体上，他是一位冷静、孤傲、以智谋为剑的乱世棋手。","report_file":"../chars/庞统.html","second_type":"ENTP","dispute_point":"J/P维度争议较大：既有周密计划、快速决断的一面，又有随性不羁、不拘礼法的一面，但整体偏向J。"},{"name":"张辽","work":"三国演义","mbti":"ENTJ","confidence":0.65,"scores":{"I":30,"E":70,"N":57,"S":43,"T":60,"F":40,"J":75,"P":25},"keywords":["内敛独立","理性果断","谋略深远","计划周密","掌控全局","直觉平衡"],"summary":"张辽是一位内敛而果决的将领，表面沉静，内心却蕴藏着强大的行动力与掌控欲。他善于以理性分析局势，制定周密计划，并在关键时刻果断出击，如逍遥津伏击战，展现了他对全局的精准把控。然而，他的忠义之心常与理性判断交织，既会因曹操的礼遇而投降，也会因故人之情而说降关羽，显示出情感与逻辑的微妙平衡。他并非纯粹的冷血谋士，而是将忠义视为立身之本，在乱世中坚守自己的原则。这种内敛与爆发、理性与情感的双重性，使他成为三国中独具魅力的将领。","report_file":"../chars/张辽.html","second_type":"ESTJ","dispute_point":"直觉与实感倾向接近，在战略创新与务实执行间摇摆"},{"name":"张飞","work":"三国演义","mbti":"ENTJ","confidence":0.75,"scores":{"I":10,"E":90,"N":65,"S":35,"T":70,"F":30,"J":60,"P":40},"keywords":["行动派","直率刚烈","重原则","掌控欲强","务实策略","情绪外露","忠诚义气"],"summary":"张飞是典型的行动派将领，性格直率刚烈，决策果断，重原则和执行力。他偏好具体事实和实际策略，在战场上善于用计（如诈醉诱敌、草人设伏），但情绪管理薄弱，易冲动行事。他忠诚于兄弟情义，对上级服从，对部下严苛，但也能被真诚感化（如义释严颜）。整体上，他是一位以原则和武力解决问题的务实者，但在情感与理性之间常有冲突，形成其复杂而鲜明的人格。","report_file":"../chars/张飞.html","second_type":"ENTP","dispute_point":"T/F维度争议较大（T 70%），但情感驱动决策的案例（如义释严颜、为兄复仇）削弱了T的纯粹性"},{"name":"曹操","work":"三国演义","mbti":"INTJ","confidence":0.9,"scores":{"I":85,"E":15,"N":72,"S":28,"T":88,"F":12,"J":82,"P":18},"keywords":["雄才大略","杀伐决断","深谋远虑","控制欲强","务实灵活","冷酷理性","政治敏锐","领袖魅力"],"summary":"曹操是典型的ENTJ型统帅，以宏大的战略视野和铁腕的决策风格著称。他善于洞察时局本质，能迅速抓住关键矛盾，如奉天子以令诸侯、识破孙权劝进。他的理性近乎冷酷，为达目的不惜牺牲他人，但又能以政治利益为最高准则，展现出惊人的实用主义。他极度渴望掌控全局，从军事部署到身后疑冢，无不体现其计划性和控制欲。然而，他并非完全僵化，在具体操作中灵活变通，甚至打破常规。这种矛盾性使他既令人敬畏又充满争议，成为乱世中不可一世的枭雄。","report_file":"../chars/曹操.html","second_type":"ISTJ","dispute_point":"N/S维度争议最大（72%偏向N），但仍有较强的现实细节关注，可能为ESTJ。"},{"name":"董卓","work":"三国演义","mbti":"ESTJ","confidence":0.7,"scores":{"I":38,"E":62,"N":38,"S":62,"T":90,"F":10,"J":65,"P":35},"keywords":["冷酷理性","专断独行","权力至上","实用主义","控制欲强","偏内向"],"summary":"董卓是一个典型的权力型人格，以冷酷的理性逻辑驱动一切行动。他极度务实，只看重眼前利益和实际效果，对情感和道德毫无顾忌，甚至以‘为天下计’为暴行辩护。他具有强烈的控制欲和决断力，喜欢用武力与威胁强行推行自己的意志，无视规则与程序。尽管他表现出一定的社交主动性，但本质上更依赖独断和内部决策，缺乏真正的共情与反思。他的直觉倾向使他能敏锐捕捉权力机会，但缺乏长远规划，最终因暴虐而众叛亲离。","report_file":"../chars/董卓.html","second_type":"ISTJ","dispute_point":"内外向维度存在争议，虽表现主动社交但更倾向于独断决策，实际偏内向。"},{"name":"诸葛亮","work":"三国演义","mbti":"INTJ","confidence":0.9,"scores":{"I":82,"E":18,"N":95,"S":5,"T":85,"F":15,"J":92,"P":8},"keywords":["深谋远虑","独立决策","战略家","理性至上","计划控","洞察本质","孤高智者"],"summary":"诸葛亮是典型的INTJ战略家，以极高的直觉（N）和判断（J）主导，几乎完全依赖内在的逻辑框架（T）来规划全局。他独处时思考，决策时独立，不依赖他人意见，但必要时能展现雄辩与社交能力。其核心驱动力是对未来趋势的精准洞察和掌控欲，从隆中对策到北伐部署，每一步都体现计划性和控制力。他理性至上，但并非无情，对孟获的七擒七纵和斩马谡后的痛哭，显示其内在的价值观与情感张力。整体上，他是一个以智慧为武器、以目标为导向的孤高战略家，其人格的争议点在于他偶尔流露的仁慈与情感，但最终仍被理性所统摄。","report_file":"../chars/诸葛亮.html","second_type":"ENTJ","dispute_point":"IE维度相对其他维度更接近50，但实际仍偏内向，争议点在于其舌战群儒等外向表现，但整体仍为内向主导。"},{"name":"赵云","work":"三国演义","mbti":"INTJ","confidence":0.85,"scores":{"I":65,"E":35,"N":85,"S":15,"T":75,"F":25,"J":90,"P":10},"keywords":["深谋远虑","冷静决断","忠诚义士","战略家","行动派","独立自主","掌控全局"],"summary":"赵云是典型的INTJ型人格，以战略眼光和冷静理性著称。他善于长远规划，选择明主时深思熟虑，战场上则果断执行，从不犹豫。他独立自主，常独自决断，行动多于言语，但关键时刻总能挺身而出。他的忠诚并非盲目，而是基于对刘备的理性认同，因此能平衡公义与私情。在计划与执行上，他高度有序，善于掌控局面，同时又能灵活应变。整体上，赵云是一位兼具智谋与勇气的完美将领，其人格中理性主导，但又不失温度。","report_file":"../chars/赵云.html","second_type":"ENTJ","dispute_point":"在情感忠诚与理性决策之间，赵云更偏向理性，但忠诚本身带有情感色彩，存在轻微争议。"},{"name":"陆逊","work":"三国演义","mbti":"INTJ","confidence":0.9,"scores":{"I":82,"E":18,"N":88,"S":12,"T":88,"F":12,"J":88,"P":12},"keywords":["深谋远虑","独立内省","理性决断","全局掌控","隐忍坚韧","战略家","冷静克制","计划周密"],"summary":"陆逊是典型的战略型人格，以深邃的内省和全局视野著称。他极少受情绪左右，善于从长远角度分析局势，如识破刘备诱敌之计、预见魏国偷袭，皆基于冷静的模式识别与未来推演。他行事周密，步步为营，骄兵之计的实施体现了他对计划的绝对掌控和耐心。面对众将的嘲讽与质疑，他坚持理性决策，以军法立威，展现出极强的定力与隐忍。他并非缺乏情感，而是将情感深藏于战略目标之下，以‘忍辱负重’为信条。其人格画像如同一位沉默的棋手，在暗处布局，待时机成熟一击制胜。","report_file":"../chars/陆逊.html","second_type":"ENTJ","dispute_point":"I/E维度虽高，但作为统帅需公开部署，存在一定外向行为，但整体仍以内向为主。"},{"name":"马超","work":"三国演义","mbti":"INTJ","confidence":0.72,"scores":{"I":60,"E":40,"N":55,"S":45,"T":85,"F":15,"J":70,"P":30},"keywords":["行动导向","冷静果断","策略型","重原则","控制欲强","内敛深沉","务实计划"],"summary":"马超是一位典型的行动派将领，沉默寡言却行动力极强。他习惯在战场上用行动而非言语表达自己，面对冲突时冷静理性，甚至冷酷到可以牺牲情感以维护原则。他具有战略眼光，能提出长远计划（如建议父亲入京），但在实战中更依赖具体经验和细节，缺乏对复杂阴谋的洞察力（如未能识破反间计）。他控制欲强，喜欢亲自部署和掌控战局，计划性强，但面对突发状况时也会临时应变。整体上，他是一位忠诚、刚烈、重原则的军事统帅，情感深藏不露，以逻辑和行动主导人生。","report_file":"../chars/马超.html","second_type":"ISTJ","dispute_point":"N/S维度争议较大（N 55%），但更偏向实际经验而非抽象创新"},{"name":"魏延","work":"三国演义","mbti":"ESTP","confidence":0.76,"scores":{"I":30,"E":70,"N":40,"S":60,"T":75,"F":25,"J":40,"P":60},"keywords":["理性果断","独立自主","战略眼光","有争议的直觉","控制欲强","直言不讳","冒险精神"],"summary":"魏延是三国中极具矛盾色彩的将领。他行动力强，主动请战、争功，却常在关键时刻沉默；他提出子午谷奇谋，展现战略直觉，却又因急功近利而忽视全局。他理性果断，基于逻辑和利益决策，不惜以强硬手段对抗不公，但个人荣誉感极强，易因意气用事。他渴望掌控兵权，却对号令时有抵触，灵活变通与纪律约束在他身上反复拉扯。总体而言，魏延是一个有野心、有谋略、但缺乏耐心与政治智慧的孤胆英雄，其悲剧源于才华与性格的错位。","report_file":"../chars/魏延.html","second_type":"ENTP","dispute_point":"N/S维度争议：既有子午谷奇谋的直觉创新，又常关注眼前战功，缺乏长远规划"},{"name":"黄忠","work":"三国演义","mbti":"ENTJ","confidence":0.78,"scores":{"I":43,"E":57,"N":76,"S":24,"T":57,"F":43,"J":84,"P":16},"keywords":["直觉型","计划型","平衡型","有争议的决断","老当益壮","忠义","勇猛","独立行动"],"summary":"黄忠是一位老当益壮的将领，虽年迈却行动果断，常主动请战，展现出强烈的责任感和战斗意志。他善于观察地形与敌情，能运用计谋取胜，如骄兵之计、夜袭敌营，体现其直觉与计划性。然而，他在决策上常受情感影响，如因关羽不杀之恩而放箭，又因报恩而奋力追杀，显示出理性与情义的矛盾。他独立行动，不喜社交，但关键时刻能果断出击。总体而言，黄忠是位兼具谋略与勇武、重情重义但偶有冲动的老将。","report_file":"../chars/黄忠.html","second_type":"INTJ","dispute_point":"T/F维度接近平衡，既重义气又坚持己见，情感与理性交织"}];
+
+const charMap = {};
+characters.forEach(c => { charMap[c.name] = c; });
+
+function showDetail(name) {
+  const c = charMap[name];
+  if (!c) return;
+
+  const scores = c.scores || {};
+  const ie = scores['E'] || 50;
+  const ns = scores['N'] || 50;
+  const tf = scores['F'] || 50;
+  const jp = scores['J'] || 50;
+
+  const keywords = (c.keywords || []).map(k =>
+    `<span class="detail-keyword">${k}</span>`
+  ).join('');
+
+  const secondTypeHtml = c.second_type
+    ? `<div style="font-size:12px;color:#ff6b9d;margin-top:4px;">⚔️ 争议：${c.second_type}</div>`
+    : '';
+
+  const html = `
+    <div class="detail-header">
+      <div class="char-big-name">${c.name}</div>
+      <div class="char-work">《${c.work}》</div>
+      <div class="char-mbti">
+        <div class="mbti-big">${c.mbti}</div>
+        <div class="mbti-conf">
+          置信度 ${Math.round(c.confidence * 100)}%
+          ${secondTypeHtml}
+        </div>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-section">
+        <div class="detail-section-title">🏷️ 人格关键词</div>
+        <div class="detail-keywords">${keywords}</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-title">📊 四维分布</div>
+        <div class="detail-bars">
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">E 外倾</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${ie}%"></div></div>
+            <span class="detail-bar-pct">${ie}%</span>
+          </div>
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">N 直觉</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${ns}%"></div></div>
+            <span class="detail-bar-pct">${ns}%</span>
+          </div>
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">F 情感</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${tf}%"></div></div>
+            <span class="detail-bar-pct">${tf}%</span>
+          </div>
+          <div class="detail-bar-row">
+            <span class="detail-bar-label">J 判断</span>
+            <div class="detail-bar-track"><div class="detail-bar-fill" style="width:${jp}%"></div></div>
+            <span class="detail-bar-pct">${jp}%</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-title">💭 人格画像</div>
+        <div class="detail-summary">${c.summary || '暂无'}</div>
+      </div>
+      <a href="${c.report_file}" class="detail-link" target="_blank"
+         onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+        查看完整分析报告 →
+      </a>
+    </div>
+  `;
+
+  document.getElementById('detailContent').innerHTML = html;
+  document.getElementById('detailOverlay').classList.add('show');
+  document.getElementById('detailPanel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('show');
+  document.getElementById('detailPanel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ESC 关闭
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeDetail();
+});
+</script>
+
+</body>
+</html>
